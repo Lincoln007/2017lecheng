@@ -1,0 +1,29 @@
+
+
+truncate table busi_custorder
+truncate table busi_custorder_detail
+truncate table busi_sendorder
+truncate table busi_sendorder_detail
+
+truncate table busi_workinfo 
+truncate table Ls_order
+
+truncate table base_wh_stock
+
+truncate table busi_printwork
+
+truncate table busi_purchase
+
+truncate table busi_purchasedetail
+
+truncate table busi_transfer
+
+truncate table base_product
+
+truncate table base_product_imgs
+
+truncate table base_supplier
+
+truncate table base_prod_supp_rel
+
+truncate table base_prod_code

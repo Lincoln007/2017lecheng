@@ -1,0 +1,567 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{}
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-11">
+            <section class="panel panel-success">
+                <header class="panel-heading custom-tab turquoise-tab">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#AddSKU" data-toggle="tab" id="AddSKUe">添加/查询库位</a>
+                        </li>
+                        <li class="">
+                            <a href="#AddImg" data-toggle="tab" id="AddImge">产品上下架</a>
+                        </li>
+                        @*<li class="">
+                                <a href="#Other" data-toggle="tab">其他</a>
+                            </li>*@
+                    </ul>
+                </header>
+                <div class="panel-body" style="display: block;">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="AddSKU" value="1">
+                            <label>仓库：</label>
+                            <select id="wh_id"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label>库位号：</label>
+                            <input type="text" name="" placeholder="请输入库位号..." id="locat_code">
+                            @*<input type="checkbox" checked="checked"><label>临时库</label>*@
+                            <button class="btn btn-warning" id="search1">查询</button>&nbsp;&nbsp;
+                            <button class="btn btn-info" data-toggle="modal" href="#myModalAdd" id="ModalAdd">添加库位</button>
+                            <table class="table  table-hover general-table">
+                                <thead>
+                                    <tr>
+                                        <th> ID</th>
+                                        <th>库位号</th>
+                                        <th>商品数量</th>
+                                        <th>添加时间</th>
+                                        <th>所属仓库</th>
+                                        <th>库位详情</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody1"></tbody>
+                            </table>
+                        </div>
+
+
+
+                        <div class="tab-pane" id="AddImg" value="2">
+                            <label>仓库：</label>
+                            <select id="wh_idE"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label>库位号：</label>
+                            <input type="text" name="" placeholder="ZZ-ZZ-ZZ" id="AddImg_locat_code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label>SKU：</label>
+                            <input type="text" name="" placeholder="上架的SKU" id="sku">
+                            <button class="btn btn-info" id="search2">查询</button>&nbsp;&nbsp;&nbsp;
+                            @*<div>
+                                <label style="color:red;">提示:商品上下架之后默认改变临时库的库存。</label></br>
+                                                        </div>*@
+                            <table class="table  table-hover general-table">
+                                <thead>
+                                    <tr>
+                                        <th> ID</th>
+                                        <th>所属仓库</th>
+                                        <th>库位号</th>
+                                        <th>SKU</th>
+                                        <th>商品数量</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody2"></tbody>
+                            </table>
+                        </div>
+                        @*<div class="tab-pane" id="Other">
+                                22222
+                            </div>*@
+                    </div>
+
+                    <div class="modal fade" id="myModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">库位详情</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="panel-body">
+                                        <div>
+                                            <label>当前仓库:</label><label style="color:red;" id="wh_nameE"></label></br>
+                                            <label>当前库位:</label><label style="color:red;" id="locat_codeE"></label></br>
+                                        </div>
+                                        <table class="table  table-hover general-table">
+                                            <thead>
+                                                <tr>
+                                                    <th> ID</th>
+                                                    <th>商品</th>
+                                                    <th>SKU</th>
+                                                    <th>商品数量</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tableBody3"></tbody>
+                                        </table>
+                                        @*<div class="col-md-12 text-center clearfix">
+                                                <ul class="pagination">
+                                                    <li><a href="#">首页</a></li>
+                                                    <li class="active"><a href="#">1</a></li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                    <li><a href="#">4</a></li>
+                                                    <li><a href="#">5</a></li>
+                                                    <li><a href="#">尾页</a></li>
+                                                </ul>
+                                            </div>*@
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-primary" type="button">保存关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="myModalAdd1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">上架信息</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="panel-body">
+
+                                        <label style="display:none;" id="_wh_nameE_id"></label>
+                                        <label style="display:none;" id="_locat_codeE_id"></label>
+                                        <label>当前仓库:</label><label style="color:red;" id="_wh_nameE"></label>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <label>当前库位:</label><label style="color:red;" id="_locat_codeE"></label><br />
+
+                                        <span>sku：</span>
+                                        <span><input type="text" name="" id="_sku"></span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span>数量：</span>
+                                        <span><input type="text" name="" id="_skucount"></span>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <button class="btn btn-info" id="addsku" type="button">保存</button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-primary" type="button">保存关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">添加库位</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="panel-body">
+                                        <span>仓库：</span>
+                                        <select id="whid"></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                        <span>库位号：</span>
+                                        <span><input type="text" name="" id="kuweihao"></span>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <button class="btn btn-info" id="add" type="button">保存</button>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button data-dismiss="modal" class="btn btn-primary" type="button">保存关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div>
+                <span>总记录数:</span><span id="totil"></span>&nbsp;&nbsp;
+                <span>总页数:</span><span id="totilpage"></span>&nbsp;&nbsp;
+                <span>每页几条:</span>
+                <select id="onepagecount">
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="laypage"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.use(['form', 'layer', 'laypage', 'element'], function () {
+        var form = layui.form()
+              , layer = layui.layer
+             , laypage = layui.laypage
+             , element = layui.element();
+
+        var totil = 0; //总数据
+        var totilpage = 0; //总页数
+        var currpage = 0;
+        $(document).ready(function () {
+            var gdaoru = layer.load(0, {
+                shade: [0.1, '#676a6c'] //0.1透明度的白色背景
+            });
+            $.post('@Url.Content("~/StorageBin/GetWh_nameList")', {}
+                      , function (data) {
+                          if (data.success) {
+                              $("#wh_id").children().remove();
+                              $("#wh_idE").children().remove();
+                              $("#wh_id").append(data.Msg);
+                              $("#wh_idE").append(data.Msg);
+                          }
+                          else {
+                              layer.msg(data.Msg);
+                          }
+                          layer.close(gdaoru);
+                      });
+            rendertable(1, 1);
+            $("#AddSKUe").click(function () {
+                rendertable(1, 1);
+            })
+
+            $("#AddImge").click(function () {
+                rendertable(1, 2);
+            })
+
+            $("#search1").click(function () {
+                rendertable(1, 1);
+            })
+
+            $("#search2").click(function () {
+                rendertable(1, 2);
+            })
+
+        });
+
+        //绑定数据到表格
+        function Build(supplierlist, ee) {
+            var body = "";
+            if (ee == 1) {
+                body = $("#tableBody1");
+            } else if (ee == 2) {
+                body = $("#tableBody2");
+            }
+
+            var totiltext;
+            $(supplierlist).each(function (i, e) {
+                var mtext = "<tr>";
+                mtext = mtext + buildTr(i, e, ee);
+                mtext = mtext + "</tr>";
+                totiltext = totiltext + mtext;
+            })
+            body.append(totiltext);
+        }
+        function buildTr(i, tr, h) {
+            var trContent = "";
+            if (h == 1) {
+                trContent = "<td>" + (i + 1) + "</td>";
+                trContent += "<td>" + tr.locat_code + "</td>";
+                trContent += "<td>" + tr.stock_qty + "</td>";
+                trContent += "<td>" + tr.create_timeE + "</td>";
+                trContent += "<td>" + tr.wh_name + "</td>";
+                trContent += "<td><button class=\"btn btn-info\"  data-toggle=\"modal\" href=\"#myModalUpdate\"  " +
+                "data-locat_id=\"" + tr.locat_id + "\"  data-wh_id=\"" + tr.wh_id + "\"  data-locat_code=\"" + tr.locat_code + "\"  data-wh_name=\"" + tr.wh_name + "\" >库位详情</button></td>";
+                trContent += "<td><button class=\"btn btn-info\"  data-toggle=\"modal\" href=\"#myModalAdd1\"  " +
+              "data-locat_id=\"" + tr.locat_id + "\"  data-wh_id=\"" + tr.wh_id + "\"  data-locat_code=\"" + tr.locat_code + "\"  data-wh_name=\"" + tr.wh_name + "\" >上架</button></td>";
+            } else if (h == 2) {
+                trContent = "<td>" + (i + 1) + "</td>";
+                trContent += "<td>" + tr.wh_name + "</td>";
+                trContent += "<td>" + tr.locat_code + "</td>";
+                trContent += "<td>" + tr.sku_code + "</td>";
+                trContent += "<td>" + tr.stock_qty + "</td>";
+                trContent += "<td><label>数量</label><input type=\"text\" name=\"\" style=\"width:80px;\">&nbsp;&nbsp;<button class=\"btn btn-warning\" data-Injia=\"1\"  data-stockid='" + tr.stock_id + "'  data-stock_qty='" + tr.stock_qty + "'  onclick=\"InStock($(this))\">上架</button>&nbsp;&nbsp;" +
+                                      "<button class=\"btn btn-info\"  data-Outjia=\"2\"  data-stockid='" + tr.stock_id + "'  data-stock_qty='" + tr.stock_qty + "' onclick=\"OutStock($(this))\">下架</button></td>";
+            }
+            return trContent;
+        }
+
+
+        //打开订单详情页面
+        $('#myModalUpdate').on('show.bs.modal', function (event) {
+            $("#wh_nameE").text("");
+            $("#locat_codeE").text("");
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var locat_id = button[0].attributes["data-locat_id"].value;
+            var wh_id = button[0].attributes["data-wh_id"].value;
+            var wh_name = button[0].attributes["data-wh_name"].value;
+            var locat_code = button[0].attributes["data-locat_code"].value;
+            $("#wh_nameE").text(wh_name);
+            $("#locat_codeE").text(locat_code);
+            rendertable1(locat_id, wh_id);
+        })
+
+
+        //打开订单详情页面
+        $('#myModalAdd1').on('show.bs.modal', function (event) {
+            $("#_wh_nameE").text("");
+            $("#_locat_codeE").text("");
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var locat_id = button[0].attributes["data-locat_id"].value;
+            var wh_id = button[0].attributes["data-wh_id"].value;
+            var wh_name = button[0].attributes["data-wh_name"].value;
+            var locat_code = button[0].attributes["data-locat_code"].value;
+            $("#_wh_nameE").text(wh_name);
+            $("#_locat_codeE").text(locat_code);
+            $("#_wh_nameE_id").val(wh_id);
+            $("#_locat_codeE_id").val(locat_id);
+        })
+
+
+        //渲染表格数据
+        function rendertable(index, e) {
+            var daoru = layer.load(0, {
+                shade: [0.1, '#676a6c'] //0.1透明度的白色背景
+            });
+            $("#tableBody1").children().remove();
+            $("#tableBody2").children().remove();
+            $("#laypage").children().remove();//清空数据
+            var pagecount = $("#onepagecount").val();//单页几条数据
+            var url = "";
+            var where = "";
+            var wh_id = "";
+            var AddImg_locat_code = "";
+            var locat_code = "";
+            var sku = "";
+            if (e == 1) {
+                wh_id = $("#wh_id").val();
+                locat_code = $("#locat_code").val();
+            } else if (e == 2) {
+                wh_id = $("#wh_idE").val();
+                locat_code = $("#AddImg_locat_code").val();
+                sku = $("#sku").val();
+            }
+            $.post('@Url.Content("~/StorageBin/Getpage")', { pagenum: index, onepagecount: pagecount, wh_id: wh_id, locat_code: locat_code, sku_code: sku, ty_pe: e }, function (data) {
+                if (data.success) {
+                    if (data.DataResult.supplist.length > 0) { //如果有数据
+                        Build(data.DataResult.supplist, data.ty_pe); //绑定数据到表格
+                        $("#totil").text(data.DataResult.totil);
+                        $("#totilpage").text(data.DataResult.totilcount);
+                        totil = data.DataResult.totil;
+                        totilpage = data.DataResult.totilcount;
+                        laypage({
+                            cont: 'laypage'
+                            , curr: index
+                            , skip: false
+                            , pages: totilpage
+                            , jump: function (obj, first) {
+                                if (!first)//不是首次加载
+                                {
+                                    rendertable(obj.curr, e); //自动调用的函数
+                                    //obj.pages = totilpage; //更新页数
+                                    //currpage = obj.curr;
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        layer.msg("暂无数据");
+                    }
+                }
+                else {
+                    layer.msg("查询失败，失败原因：" + data.Msg);
+                }
+                layer.close(daoru);
+            });
+        }
+
+        function rendertable1(locat_id, wh_id) {
+            var daoru = layer.load(0, {
+                shade: [0.1, '#676a6c'] //0.1透明度的白色背景
+            });
+            $("#tableBody3").children().remove();
+            $.post('@Url.Content("~/StorageBin/GetStorageBinEList")', { wh_id: wh_id, locat_id: locat_id }, function (data) {
+                if (data.success) {
+                    if (data.DataResult.supplist.length > 0) { //如果有数据
+                        Build1(data.DataResult.supplist); //绑定数据到表格
+                    }
+                    else {
+                        layer.msg("暂无数据");
+                    }
+                }
+                else {
+                    layer.msg("查询失败，失败原因：" + data.Msg);
+                }
+                layer.close(daoru);
+            });
+        }
+
+        function Build1(supplierlist) {
+            var body = $("#tableBody3");
+            var totiltext;
+            $(supplierlist).each(function (i, e) {
+                var mtext = "<tr>";
+                mtext = mtext + buildTr1(i, e);
+                mtext = mtext + "</tr>";
+                totiltext = totiltext + mtext;
+            })
+            body.append(totiltext);
+        }
+
+        function buildTr1(i, tr) {
+            var trContent = "<td>" + (i + 1) + "</td>";
+            trContent += "<td>" + tr.prod_title + "</td>";
+            trContent += "<td>" + tr.sku_code + "</td>";
+            trContent += "<td>" + tr.stock_qty + "</td>";
+            return trContent;
+        }
+    })
+
+
+    $("#ModalAdd").click(function () {
+        var daoru = layer.load(0, {
+            shade: [0.1, '#676a6c'] //0.1透明度的白色背景
+        });
+        $.post('@Url.Content("~/StorageBin/GetWh_nameList")', {}
+                     , function (data) {
+                         if (data.success) {
+                             $("#whid").children().remove();
+                             $("#whid").append(data.Msg);
+                         }
+                         else {
+                             layer.msg(data.Msg);
+                         }
+                         layer.close(daoru);
+                     });
+    })
+
+
+
+    $("#add").click(function () {
+        var o = {};
+        o.wh_id = $('#whid').val();
+        o.locat_code = $('#kuweihao').val();
+        $.post('@Url.Content("~/StorageBin/Save")', { model: o }
+        , function (data) {
+            if (data.success) {
+                layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                    window.location.href = data.URL;
+                });
+            } else {
+                layer.msg(data.Msg);
+            }
+        });
+    })
+
+
+
+
+    $("#addsku").click(function () {
+        var wh_id = $('#_wh_nameE_id').val();
+        var locat_id = $('#_locat_codeE_id').val();
+        var sku = $('#_sku').val();
+        var skucount = $('#_skucount').val();
+        if (sku == "") {
+            layer.msg("请填写sku!");
+            return false;
+        }
+        if (skucount == "") {
+            layer.msg("请填写数量!");
+            return false;
+        }
+        if (!(/^[0-9]*$/.test(skucount))) {
+            layer.msg("请填写正确的数量!");
+            return false;
+        }
+
+        $.post(
+            '@Url.Content("~/StorageBin/Save_sku")',
+            {
+                wh_id: wh_id,
+                locat_id: locat_id,
+                sku: sku,
+                skucount: skucount
+            },
+            function (data) {
+                if (data.success) {
+                    layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                        window.location.href = "/StorageBin/Index";
+                    });
+                } else {
+                    layer.msg(data.Msg);
+                }
+            });
+    })
+
+
+    function InStock(b) {
+        var e = b.attr("data-stockid");
+        var type = b.attr("data-Injia");
+        var count = b.prev("input[type='text']").val();
+        if (!(/^[0-9]*$/.test(count))) {
+            layer.msg("请填写正确的数量!");
+            return false;
+        }
+        //var reg = /^d+$/;
+        //if (!reg.test(count)) {
+        //    layer.msg("请填写正确格式的数字");
+        //    return false;
+        //}
+        layer.msg('确定该操作吗？', {
+            time: 0 //不自动关闭
+       , btn: ['确认', '取消']
+       , yes: function (index) {
+           layer.close(index);
+           $.post('@Url.Content("~/StorageBin/SaveInOut")', { id: e, count: count, type: type }
+          , function (data) {
+              if (data.success) {
+                  layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                      $("#AddImge").click();
+                  });
+              } else {
+                  layer.msg(data.Msg);
+              }
+          });
+       }
+        });
+    }
+
+    function OutStock(b) {
+
+        var e = b.attr("data-stockid");
+        var type = b.attr("data-Outjia");
+        var count = b.prev().prev("input[type='text']").val();
+
+        if (!(/^[0-9]*$/.test(count))) {
+            layer.msg("请填写正确的数量!");
+            return false;
+        }
+
+        layer.msg('确定该操作吗？', {
+            time: 0 //不自动关闭
+       , btn: ['确认', '取消']
+       , yes: function (index) {
+           layer.close(index);
+           $.post('@Url.Content("~/StorageBin/SaveInOut")', { id: e, count: count, type: type }
+          , function (data) {
+              if (data.success) {
+
+                  layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                      $("#AddImge").click();
+                  });
+              } else {
+                  layer.msg(data.Msg);
+              }
+          });
+       }
+        });
+    }
+</script>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xml bitmap="2" bgcolor="#B9E1E1" fgcolor="#ec136c">
+    @{
+        var objinfo = ViewData["disinfo"] as DBModel.ViewModel.RFTDistrView;
+    }
+    <text mode="1" x="1" y="1" size="1" bgcolor="#006070" fgcolor="white" name="DrawBelt" width="26">-------配货上架-------</text>
+    <text mode="1" x="1" y="2" size="1" fgcolor="black" adjusty="3">ID:</text>
+    <text mode="1" x="5" y="2" size="1" fgcolor="black" adjusty="3">@ViewData["userid"]</text>
+    <text mode="1" x="15" y="3" size="2" fgcolor="red" adjusty="3">@objinfo.info</text>
+    <text mode="1" x="1" y="5" size="1" fgcolor="black" adjusty="2">SKU:</text>
+    <text mode="1" x="6" y="5" size="1" fgcolor="red" adjusty="2">@objinfo.skucode</text>
+    <text mode="1" x="1" y="6" size="1" fgcolor="black" adjusty="5">包裹SKU数量:</text>
+    <text mode="1" x="14" y="6" size="1" fgcolor="black" adjusty="5">@objinfo.Ispackpacknum/@objinfo.packnum</text>
+    <text mode="1" x="10" y="8" size="1" fgcolor="black" adjusty="3">已配/全部</text>
+    <text mode="1" x="1" y="10" size="1" fgcolor="black">订单号:</text>
+    <text mode="1" x="9" y="10" size="1" fgcolor="black">@objinfo.ordercode</text>
+    <text mode="1" x="1" y="12" size="1" fgcolor="black">订单包裹数:</text>
+    <text mode="1" x="14" y="12" size="1" fgcolor="red">@objinfo.packges</text>
+    <text mode="1" x="1" y="14" size="1" fgcolor="black">包裹号:</text>
+    <text mode="1" x="9" y="14" size="1" fgcolor="black">@objinfo.packgecode</text>
+    <text mode="1" x="1" y="16" size="1" fgcolor="black">店铺:</text>
+    <text mode="1" x="7" y="16" size="1" fgcolor="black">@objinfo.shopname</text>
+    <text mode="1" x="1" y="17" size="1" fgcolor="black" adjusty="4">货位:</text>
+    <text mode="1" x="7" y="17" size="1" fgcolor="black" adjusty="4">ZZ-ZZ-ZZ</text>
+    <button mode="1" size="1" x="1" y="19" url="/MainMenu" key="a" func="1" value="" bgcolor="forestgreen" fgcolor="khaki" adjusty="2">[取消]</button>
+    <button mode="1" size="1" x="9" y="19" url="/Dipartpackge" key="a" func="1" value="" bgcolor="forestgreen" fgcolor="khaki" adjusty="2">[拆包]</button>
+    <button mode="1" size="1" x="17" y="19" url="/ConfirmDistrbuilt" key="b" func="2" value="" bgcolor="forestgreen" fgcolor="khaki" adjusty="2">[确定]</button>
+</xml>
+@{
+    Layout = null;
+}
+

@@ -1,0 +1,319 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{}
+<div class="wrapper">
+    <div class="col-md-12">
+        <section class="panel panel-success">
+            <header class="panel-heading">
+                店铺添加
+                <span class="tools pull-right">
+                    <a class="fa fa-chevron-down" href="javascript:;"></a>
+                    <!--a class="fa fa-times" href="javascript:;"></a--><!---关闭面板按钮-->
+                </span>
+            </header>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <span class="col-md-6">
+                        <label>选择平台:&nbsp;&nbsp;</label>
+                        <select id="platform_id"></select>&nbsp;&nbsp;
+                    </span>
+                    <span class="col-md-6">
+                        <label>店铺名称:&nbsp;&nbsp;</label>
+                        <input type="text" name="" placeholder="店铺名称" id="shop_name">
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <span class="col-md-6">
+                        <label>管理账号:&nbsp;&nbsp;</label>
+                        <input type="text" name="" placeholder="管理账号" id="shop_account">
+                    </span>
+                    <span class="col-md-6">
+                        <label>店铺币种:&nbsp;&nbsp;</label>
+                        <select style="width:162px" id="country_id"></select>&nbsp;&nbsp;
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <span class="col-md-6">
+                        <label>店铺电话:&nbsp;&nbsp;</label>
+                        <input type="text" name="" placeholder="电话" id="shop_telephone">
+                    </span>
+                    <span class="col-md-6">
+                        <label>店铺邮编:&nbsp;&nbsp;</label>
+                        <input type="text" name="" placeholder="邮编" id="shop_zipcode">
+                        &nbsp;&nbsp;
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <span class="col-md-11">
+                        <label>店铺地址:&nbsp;&nbsp;</label>
+                        <input type="text" name="" placeholder="店铺地址" id="shop_address">
+                    </span>
+
+                </div>
+                <div class="col-md-12">
+                    <span class="col-md-6">
+                        <label>平台扣点:&nbsp;&nbsp;</label>
+                        <input type="text" name="" id="platform_lrish">
+                        <label>%&nbsp;&nbsp;</label>
+                    </span>
+                    <span class="col-md-6">
+                        <button class="btn btn-info " id="add">添&nbsp;&nbsp;&nbsp;加</button>
+                    </span>
+                </div>
+            </div>
+        </section>
+        <section class="panel panel-success">
+            <header class="panel-heading">
+                店铺列表
+                <span class="tools pull-right">
+                    <a class="fa fa-chevron-down" href="javascript:;"></a>
+                    <!--a class="fa fa-times" href="javascript:;"></a--><!---关闭面板按钮-->
+                </span>
+            </header>
+            <div class="panel-body" style="display: block;">
+                <table class="table  table-hover general-table">
+                    <thead>
+                        <tr>
+                            <th> ID</th>
+                            <th>平台</th>
+                            <th>店铺名称</th>
+                            <th>店铺账号</th>
+                            <th>平台扣点</th>
+                            <th>币种</th>
+                            <th>开店时间</th>
+                            <th>店铺状态</th>
+                            <th>编辑</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+<div>
+    <span>总记录数:</span><span id="totil"></span>&nbsp;&nbsp;
+    <span>总页数:</span><span id="totilpage"></span>&nbsp;&nbsp;
+    <span>每页几条:</span>
+    <select id="onepagecount">
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span id="laypage"></span>
+</div>
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+
+<script>    
+    function UpdateSupp(e) {
+        var myshopid = $(e).parent().parent().children('td').eq(0).text();//得到店铺ID shopID
+        // alert(id);
+        $.post('@Url.Content("~/Shop/GetShopByID")', { id: myshopid }
+         , function (data) {
+             if (data.State == 1) {
+                 $("#shopID").val(data.DataResult.shop_id);
+                 $("#shopname").val(data.DataResult.shop_name);
+                 $("#shopphone").val(data.DataResult.shop_telephone);
+                 $("#shopzip").val(data.DataResult.shop_zipcode);
+                 $("#shopaddress").val(data.DataResult.shop_address);
+             } else {
+                 layer.msg(data.Msg);
+             }
+         });
+        var openedit = layer.open({
+            type: 1,
+            title: "店铺编辑",
+            content: $('#layersupp'),
+            area: ['650px', '400px']
+        });
+    }
+
+
+</script>
+<script>
+    $(document).ready(function () {
+      layui.use(['form', 'layer', 'laypage', 'element'], function () {
+         var form = layui.form()
+              , layer = layui.layer
+             , laypage = layui.laypage
+             , element = layui.element();
+
+        var totil = 0; //总数据
+        var totilpage = 0; //总页数
+        var currpage = 0;
+     
+            init();
+            rendertable(1);
+
+            function init()
+            {
+                $.post('@Url.Content("~/Shop/GetPlatformList")', {}
+                , function (data) {
+                    if (data.success) {
+                        $("#platform_id").append(data.Msg);
+                    }
+                    else {
+                        layer.msg(data.Msg);
+                    }
+                    layer.close(daoru);
+                });
+
+                $.post('@Url.Content("~/Shop/GetCountryList")', {}
+                 , function (data) {
+                     if (data.success) {
+                         $("#country_id").append(data.Msg);
+                     }
+                     else {
+                         layer.msg(data.Msg);
+                     }
+                     layer.close(daoru);
+                 });
+            }
+        
+          $("#save1").click(function () {
+              var o = {};
+              o.shop_id = $("#shopID").val();
+              o.shop_name = $("#shopname").val();
+              o.shop_telephone = $('#shopphone').val();
+              o.shop_zipcode = $('#shopzip').val();
+              o.shop_address = $('#shopaddress').val();
+              $.post('@Url.Content("~/Shop/UpdateShop")', { model: o }
+                  , function (data) {
+                      if (data.State) {
+                          layer.msg(data.Msg, { icon: 6, time: 2000 });
+                      } else {
+                          layer.msg(data.Msg);
+                      }
+                  });
+          });
+        //绑定数据到表格
+        function Build(supplierlist) {
+            var body = $("#tableBody");
+            var totiltext;
+            $(supplierlist).each(function (i, e) {
+                var mtext = "<tr>";
+                mtext = mtext + buildTr(i, e);
+                mtext = mtext + "</tr>";
+                totiltext = totiltext + mtext;
+            })
+            body.append(totiltext);
+        }
+        function buildTr(i, tr) {
+            var trContent = "<td>" + tr.shop_id + "</td>";
+            trContent += "<td>" + tr.platform_name + "</td>";
+            trContent += "<td>" + tr.shop_name + "</td>";
+            trContent += "<td>" + tr.shop_account + "</td>";
+            trContent += "<td>" + tr.platform_lrish + "</td>";
+            trContent += "<td>" + tr.country_name + "</td>";
+            trContent += "<td>" + tr.create_timeE + "</td>";
+            trContent += "<td>" + tr.shop_statusE + "</td>";
+            trContent += "<td><input type='button' value='编辑' class='layui-btn layui-btn-small layui-btn-danger' onclick='UpdateSupp(this)'></td>";
+            return trContent;
+        }
+
+        //渲染表格数据
+        function rendertable(index) {
+            var daoru = layer.load(0, {
+                shade: [0.1, '#676a6c'] //0.1透明度的白色背景
+            });
+            $("#tableBody").children().remove();
+            $("#laypage").children().remove();//清空数据
+            var pagecount = $("#onepagecount").val();//单页几条数据
+            $.post('@Url.Content("~/Shop/Getpage")', { pagenum: index, onepagecount: pagecount }
+               , function (data) {
+                   if (data.success) {
+                       if (data.DataResult.supplist.length > 0) { //如果有数据
+                           Build(data.DataResult.supplist); //绑定数据到表格
+                           $("#totil").text(data.DataResult.totil);
+                           $("#totilpage").text(data.DataResult.totilcount);
+                           totil = data.DataResult.totil;
+                           totilpage = data.DataResult.totilcount;
+                           laypage({
+                               cont: 'laypage'
+                               , curr: index
+                               , skip: false
+                               , pages: totilpage
+                               , jump: function (obj, first) {
+                                   if (!first)//不是首次加载
+                                   {
+                                       rendertable(obj.curr); //自动调用的函数
+                                       //obj.pages = totilpage; //更新页数
+                                       //currpage = obj.curr;
+                                   }
+                               }
+                           });
+                       }
+                       else {
+                           layer.msg("暂无数据");
+                       }
+                   }
+                   else {
+                       layer.msg("查询失败，失败原因：" + data.Msg);
+                   }
+                   layer.close(daoru);
+               });
+        }
+    })
+
+  
+
+    $("#add").click(function () {
+        var o = {};
+        o.platform_id = $('#platform_id').val();
+        o.shop_name = $('#shop_name').val();
+        o.shop_account = $('#shop_account').val();
+        o.country_id = $('#country_id').val();
+        o.shop_telephone = $('#shop_telephone').val();
+        o.shop_zipcode = $('#shop_zipcode').val();
+        o.shop_address = $('#shop_address').val();
+        o.platform_lrish = $('#platform_lrish').val();
+        $.post('@Url.Content("~/Shop/Save")', { model: o }
+        , function (data) {
+            if (data.success) {
+                layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                    window.location.href = data.URL;
+                });
+            } else {
+                layer.msg(data.Msg);
+            }
+        });
+
+      })
+
+    });
+</script>
+<div id="layersupp" style="display:none">
+    <form style="margin-top:10px;margin-right:10px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:auto">店铺名</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="店铺名称" class="layui-input" id="shopname">
+            </div>
+            <input type="text" id="shopID" style="display:none;">
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width:auto;">店铺电话</label>
+                <div class="layui-input-inline" style="margin-left:25px;">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="店铺电话" class="layui-input" id="shopphone">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width:auto">店铺邮编</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="店铺邮编" class="layui-input" id="shopzip">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:auto">店铺地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="店铺地址" class="layui-input" id="shopaddress">
+            </div>
+        </div>
+        <input type="button" class="layui-btn layui-btn-normal" value="保存" style="float:right" id="save1" />
+    </form>
+</div>

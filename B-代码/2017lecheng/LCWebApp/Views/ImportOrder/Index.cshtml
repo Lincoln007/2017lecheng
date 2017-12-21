@@ -1,0 +1,266 @@
+﻿
+@{
+    var list = ViewData["platformlist"] as List<DBModel.DBmodel.base_platform>;
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>乐诚</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/font/iconfont.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/jqadmin.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/main.css?v1.0.0" media="all">
+
+</head>
+<body>
+    <div class="container-fluid larry-wrapper">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <!--头部搜索-->
+
+                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">订单导入</li>
+                        <li>库存采购</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <div>
+                                <form class="layui-form">
+                                    <label style="color:red;">提示:导入的文件不同的店铺格式字段不同(csv,xls,xlsx),请选择订单纳期</label><br>
+                                    <div style="margin-top:10px;margin-bottom:10px;">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">平台</label>
+                                            <div class="layui-input-inline">
+                                                <select name="plat" lay-verify="required" lay-filter="plat" lay-search="" id="platform">
+                                                    <option value="0">--请选择--</option>
+                                                    @foreach (var item in list)
+                                                    {
+                                                        <option value="@item.platform_id">@item.platform_name</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">店铺</label>
+                                            <div class="layui-input-inline">
+                                                <select name="shop" lay-verify="required" lay-search="" id="shops">
+                                                    <option value="0">--请选择--</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">纳期：</label>
+                                            <div class="layui-input-inline">
+                                                <input class="layui-input" name="nq" id="naqi" placeholder="纳期" onclick="layui.laydate({elem: this, festival: true}) ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">文件名称：</label>
+                                        <div class="layui-input-inline">
+                                            @*<input type="file" name="" value="选择导入的文件" id="files" multiple />*@
+                                            <input type="file" name="files" id="files" multiple />
+                                        </div>
+                                        <div class="layui-input-inline" style="margin-left:60px;">
+                                            <input type="button" name="" class="layui-btn layui-btn-danger " value="配置SKU" id="layersku" />
+                                        </div>
+                                    </div>
+                                    <div style="margin-left:30px;">
+                                        <input type="button" value="导入" class="layui-btn" id="submitId">
+                                        <input type="button" value="搜索" class="layui-btn layui-btn-normal" id="SearchOrder">
+                                        <input type="button" value="转换SKU" class="layui-btn layui-btn-primary" id="transferSKU">
+                                        <input type="button" value="解析入库" class="layui-btn layui-btn-danger" id="InsertOrder">
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div>
+                                <table url="/ImportOrder/GetLSpage" class="layui-table" lay-even="" lay-skin="row" id="mytable" showcount="true">
+                                    <thead>
+                                        <tr>
+                                            <th field="OrderID">ID</th>
+                                            <th field="SysOrderNub">系统订单号</th>
+                                            <th field="OrderNub">平台订单号</th>
+                                            <th field="SKU" data-dblclick="true">SKU</th>
+                                            <th field="Num" data-dblclick="true">数量</th>
+                                            <th field="Buyer" data-dblclick="true">客户名</th>
+                                            <th field="telephone" data-dblclick="true">手机</th>
+                                            <th field="phone" data-dblclick="true">电话</th>
+                                            <th field="address" data-dblclick="true">地址</th>
+                                            <th field="zip" data-dblclick="true">邮编</th>
+                                            <th field="shopID">店铺ID</th>
+                                            <th name="btnplay">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                @*<div>
+                                    <span>总记录数:</span><span id="totil"></span>&nbsp;&nbsp;
+                                    <span>总页数:</span><span id="totilpage"></span>&nbsp;&nbsp;
+                                    <span>每页几条:</span>
+                                    <select id="onepagecount">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span id="laypage"></span>
+                                </div>*@
+                            </div>
+
+                        </div>
+
+                        <div class="layui-tab-item">
+                            6
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+    
+    <script type="text/javascript" src="~/Scripts/Najaxfileupload.js"></script>
+    <script type="text/javascript" src="~/Scripts/ImportOrder.js"></script>
+    <script type="text/javascript" src="~/Scripts/mytable.js"></script>
+   
+    <div id="layersupp" style="display:none">
+        <form style="margin-top:10px;margin-right:10px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">产品分类名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" autocomplete="off" placeholder="客户名" class="layui-input" id="clientname">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">SKU</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" autocomplete="off" placeholder="SKU" class="layui-input" id="sku">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">数量</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" autocomplete="off" placeholder="数量" class="layui-input" id="num">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" autocomplete="off" placeholder="手机" class="layui-input" id="telephone">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" autocomplete="off" placeholder="电话" class="layui-input" id="phone">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" autocomplete="off" placeholder="地址" class="layui-input" id="address">
+                </div>
+            </div>
+            <input type="button" class="layui-btn layui-btn-normal" value="保存" style="float:right;margin-top:20px;margin-right:20px;" id="save1" />
+        </form>
+    </div>
+
+    <script type="text/javascript">
+
+
+            //删除UpdateSKU
+            function DeleteSKU(curr) {
+                layer.msg('确定要删除吗？', {
+                    time: 0 //不自动关闭
+               , btn: ['确认', '取消']
+               , yes: function (index) {
+                   layer.close(index);
+                   $(curr).parent().parent().remove();
+                   var id = $(curr).parent().parent().children('td').eq(0).text();
+                   var shopID = $('#shops').val();
+                   $.post('@Url.Content("~/ImportOrder/DeleteLs")', { id: id, shopID: shopID }, function (data) {
+                       if (data) {
+                           layer.msg(data.Msg, { icon: 6, time: 1000 });
+                       } else {
+                           layer.msg(data.Msg, { icon: 5, time: 1000 });
+                       }
+                   })
+               }
+                });
+            }
+
+        var openedit;
+        var id;
+        var m;
+            //更新SKU
+          function UpdateSKU(e) {
+                id = $(e).parent().parent().children('td').eq(0).text();
+                var clientname = $(e).parent().parent().children('td').eq(5).text();
+                var sku = $(e).parent().parent().children('td').eq(3).text();
+                var num = $(e).parent().parent().children('td').eq(4).text();
+                var telephone = $(e).parent().parent().children('td').eq(6).text();
+                var phone = $(e).parent().parent().children('td').eq(7).text();
+                var address = $(e).parent().parent().children('td').eq(8).text();
+                $('#clientname').val(clientname);
+                $('#sku').val(sku);
+                $('#num').val(num);
+                $('#telephone').val(telephone);
+                $('#phone').val(phone);
+                $('#address').val(address);
+
+                openedit = layer.open({
+                    type: 1,
+                    title: "订单编辑",
+                    content: $('#layersupp'),
+                    area: ['900px', '600px']
+                });
+
+                m = e;
+            }
+
+     
+
+            $("#save1").bind("click", function () {
+                layer.close(openedit);
+                clientname = $('#clientname').val();
+                sku = $('#sku').val();
+                num = $('#num').val();
+                telephone = $('#telephone').val();
+                phone = $('#phone').val();
+                address = $('#address').val();
+                shopID = $('#shops').val();
+                $.post('@Url.Content("~/ImportOrder/UpdateLSSKU")', { shopID: shopID, id: id, clientname: clientname, sku: sku, num: num, telephone: telephone, phone: phone, address: address }
+                , function (data) {
+                    if (data.State == 1) {
+                        $(m).parent().parent().children('td').eq(5).text(clientname);
+                        $(m).parent().parent().children('td').eq(3).text(sku);
+                        $(m).parent().parent().children('td').eq(4).text(num);
+                        $(m).parent().parent().children('td').eq(6).text(telephone);
+                        $(m).parent().parent().children('td').eq(7).text(phone);
+                        $(m).parent().parent().children('td').eq(8).text(address);
+                        layer.msg(data.Msg, { icon: 6, time: 1000 });
+                    } else {
+                        layer.msg(data.Msg);
+                    }
+                });
+            });
+
+    </script>
+</body>
+
+</html>
+

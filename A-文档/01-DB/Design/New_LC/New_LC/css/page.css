@@ -1,0 +1,14 @@
+﻿/* CSS 分页样式 */
+.fy{ width:500px; margin:20px auto 0; text-align:left; overflow:hidden;}
+.pag_num a{text-decoration:underline;color:#414141}
+.pag_num {float:left;text-align:right;padding:10px 0; width:100%;}
+.pag_num li	{float:left;list-style-type:none;}					
+.pag_num li a{width:auto!important;width:10px;height:19px;margin:2px;padding:0 4px!important;padding:0 4px;text-decoration:none;display:block; text-align:center;line-height:19px;border:1px solid #cccccc;color:#414141}					
+.pag_num li a:link,.pag_num li a:visited{color:#414141;}
+.pag_num li a:hover{color:#414141;border:1px solid #414141; text-decoration:none;}
+.pag_num li.button2	{color:#666464;width:auto!important;width:70px;height:19px;margin:2px;padding:0 4px!important;padding:0 2px;text-decoration:none;display:block;text-align:center;line-height:19px;border:1px solid #cccccc;}
+.pag_num li.button3	{color:#414141;width:auto!important;width:36px;height:19px;margin:2px;padding:0 4px!important;padding:0 2px;text-decoration:none;display:block; text-align:center;line-height:19px;border:1px solid #dadada;}
+.pag_num li.now span {width:auto!important;width:12px;height:19px;margin:2px;padding:0 4px!important;padding:0 4px;text-decoration:none;display:block; text-align:center;line-height:19px;border:1px solid #cccccc;background:#8f6d1b;color:#ffffff;}
+.pag_num li.button a {width:auto!important;width:36px;height:19px;margin:2px;padding:0 4px!important;padding:0 2px;text-decoration:none;display:block; text-align:center;line-height:19px;border:1px solid #cccccc;}
+.pag_num li.button input {width:20px;height:15px;border:1px solid #cccccc;padding-top:4px;margin-top:1px;}
+.pag_num li.button4 input { margin:2px; width:35px;height:21px;border:1px solid #cccccc;padding-top:4px;margin-top:2px; background:#414141;color:#ffffff;;font-weight:bold; text-align:center;}

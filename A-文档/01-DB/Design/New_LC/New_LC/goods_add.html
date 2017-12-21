@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SKU添加</title>
+<meta content="IE=7.0000" http-equiv="X-UA-Compatible">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="stylesheet" type="text/css" href="css/base.css">
+</head>
+<body>
+<div class="main">
+  <table>
+    <thead>
+      <tr>
+        <th width="150"> 产品添加 </th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="checkleft"> * 款号: </td>
+        <td><input type="text" size="9" />
+        <input type="submit" name="button" id="button" value="获取款号"></td>
+      </tr>
+      <tr>
+        <td class="checkleft"> * 标题: </td>
+        <td><input type="text" value="" size="60" />        </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> * 性质: </td>
+        <td><select name="select">
+            <option value="1">普货</option>
+            <option value="2">仿货</option>
+          </select>
+          <select name="select">
+            <option value="1">挂号</option>
+            <option value="2">平邮</option>
+          </select>        </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> * 类别: </td>
+        <td><select name="select">
+            <option value="1">鞋</option>
+            <option value="2">包</option>
+          </select>
+          | 标签：
+          <input type="text" size="47" />
+          <span class="t">标签为此产品的定义，如类别为鞋的产品：女鞋，高跟鞋，牛皮高跟鞋（用豆号分隔）</span> </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> * 颜色/型号: </td>
+        <td class="sbtn"><input type="text" value="01,02,03,04,05,06" size="60" />
+          <input type="text" value="6" size="3" />
+          <span class="t"><a href="#">生成</a> 用01,02,03序号表示并用豆号分隔</span> </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> * 尺码: </td>
+        <td><input type="text" value="5,6,7,8,9" size="60" />
+          <span class="sbtn">
+          <input type="text" value="5" size="3" />
+          
+          -
+          <input type="text" value="9" size="3" />
+          <span class="t"><a href="#">生成</a></span></span><span class="t"> 用豆号分隔</span> </td>
+      </tr>
+    <tr>
+    <td class="checkleft"> * 预估重量: </td>
+      <td><input type="text" value="" size="6" /> 
+        (克) </td>
+    </tr>
+    <tr>
+      <td class="checkleft"> * 参考价格: </td>
+      <td><input type="text" value="25" size="6" /> 
+        (元) </td>
+    </tr>
+    <tr>
+      <td class="checkleft"> 产品链接: </td>
+      <td><input type="text" value="" size="60" /></td>
+    </tr>
+    <tr>
+      <td class="checkleft"> 产品备注: </td>
+      <td><textarea name="textarea" id="textarea" cols="69" rows="5"></textarea>
+        <span class="t">填写如：品牌，注意事项，材料等</span> </td>
+    </tr>
+    <tr>
+      <td class="checkleft"> 供应商关键词: </td>
+      <td class="sbtn"><input type="text" size="15" /> <a href="#">搜索</a></td>
+    </tr>
+    <tr>
+      <td class="checkleft"> * 供应商ID: </td>
+      <td><input type="text" value="" size="6" />
+        (<a href="#">淘宝：芭歌旗舰店</a>)</td>
+    </tr>
+    </tbody>
+  </table>
+  <p> <a href="#" class="btn">下一步</a></p>
+  <table class="tr_h">
+    <thead>
+      <tr>
+        <th width="150"> SKU </th>
+        <th width="80"> 预估重量 </th>
+        <th width="80"> 参考价格 </th>
+        <th> 操作 </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="checkleft"> SG005-01-S </td>
+        <td class="checkright"><input type="text" value="" size="6">        </td>
+        <td class="checkright"><input type="text" value="25" size="6">        </td>
+        <td class="sbtn"><a href="#">删除</a> </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> SG005-01-L </td>
+        <td class="checkright"><input type="text" value="" size="6">        </td>
+        <td class="checkright"><input type="text" value="25" size="6">        </td>
+        <td class="sbtn"><a href="#">删除</a> </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> SG005-01-M </td>
+        <td class="checkright"><input type="text" value="" size="6">        </td>
+        <td class="checkright"><input type="text" value="25" size="6">        </td>
+        <td class="sbtn"><a href="#">删除</a> </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> SG005-02-S </td>
+        <td class="checkright"><input type="text" value="" size="6">        </td>
+        <td class="checkright"><input type="text" value="25" size="6">        </td>
+        <td class="sbtn"><a href="#">删除</a> </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> SG005-02-L </td>
+        <td class="checkright"><input type="text" value="" size="6">        </td>
+        <td class="checkright"><input type="text" value="25" size="6">        </td>
+        <td class="sbtn"><a href="#">删除</a> </td>
+      </tr>
+      <tr>
+        <td class="checkleft"> SG005-02-M </td>
+        <td class="checkright"><input type="text" value="" size="6">        </td>
+        <td class="checkright"><input type="text" value="25" size="6">        </td>
+        <td class="sbtn"><a href="#">删除</a> </td>
+      </tr>
+    </tbody>
+  </table>
+  <p> <a href="#" class="btn">确认添加</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>乐诚国际电商管理系统V2.0</title>
+<script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/top.css">
+<link rel="stylesheet" type="text/css" target="mainFrame" href="css/left.css">
+</head>
+<style type="text/css">
+body{ margin:0px;}
+iframe{ border:0px;}
+.mtop{ width:100%; height:75px}
+.mleft{ width:217px; position:absolute; left:0px; top:75px; overflow-y:scroll }
+.mtitle{ margin-left:217px; height:38px; line-height:39px; border-bottom:1px solid #d7d7d7; background:#fefefe url(images/dian.jpg) no-repeat 15px 15px; font-size:12px; text-indent:24px; color:#666666}
+.mneir{ margin-left:217px;}
+</style>
+
+<body>
+
+<div class="nav">
+<img src="images/logo.jpg" width="377" height="75" />
+<div class="mav-mame">系统管理员 <a href="#">注销</a></div>
+<ul class="tright">
+  <li><a class="ico1" href="#">平台首页</a></li>
+  <li><a class="ico2" href="#">修改密码</a></li>
+  <li><a class="ico3" href="#">账号管理</a></li>
+</ul>
+</div>
+
+<div class="mleft" style="background:#f1f1f1">
+ <div class="u_left">
+  <a target="mainFrame" href="event_notice.html" id="order8"> <img src="images/ico/ico1.png" id="order9">信息公告</a>
+  <p> </p>
+  <a target="mainFrame" href="order_testlist.html" id="order1"> <img src="images/ico/ico2.png">收货配货</a> <a target="mainFrame" href="package_remark.html" id="order8"> <img src="images/ico/ico3.png" id="order9">打包发货</a> <a href="order_search.html" target="mainFrame" id="order4"> <img src="images/ico/ico4.png">订单查询</a>
+  <p></p>
+  <a target="mainFrame" href="goods_list.html" id="order5" class="leftchoosed"> <img src="images/ico/ico5.png" />产品管理</a> <a id="order2" target="mainFrame" href="order_import.html"><img src="images/ico/ico6.png">订单管理</a> <a id="order6" target="mainFrame" href="purchase_wait.html"> <img src="images/ico/ico7.png">采购管理</a>
+  <p> </p>
+  <a target="mainFrame" href="stock_in.html" id="order8"> <img src="images/ico/ico8.png" id="order9">库存管理</a> <a id="order10" target="mainFrame" href="shippingset.html"> <img src="images/ico/ico9.png">运费设置</a>
+  <p> </p>
+  <a target="mainFrame" href="countrylist.html" id="order11"> <img src="images/ico/ico10.png">国家管理</a> <a target="mainFrame" href="categorylist.html" id="order11"> <img src="images/ico/ico11.png">分类管理</a> <a id="order12" target="mainFrame" href="shoplist.html"> <img src="images/ico/ico12.png">店铺管理</a> <a id="order7" target="mainFrame" href="supplier_list.html"> <img src="images/ico/ico13.png" />供应商管理</a>
+  <p> </p>
+  <a target="mainFrame" href="salesreports.html" id="order13"> <img src="images/ico/ico14.png">销售报表</a> <a id="order10" target="mainFrame" href="shoppingcheck.html"> <img src="images/ico/ico15.png">运费核对</a>
+  <p> </p>
+  <a target="mainFrame" href="password.html" id="order14"> <img src="images/ico/ico16.png">修改密码</a> <a id="order15" target="mainFrame" href="account.html"> <img src="images/ico/ico17.png">帐号管理</a> <br />
+</div>
+</div>
+
+<div class="mtitle">当前位置：信息公开</div>
+
+<iframe src="event_notice.html" name="mainFrame" class="mneir" id="mainFrame" title="mainFrame" /></iframe>
+
+</body>
+</html>
+
+<script type="text/javascript">
+ $(".mleft").css({ "height": $(window).height() - 75 });
+ $(window).resize(function () { $(".mleft").css({ "height": $(window).height() - 75 }); });
+ 
+  $(".mneir").css({ "height": $(window).height() - 119 });
+ $(window).resize(function () { $(".mneir").css({ "height": $(window).height() - 119 }); });
+ 
+  $(".mneir").css({ "width": $(window).width() - 217 });
+ $(window).resize(function () { $(".mneir").css({ "width": $(window).width() - 217 }); });
+ 
+ </script>

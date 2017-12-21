@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "IndexE";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{}
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    采购详情
+                    <span class="tools pull-right">
+                        <a href="javascript:;" class="fa fa-chevron-down"></a>
+                        <a href="javascript:;" class="fa fa-times"></a>
+                    </span>
+                </div>
+                <input type="hidden" id="id" value="@ViewBag.id" />
+                <div class="panel-body">
+                    <div>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="width:15%"><label style="float:right;">采购单号：</label></td>
+                                    <td><label>@ViewBag.purch_code</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购数量：</label></td>
+                                    <td><label> @ViewBag.purch_numb</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购总价：</label></td>
+                                    <td><label>￥:@ViewBag.purch_sum</label></td>
+                                </tr>
+
+                                <tr>
+                                    <td><label style="float:right">运费：</label></td>
+                                    <td>
+                                        <label>￥:@ViewBag.sum_freight</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">合计总金额：</label></td>
+                                    <td><label>￥:@ViewBag.sum_money</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购备注信息：</label></td>
+                                    <td><label>@ViewBag.purch_remark</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购时间：</label></td>
+                                    <td><label>@ViewBag.create_time</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购方式：</label></td>
+                                    <td><label> @ViewBag.purch_type</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">状态：</label></td>
+                                    <td><label> @ViewBag.purch_status</label></td>
+                                </tr>
+
+                                <tr>
+                                    <td><label style="float:right">快递公司：</label></td>
+                                    <td>
+                                        <label>  @ViewBag.express_name</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">快递单号：</label></td>
+                                    <td>
+                                        <label> @ViewBag.express_code</label>
+                                    </td>
+                                </tr>
+
+                                @*<tr>
+                                        <td><label style="float:right">锁定：</label></td>
+                                        <td><input type="checkbox" name=""></td>
+                                    </tr>*@
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div id="list"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+<script>
+
+    var layer;
+    var laypage;
+    var form;
+    var element;
+    layui.use(['layer', 'laypage', 'element', 'form'], function () {
+        layer = layui.layer;
+        laypage = layui.laypage;
+        element = layui.element();
+        form = layui.form();
+    })
+
+    $(document).ready(function () {
+        var id = @ViewBag.id;
+        if (id == "") {
+            layer.msg("参数错误!");
+            return false;
+        }
+
+        $.post('@Url.Content("~/Procurement/GetpageE")', { purch_id: id }
+             , function (data) {
+                 if (data.success) {
+                     if (data.DataResult.supplist.length > 0) { //如果有数据
+                         var html="";
+                         for (var i = 0; i < data.DataResult.supplist.length; i++) {
+                             html+=" <div style=\"clear:left;\">"+
+                                             "<table>"+
+                                                 "<tbody>"+
+                                                     "<tr>"+
+                                                         "<td>"+
+                                                             "<label>SKU:&nbsp;&nbsp;</label>"+
+                                                             "<label style=\"color:blue;\">" + data.DataResult.supplist[i].sku_code + "</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label>|</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label>采购链接:&nbsp;&nbsp;</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<a href=\"" + data.DataResult.supplist[i].prod_url + "\"  target='_blank'>打开</a>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label>|</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                            " <label>供应商:</label>"+
+                                                        " </td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label style=\"color:blue;\">&nbsp;&nbsp;<a href=\"" + data.DataResult.supplist[i].supp_url + " \"  target='_blank'>" + data.DataResult.supplist[i].supp_name + "</a></label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label>|</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                            " <label>本次应采数:</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label style=\"color:red;\">" + data.DataResult.supplist[i].purch_count + "</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                     "</tr>"+
+                                                 "</tbody>"+
+                                             "</table>"+
+
+                                             "<div style=\"display:inline-block;\">"+
+                                                 "<table class=\"table  table-hover general-table\">"+
+                                                     "<thead>"+
+                                                         "<tr>"+
+                                                             "<th>店铺</th>"+
+                                                             "<th>包裹号</th>"+
+                                                             "<th>数量</th>"+
+                                                              //"<th>状态</th>"+
+                                                         "</tr>"+
+                                                            "</thead>"+
+                                                                " <tbody>";
+                             if (data.DataResult.supplist[i].details != null) {
+                                 if (data.DataResult.supplist[i].details.length > 0) {
+                                     for (var e = 0; e < data.DataResult.supplist[i].details.length; e++) {
+                                         html+= "<tr>"+
+                                                    "<td>" + data.DataResult.supplist[i].details[e].shop_name + "</td>"+
+                                                    "<td>" + data.DataResult.supplist[i].details[e].order_code + "</td>"+
+                                                    "<td>" + data.DataResult.supplist[i].details[e].prod_num + "</td>"+
+                                                     //"<td>" + data.DataResult.supplist[i].details[e].order_tatusE + "</td>"+
+                                                "</tr>";
+                                     }
+                                 }}
+                             html+="</tbody>"+
+                                                            "</table>"+
+                                                 "</div>"+
+                                                 "<div style=\"float:left;\">"+
+                                             "<img src=\"" + data.DataResult.supplist[i].pic_url + "\" alt=\"BK133-02-00\" style=\"width:150px;height:200px;border: 1px solid #ddd;padding: 5px;background: #fff;\">"+
+                                                 "</div>"+
+                                         "</div>";
+                         }
+                         $("#list").html(html);
+                     }
+                     else {
+                         layer.msg("暂无数据");
+                     }
+                 }
+                 else {
+                     layer.msg("查询失败，失败原因：" + data.Msg);
+                 }
+                 layer.close(daoru);
+             });
+    });
+</script>

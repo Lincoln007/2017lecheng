@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9EBEA282-5778-46B7-8B56-ED3F35DA2183}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DBModel</RootNamespace>
+    <AssemblyName>DBModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OOXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.Registration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\PlatformResult.cs" />
+    <Compile Include="Base\ShopResult.cs" />
+    <Compile Include="Base\StockResult.cs" />
+    <Compile Include="Base\StorageBinResult.cs" />
+    <Compile Include="Base\WareHouseResult.cs" />
+    <Compile Include="Common\ComResult.cs" />
+    <Compile Include="Common\LoginUser.cs" />
+    <Compile Include="Common\SystemConfig.cs" />
+    <Compile Include="Common\User.cs" />
+    <Compile Include="DBmodel\base_country.cs" />
+    <Compile Include="DBmodel\base_employee.cs" />
+    <Compile Include="DBmodel\base_expresscode.cs" />
+    <Compile Include="DBmodel\base_exp_comp.cs" />
+    <Compile Include="DBmodel\base_iccard_scanin.cs" />
+    <Compile Include="DBmodel\base_job.cs" />
+    <Compile Include="DBmodel\base_location.cs" />
+    <Compile Include="DBmodel\base_login_error.cs" />
+    <Compile Include="DBmodel\base_login_log.cs" />
+    <Compile Include="DBmodel\base_menus.cs" />
+    <Compile Include="DBmodel\base_menu_groups.cs" />
+    <Compile Include="DBmodel\base_org.cs" />
+    <Compile Include="DBmodel\base_org_menu_rel.cs" />
+    <Compile Include="DBmodel\base_platform.cs" />
+    <Compile Include="DBmodel\base_print.cs" />
+    <Compile Include="DBmodel\base_product.cs" />
+    <Compile Include="DBmodel\base_productclass.cs" />
+    <Compile Include="DBmodel\base_product_imgs.cs" />
+    <Compile Include="DBmodel\base_prod_code.cs" />
+    <Compile Include="DBmodel\base_prod_supp_rel.cs" />
+    <Compile Include="DBmodel\base_PSKU.cs" />
+    <Compile Include="DBmodel\base_role.cs" />
+    <Compile Include="DBmodel\base_role_menu_rel.cs" />
+    <Compile Include="DBmodel\base_role_user_rel.cs" />
+    <Compile Include="DBmodel\base_shop.cs" />
+    <Compile Include="DBmodel\base_supplier.cs" />
+    <Compile Include="DBmodel\base_users.cs" />
+    <Compile Include="DBmodel\base_user_menu_rel.cs" />
+    <Compile Include="DBmodel\base_wh_stock.cs" />
+    <Compile Include="DBmodel\base_wh_stock_inout.cs" />
+    <Compile Include="DBmodel\base_wh_warehouse.cs" />
+    <Compile Include="DBmodel\busi_custorder.cs" />
+    <Compile Include="DBmodel\busi_custorder_detail.cs" />
+    <Compile Include="DBmodel\busi_printwork.cs" />
+    <Compile Include="DBmodel\busi_puch_freight.cs" />
+    <Compile Include="DBmodel\busi_purchase.cs" />
+    <Compile Include="DBmodel\busi_purchasedetail.cs" />
+    <Compile Include="DBmodel\busi_sendorder.cs" />
+    <Compile Include="DBmodel\busi_sendorder_detail.cs" />
+    <Compile Include="DBmodel\busi_transfer.cs" />
+    <Compile Include="DBmodel\busi_workinfo.cs" />
+    <Compile Include="DBmodel\MyPageList.cs" />
+    <Compile Include="DBmodel\Global\sysdiagrams.cs" />
+    <Compile Include="DBmodel\Global\tbl_base_area.cs" />
+    <Compile Include="DBmodel\Global\tbl_base_bank.cs" />
+    <Compile Include="DBmodel\Global\tbl_base_district.cs" />
+    <Compile Include="DBmodel\Global\tbl_base_network.cs" />
+    <Compile Include="DBmodel\Global\tbl_base_network_area_rel.cs" />
+    <Compile Include="DBmodel\Global\tbl_base_network_config.cs" />
+    <Compile Include="DBmodel\Global\tbl_base_region.cs" />
+    <Compile Include="DBmodel\Global\tbl_base_waybill_no_rule.cs" />
+    <Compile Include="DBmodel\Global\tbl_business_roles.cs" />
+    <Compile Include="DBmodel\Global\tbl_staff_menus.cs" />
+    <Compile Include="DBmodel\Global\tbl_staff_menu_groups.cs" />
+    <Compile Include="DBmodel\Global\tbl_staff_operate_logs.cs" />
+    <Compile Include="DBmodel\Global\tbl_staff_role.cs" />
+    <Compile Include="DBmodel\Global\tbl_staff_role_menu.cs" />
+    <Compile Include="DBmodel\Global\tbl_sys_db_config.cs" />
+    <Compile Include="DBmodel\Global\tbl_sys_error.cs" />
+    <Compile Include="DBmodel\Global\tbl_sys_net_config.cs" />
+    <Compile Include="DBmodel\Global\tbl_users.cs" />
+    <Compile Include="DBmodel\Global\tbl_user_login_error.cs" />
+    <Compile Include="DBmodel\Global\tbl_user_login_log.cs" />
+    <Compile Include="DBmodel\LS_Order.cs" />
+    <Compile Include="DBmodel\LS_OrderDENA.cs" />
+    <Compile Include="DBmodel\LS_OrderEbay.cs" />
+    <Compile Include="DBmodel\LS_Orderletian.cs" />
+    <Compile Include="DBmodel\LS_Ordersumaitong.cs" />
+    <Compile Include="DBmodel\LS_OrderWish.cs" />
+    <Compile Include="DBmodel\LS_Orderyahu.cs" />
+    <Compile Include="DBmodel\LS_Orderyamaxun.cs" />
+    <Compile Include="DBmodel\PrintSelect.cs" />
+    <Compile Include="ExpressPackgeModel.cs" />
+    <Compile Include="GoodsReceived\GoodsReceivedResult.cs" />
+    <Compile Include="InternationalQuiry\InternationalQuiryResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InternationalQuiry\KdApiSearch.cs" />
+    <Compile Include="LogisticsQuery\LogisticsQueryResult.cs" />
+    <Compile Include="MaterialReceipt\MaterialReceiptResult.cs" />
+    <Compile Include="Mycomm\mynum.cs" />
+    <Compile Include="NotPicking\NotPickingResult.cs" />
+    <Compile Include="OrderQuery\OrderQueryResult.cs" />
+    <Compile Include="OrderQuery_Shop\OrderQuery_ShopResult.cs" />
+    <Compile Include="Order\OrderResult.cs" />
+    <Compile Include="OverseasDelivery\OverseasDeliveryResult.cs" />
+    <Compile Include="PrintworkViewModel.cs" />
+    <Compile Include="ProcurementCosts\ProcurementCostsResult.cs" />
+    <Compile Include="Procurement\ProcurementResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SkuAndNum.cs" />
+    <Compile Include="StoreSales\StoreSalesResult.cs" />
+    <Compile Include="ViewModel\base_LSorder.cs" />
+    <Compile Include="ViewModel\base_NPSKU.cs" />
+    <Compile Include="ViewModel\ExpressViewModel.cs" />
+    <Compile Include="ViewModel\GoodsReceivedViewModel.cs" />
+    <Compile Include="ViewModel\GSKU.cs" />
+    <Compile Include="ViewModel\img_model.cs" />
+    <Compile Include="ViewModel\InternationalQuiryViewModel.cs" />
+    <Compile Include="ViewModel\LSModel.cs" />
+    <Compile Include="ViewModel\LSOrderViewmodel.cs" />
+    <Compile Include="ViewModel\MaterialReceiptViewModel.cs" />
+    <Compile Include="ViewModel\myprinter.cs" />
+    <Compile Include="ViewModel\NotPickingViewModel.cs" />
+    <Compile Include="ViewModel\OrderQueryViewModel.cs" />
+    <Compile Include="ViewModel\OrderQuery_ShopViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\Order\OrderSum.cs" />
+    <Compile Include="ViewModel\Order\OrderWork.cs" />
+    <Compile Include="ViewModel\Order\SendOrder.cs" />
+    <Compile Include="ViewModel\Order\ShopOrder.cs" />
+    <Compile Include="ViewModel\OverseasDeliveryViewModel.cs" />
+    <Compile Include="ViewModel\PageList.cs" />
+    <Compile Include="ViewModel\PlatformAShopViewModel.cs" />
+    <Compile Include="ViewModel\PlatformViewModel.cs" />
+    <Compile Include="ViewModel\PrinterViewModel.cs" />
+    <Compile Include="ViewModel\ProcudtViewModel.cs" />
+    <Compile Include="ViewModel\ProcurementCostsViewModel.cs" />
+    <Compile Include="ViewModel\ProcurementViewModel.cs" />
+    <Compile Include="ViewModel\ProductClassfyViewModel.cs" />
+    <Compile Include="ViewModel\ProductDetail.cs" />
+    <Compile Include="ViewModel\ProductNViewmodel.cs" />
+    <Compile Include="ViewModel\PSKUViewmodel.cs" />
+    <Compile Include="ViewModel\RFTDistrView.cs" />
+    <Compile Include="ViewModel\ShopViewModel.cs" />
+    <Compile Include="ViewModel\StockViewModel.cs" />
+    <Compile Include="ViewModel\StorageBinViewModel.cs" />
+    <Compile Include="ViewModel\StoreSalesViewModel.cs" />
+    <Compile Include="ViewModel\SupplierModel.cs" />
+    <Compile Include="ViewModel\SupplierNview.cs" />
+    <Compile Include="ViewModel\SupplierViewModel.cs" />
+    <Compile Include="ViewModel\User\SingUserPermissionModel.cs" />
+    <Compile Include="ViewModel\User\UserMenu.cs" />
+    <Compile Include="ViewModel\WaitPurchaseViewModel.cs" />
+    <Compile Include="ViewModel\WareHouseViewModel.cs" />
+    <Compile Include="WaitPurchase\WaitPurchaseResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommHelper\CommHelper.csproj">
+      <Project>{556bbea4-7247-42e3-9997-278fe6753bef}</Project>
+      <Name>CommHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

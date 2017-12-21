@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PrintList>
+  <configSections>
+    <connnetstring>server=222.46.96.214;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng</connnetstring>
+  </configSections>
+  <Printer ID="2">
+    <printmachine>TSC  TTP-244 Plus</printmachine>
+    <page>Yamato</page>
+    <Model>模式一</Model>
+  </Printer>
+</PrintList>

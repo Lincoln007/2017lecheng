@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xml bitmap="2" bgcolor="#B9E1E1" fgcolor="#ec136c">
+    <text mode="1" x="1" y="1" bgcolor="#006070" fgcolor="white" size="1" name="DrawBelt" width="26">-乐诚国际电商条码系统--</text>
+    <text mode="1" x="1" y="7" size="1" fgcolor="black">用户名:</text>
+    <input mode="1" x="8" y="7" size="1" type="1" param="userid" focus="1" width="16">>@ViewData["realname"]</input>
+    <text mode="1" x="1" y="10" size="1" fgcolor="black">密  码:</text>
+    <input mode="1" x="8" y="10" size="1" type="1" param="password" width="16"></input>
+    <text mode="1" x="3" y="15" size="1" fgcolor="black">@ViewData["realname"]</text>
+    <button mode="1" size="1" x="1" y="19" url="" key="a" func="97" value="" bgcolor="forestgreen" fgcolor="khaki">F1:设置</button>
+    <button mode="1" size="1" x="16" y="19" bgcolor="forestgreen" fgcolor="khaki" key="e" func="2" url="/CheckLogin">ENT:确定</button>
+</xml>
+@{
+    Layout = null;
+}

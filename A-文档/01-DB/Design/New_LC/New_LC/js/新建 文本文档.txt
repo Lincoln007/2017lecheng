@@ -1,0 +1,4 @@
+function ShowDing() {
+    $('#basic-modal-content').modal();
+    return false;
+}

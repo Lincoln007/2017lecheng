@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>乐诚</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/font/iconfont.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/jqadmin.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/main.css?v1.0.0" media="all">
+
+</head>
+<body>
+    <div class="container-fluid larry-wrapper">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <!--头部搜索-->
+                <section class="panel panel-padding">
+                    <blockquote class="layui-elem-quote">
+                        报关单生成
+                    </blockquote>
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="width:auto">快递单号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="DHL快递单号" class="layui-input" id="dhlcode">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style="width:auto">转运单号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="username" lay-verify="required" placeholder="转运单号" autocomplete="off" class="layui-input" id="zhuanyuncode">
+                            </div>
+                        </div>
+
+                                <input class="layui-btn"  value="生成并下载" id="download"/>                          
+                        <a href="" style="display:none;" id="downloadexcel"><span id="down">下载</span></a>
+                    </form>
+                </section>
+                <!--列表-->
+               
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            layui.use(['form', 'layer', 'laypage', 'element'], function () {
+                var form = layui.form()
+                      , layer = layui.layer
+                     , laypage = layui.laypage
+                     , element = layui.element();
+
+                $('#download').click(function () {
+                    var dhlcode = $('#dhlcode').val();
+                    var zhuanyuncode = $('#zhuanyuncode').val();
+                    $.post('@Url.Content("/Declaration/GetDeclarationExcel")', { dhlcode: dhlcode, zhuanyuncode: zhuanyuncode }, function (data) {
+                        if (data.State)
+                        {
+                            $("#downloadexcel").attr("href", data.URL);
+                            $("#down").click();//下载
+                        }
+                        else {
+                            layer.msg(data.Msg);
+                        }
+                    })
+                });
+            })
+        });
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>售价计算</title>
+<meta content="IE=7.0000" http-equiv="X-UA-Compatible">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<link rel="stylesheet" type="text/css" href="css/base.css">
+</head>
+<body>
+<div class="main">
+<p><a href="goods_add.html" class="btnalt">+添加产品</a> 标题：
+    <input type="text" value="" name="Quantity" size="12">
+    | SKU:
+    <input type="text" value="" name="Quantity" size="12">
+    | 开发人:
+    <input type="text" value="" name="Quantity" size="8">
+    | 类别：
+    <select name="select">
+      <option value="1">不指定</option>
+      <option value="2">鞋</option>
+      <option value="3">包</option>
+    </select>
+    | 性质：
+    <select name="select">
+      <option value="1">不指定</option>
+      <option value="2">普货</option>
+      <option value="3">仿货</option>
+    </select>
+    | 状态：
+    <select name="select">
+      <option value="1">销售中</option>
+      <option value="2">已下架</option>
+    </select>
+    | <a href="#" class="btn_1">搜索</a> </p>
+  <div class="cnav">
+    <ul>
+      <li><a href="goods_detail.html">产品详情</a></li>
+      <li class="on"><a href="goods_price.html">售价计算</a></li>
+      <li><a href="goods_stock.html">采购设置</a></li>
+    </ul>
+  </div>
+  <table class="t1 tr_h">
+          <thead>
+            <tr>
+              <th width="147">输入数据</th>
+              <th ></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="checkleft">采购价格：</td>
+              <td><input type="text" value="" size="5" />
+                元</td>
+            </tr>
+            <tr>
+              <td class="checkleft">预估重量：</td>
+              <td class="sbtn"><input type="text" value="" size="5" />
+                克</td>
+            </tr>
+            <tr>
+              <td class="checkleft">平台扣点：</td>
+              <td class="sbtn"><input type="text" value="" size="5" />
+              %</td>
+            </tr>
+            <tr>
+              <td class="checkleft">选择物流：</td>
+              <td class="sbtn"><select name="select3">
+                  <option value="1">请选择</option>
+                  <option value="1">小包（普）</option>
+                  <option value="2">小包（仿）</option>
+                  <option value="2">平邮</option>
+                  <option value="2">EMS</option>
+                  <option value="2">TOLL</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td class="checkleft">选择币总：</td>
+              <td class="sbtn"><select name="select2">
+                  <option value="1">请选择</option>
+                <option value="1">美元</option>
+                <option value="2">日元</option>
+                <option value="2">新加坡元</option>
+                            </select></td>
+            </tr>
+            <tr>
+              <td class="checkleft">毛利比：</td>
+              <td class="sbtn"><input type="text" value="30" size="5" />
+%</td>
+            </tr>
+          </tbody>
+        </table>
+
+  <table class="t1 tr_h">
+    <thead>
+      <tr>
+        <th width="147">计算结果</th>
+        <th ></th>
+      </tr>
+      <tr>
+        <td class="checkleft">物流费 ：</td>
+        <td>¥25.54 </td>
+      </tr>
+      <tr>
+        <td class="checkleft">毛利 ：</td>
+        <td>¥28</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="checkleft">销售价 ：</td>
+        <td><span class="p_red">$10.5</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,265 @@
+﻿@{
+    ViewBag.Title = "IndexE";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{}
+
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-11">
+            <section class="panel">
+                <header class="panel-heading custom-tab blue-tab">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#SKUDetail" data-toggle="tab">订单SKU信息</a>
+                        </li>
+                        <li class="">
+                            <a href="#infoUser" data-toggle="tab" data-order_id=@ViewBag.id>收件人信息</a>
+                        </li>
+                    </ul>
+                </header>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="SKUDetail">
+                            <div id="list"></div>
+
+                        </div>
+                        <div class="tab-pane" id="infoUser">
+                            <div id="list1">
+                            </div>
+                            <button class="btn btn-warning" id="save">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+<script>
+
+    var layer;
+    var laypage;
+    var form;
+    var element;
+    layui.use(['layer', 'laypage', 'element', 'form'], function () {
+        layer = layui.layer;
+        laypage = layui.laypage;
+        element = layui.element();
+        form = layui.form();
+    })
+
+    $(document).ready(function () {
+        var id = @ViewBag.id;
+        if (id == "") {
+            layer.msg("参数错误!");
+            return false;
+        }
+        $.post('@Url.Content("~/OrderQuery_Shop/GetpageE")', { custorder_id: id }
+             , function (data) {
+                 if (data.success) {
+                     if (data.DataResult.supplist.length > 0) { //如果有数据
+                         var html="";
+                         for (var i = 0; i < data.DataResult.supplist.length; i++) {
+                             html+="  <div>"+
+                                "<label>包裹号:</label><label>" + data.DataResult.supplist[i].order_code + "</label>|&nbsp;&nbsp;"+
+                                "<label>状态:</label><label style=\"color:red;\">" + data.DataResult.supplist[i].order_tatusE + "</label>|&nbsp;&nbsp;"+
+                                "<label>快递类型:</label><label>" + data.DataResult.supplist[i].express_name + "</label>|&nbsp;&nbsp;"+
+                                "<label>运单号:</label><label>" + data.DataResult.supplist[i].exp_code + "</label>|&nbsp;&nbsp;"+
+                                "<label>国际快递类型:</label><label>" + data.DataResult.supplist[i].gjexpress_name + "</label>|&nbsp;&nbsp;"+
+                                "<label>国际运单号:</label><label>" + data.DataResult.supplist[i].gjexpress_code + "</label>|<br>"+
+                                "<label>转运单号:</label><label>" + data.DataResult.supplist[i].tran_code + "</label>|&nbsp;&nbsp;"+
+                                "<label>面单是否打印:</label><label>" + data.DataResult.supplist[i].is_printE + "</label>|&nbsp;&nbsp;"+
+                                "<label>面单打印时间:</label><label>" + data.DataResult.supplist[i].print_timeE + "</label>|&nbsp;&nbsp;"+
+                                "<table class=\"table table-hover general-table\">"+
+                                    "<thead>"+
+                                        "<tr>"+
+                                            "<th>SKU</th>"+
+                                            "<th>数量</th>"+
+                                            "<th>SKU状态</th>"+
+                                            "<th>采购单号</th>"+
+                                            "<th>采购状态</th>"+
+                                            "<th>操作</th>"+
+                                        "</tr>"+
+                                    "</thead>"+
+                                    "<tbody>";
+                             if (data.DataResult.supplist[i].details != null) {
+                                 if (data.DataResult.supplist[i].details.length>0) {
+                                     for (var e = 0; e < data.DataResult.supplist[i].details.length; e++) {
+                                         html+=  "<tr>"+
+                                                              "<td>" + data.DataResult.supplist[i].details[e].sku_code + "</td>"+
+                                                              "<td>1</td>"+
+                                                              "<td>" + data.DataResult.supplist[i].details[e].is_workE + "</td>"+
+                                                              "<td>" + data.DataResult.supplist[i].details[e].purch_code + "</td>"+
+                                                              "<td>" + data.DataResult.supplist[i].details[e].purch_statusE + "</td>"+
+                                                              "<td>"+
+                                                                  //"<a class=\"add\" href=\"javascript:;\" >新增</a>"+
+                                                                  //"<label>|</label>"+
+                                                                  "<a id='"+data.DataResult.supplist[i].details[e].work_id+"' class=\"edit\"  href=\"javascript:;\" onclick=\"Edit(" + data.DataResult.supplist[i].details[e].detail_id + "," + data.DataResult.supplist[i].details[e].work_id + ",'" + data.DataResult.supplist[i].details[e].sku_code + "',@ViewBag.id)\">编辑</a>"+
+                                                                  "<label>&nbsp;&nbsp;|&nbsp;&nbsp;</label>"+
+                                                                  "<a class=\"delete\" href=\"javascript:;\" onclick=\"Del(" + data.DataResult.supplist[i].details[e].detail_id + "," + data.DataResult.supplist[i].details[e].work_id + ",@ViewBag.id)\">删除</a>"+
+                                                              "</td>"+
+                                                          "</tr>";
+                                     }
+                                 }
+                             }
+
+
+                             html+= "</tbody>"+
+                      "</table>"+
+                  "</div>";
+                         }
+
+                         $("#list").html(html);
+                     }
+                     else {
+                         layer.msg("暂无数据");
+                     }
+                 }
+                 else {
+                     layer.msg("查询失败，失败原因：" + data.Msg);
+                 }
+
+             });
+
+
+        $.post('@Url.Content("~/OrderQuery/GetInfoByID")', { order_id: id }, function (data) {
+            if (!data.success) {
+                layer.msg("获取信息失败!");
+            } else {
+                if (data.DataResult.supplist.length > 0) {
+                    var html = "";
+                    for (var i = 0; i < data.DataResult.supplist.length; i++) {
+                        html += "<div>" +
+                            "<input type=\"hidden\" value=\"" + data.DataResult.supplist[i].order_id + "\" >" +
+                                "<label>" + data.DataResult.supplist[i].order_code + "包裹号客户信息:</label><br>" +
+                                  "<label>姓名:</label>&nbsp;&nbsp;<input type=\"text\" name=\"receive_name\" value=\"" + data.DataResult.supplist[i].receive_name + "\" ><br>" +
+                                  "<label>地址:</label>&nbsp;" +
+                                  "<textarea style=\"width:400px;\" type=\"text\" name=\"receive_address\" >" + data.DataResult.supplist[i].receive_address + "</textarea><br>" +
+                                  "<label>邮编:</label>&nbsp;&nbsp;<input type=\"text\" name=\"receive_zip\"  value=\"" + data.DataResult.supplist[i].receive_zip + "\" ><br>" +
+                                  "<label>手机:</label>&nbsp;&nbsp;<input type=\"text\" name=\"receive_mobile\"  value=\"" + data.DataResult.supplist[i].receive_mobile + "\"><br>" +
+                                  "<label>电话:</label>&nbsp;&nbsp;<input type=\"text\" name=\"receive_phone\"  value=\"" + data.DataResult.supplist[i].receive_phone + "\"><br>" +
+                                   "</div>";
+                    }
+                    $("#list1").html(html);
+                }
+            }
+        });
+    });
+
+
+
+    $("#save").click(function() {
+        var len=$("#list1").children("div").length;
+        var data=$("#list1").children("div");
+        var lists=[];
+        for (var i = 0; i < len; i++) {
+            var list={};
+            var order_id=data.eq(i).find("input[type=hidden]").val();
+            var receive_name=data.eq(i).find("input[name='receive_name']").val();
+            var receive_address=data.eq(i).find("textarea").val();
+            var receive_zip=data.eq(i).find("input[name='receive_zip']").val();
+            var receive_mobile=data.eq(i).find("input[name='receive_mobile']").val();
+            var receive_phone=data.eq(i).find("input[name='receive_phone']").val();
+
+            list.order_id=order_id;
+            list.receive_name=receive_name;
+            list.receive_address=receive_address;
+            list.receive_zip=receive_zip;
+            list.receive_mobile=receive_mobile;
+            list.receive_phone=receive_phone;
+            lists.push(list);
+        }
+        $.post('@Url.Content("~/OrderQuery_Shop/Save")', { lists: lists }
+           , function (data) {
+               if (data.success) {
+                   layer.msg(data.Msg, { icon: 6, time: 3000 }, function () {
+                       // window.location.href = data.URL;
+                   });
+               } else {
+                   layer.msg(data.Msg);
+                   return false;
+               }
+           });
+    })
+
+    function Del(detail_id,work_id,id)
+    {
+        if (detail_id=="undefined" || detail_id=="0" || work_id=="undefined" || work_id=="0") {
+            layer.msg("参数错误!");
+            return false;
+        }
+        layer.msg('删除后不可恢复,确定要删除吗?', {
+            time: 0 //不自动关闭
+          , btn: ['确认', '取消']
+          , yes: function (index) {
+              layer.close(index);
+              $.post('@Url.Content("~/OrderQuery_Shop/Del")', { detail_id: detail_id, work_id: work_id, id: id}
+              , function (data) {
+                  if (data.success) {
+                      layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                          // window.location.href = data.URL;
+                          $("#"+work_id+"").parents("tr:eq(0)").remove();
+                      });
+                  } else {
+                      layer.msg(data.Msg);
+                  }
+              });
+          }
+        });
+    }
+
+    var g_work_id;
+    var  g_detail_id;
+    var old_sku;
+    var g_id;
+    function Edit(detail_id,work_id,code_sku,id)
+    {
+        var obj=$("#"+work_id+"");
+        obj.parent().parent().find("td:first").html('<input type="text" class="form-control small abc" value="'+code_sku+'">');
+        g_work_id=work_id;
+        g_detail_id=detail_id;
+        old_sku=code_sku;
+        g_id=id;
+    }
+
+    $("body").on("blur",".abc",function()
+    {
+        var sku = $(this).val();
+        $(this).parent().html(sku);
+        if (g_detail_id=="undefined" || g_detail_id=="0" || g_work_id=="undefined" || g_work_id=="0"|| g_id=="undefined" || g_id=="0") {
+            layer.msg("参数错误!");
+            return false;
+        }
+        if (sku=="undefined"|| sku=="") {
+            layer.msg("sku不得为空!");
+            return false;
+        }
+        if (old_sku!=sku) {
+            layer.msg('确定要修改sku吗?', {
+                time: 0 //不自动关闭
+         , btn: ['确认', '取消']
+         , yes: function (index) {
+             layer.close(index);
+             $.post('@Url.Content("~/OrderQuery_Shop/Barter")', { detail_id: g_detail_id, work_id: g_work_id,sku:sku, id: g_id}
+             , function (data) {
+                 if (data.success) {
+                     layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                         window.location.href = data.URL;
+                     });
+                 } else {
+                     $("#"+g_work_id+"").parent().parent().find("td:eq(0)").html(old_sku);
+                     layer.msg(data.Msg);
+                 }
+             });
+         }
+            });
+        }
+    })
+
+</script>

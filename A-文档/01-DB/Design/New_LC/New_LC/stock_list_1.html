@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>包裹重量</TITLE>
+<META content="IE=7.0000" http-equiv="X-UA-Compatible">
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<LINK rel=stylesheet type=text/css href="css/base.css">
+</HEAD>
+<body>
+<div class="main">
+  <div class="cnav">
+    <ul>
+      <li><a href="stock_in.html">产品入库</a></li>
+      <li><a href="stock_out.html">产品出库</a></li>
+      <li class="on"><a href="stock_list.html">库存列表</a></li>
+      <li><a href="sku_print.html">SKU打印</a></li>
+    </ul>
+  </div>
+  <table class="t2">
+    <tbody>
+      <tr>
+        <td width="146" class="checkleft">库存搜索(SKU)：</td>
+        <td width="621" ><input value="" size="16">
+          <span class="sbtn">
+          <input type="submit" name="button" id="button" value="搜索">
+        </span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="cnav_1" style="width:779px;">
+    <ul>
+      <li><a href="stock_list.html">库存关注</a></li>
+      <li class="on"><a href="stock_list_1.html">库存列表</a></li>
+    </ul>
+  </div>
+  <table class="t2">
+    <tbody>
+      <tr>
+        <td width="146" class="checkleft">库存总数：</td>
+        <td width="621" >587件</td>
+      </tr>
+      <tr>
+        <td class="checkleft">库存金额：</td>
+        <td >¥20,4510</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="p">
+  <select name="select" id="select">
+    <option>排序</option>
+    <option>多到少</option>
+    <option>少到多</option>
+  </select></p>
+  <table class="t1 tr_h">
+      <thead>
+        <tr>
+          <th width="80">图片</th>
+          <th width="100">SKU</th>
+          <th width="60">库存量</th>
+          <th width="80">产品状态</th>
+          <th >操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="simg"><img src="images/sp_1.jpg"></td>
+          <td>GS0001-01-28</td>
+          <td>1件</td>
+          <td>出售中</td>
+          <td class="sbtn">5件采购中 | 采购数：
+            <input name="textfield" type="text" id="textfield" size="3"> <a href="#">采购</a> | 
+          <a href="#">添加关注</a></td>
+        </tr>
+        <tr>
+          <td class="simg"><img src="images/sp_1.jpg"></td>
+          <td>GS0031-02-28</td>
+          <td>1件</td>
+          <td>出售中</td>
+          <td class="sbtn"><a href="#">库存采购</a> | <a href="#">添加关注</a></td>
+        </tr>
+        <tr>
+          <td class="simg"><img src="images/sp_1.jpg"></td>
+          <td>GS0301-01-L</td>
+          <td>2件</td>
+          <td>出售中</td>
+          <td class="sbtn"><a href="#">库存采购</a> | <a href="#">添加关注</a></td>
+        <tr>
+          <td class="simg"><img src="images/sp_1.jpg"></td>
+          <td>GS0301-01-L</td>
+          <td>2件</td>
+          <td><span class="red">下架</span></td>
+          <td class="sbtn"><a href="#">库存采购</a> | <a href="#">添加关注</a></td>
+        <tr>
+          <td class="simg"><img src="images/sp_1.jpg"></td>
+          <td>GS0301-01-L</td>
+          <td>2件</td>
+          <td>出售中</td>
+          <td class="sbtn"><a href="#">库存采购</a> | <a href="#">添加关注</a></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+</body>
+</HTML>

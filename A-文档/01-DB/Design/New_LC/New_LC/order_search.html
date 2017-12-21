@@ -1,0 +1,486 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>订单搜索</TITLE>
+<META content="IE=7.0000" http-equiv="X-UA-Compatible">
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<LINK rel=stylesheet type=text/css href="css/base.css">
+</HEAD>
+<body>
+<script type="text/javascript">
+function show(id,mode)
+{   
+    var innerid=document.getElementById(id);
+	var showid=id+"_0";
+	if(mode=="1"){
+	var content = '<div id="'+showid+'" style="display:none;" class="showbox">SKU：<input name="textfield2" type="text" id="textfield2" size="15"> <input name="textfield2" type="text" id="textfield2" size="3" value="1"><br/>金额：<input name="textfield2" type="text" id="textfield2" size="5"><br/><input type="submit" name="button6" id="button6" value="提交"> <input type="submit" name="button6" id="button6" value="取消" onClick="show('+id+',0)"></div>';
+	innerid.innerHTML=content; 
+	document.getElementById(showid).style.display='';
+	}
+	else{
+	var content="";
+	innerid.innerHTML=content;
+    document.getElementById(showid).style.display='none';
+}
+
+}
+</script>
+<div class="main">
+  <div class="cnav">
+    <ul>
+      <li class="on"><a href="order_search.html">用户订单查询</a></li>
+    </ul>
+  </div>
+  <table class="t2">
+    <tbody>
+      <tr>
+        <td width="140" class="checkleft">搜索</td>
+        <td><select name="select5">
+            <option selected>买家订单号</option>
+            <option>包裹号</option>
+            <option>运单号</option>
+          </select>
+          <input type="text" name="textfield" id="textfield">
+          <input type="submit" name="button" id="button" value="查询">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!--<label class="btn_2">
+  <input type="checkbox" name="checkbox" id="checkbox">
+  <span class="red">取消此订单</span></label>-->
+  <div class="infobox1">
+    <h3 class="on"><strong>订单号：60413638158550 | 数量：8件 | 国家：美国 |
+      <label title="买家付款：$202&#10;结算金额：$191.9">金额 ：$202</label>
+      | 留言：有 | 状态：待发货（有下架）</strong></h3>
+    <div class="ckong">
+      <div class="cnav_1">
+        <ul>
+          <li class="on"><a href="ddset_1.html">包裹信息</a></li>
+          <li><a href="ddset_3.html">收货人信息</a></li>
+          <li><a href="ddset_4.html">线上留言[有]</a></li>
+          <li><a href="ddset_5.html">所属店铺</a></li>
+        </ul>
+      </div>
+      <div style="display:block;margin-bottom:10px;">
+        <input type="submit" name="button2" id="button2" value="拆分包裹">
+        <input type="submit" name="button3" id="button3" value="合并包裹">
+        |
+        <input type="submit" name="button5" id="button5" value="=用户取消订单=">
+      </div>
+      <div class="r"> <span class="s_1">
+        <input name="input6" type="checkbox">
+        包裹号：60413638158550 |
+        <select name="select8">
+          <option>普货</option>
+          <option>仿货</option>
+        </select>
+        <select name="select5">
+          <option>小包-普</option>
+          <option>小包-仿</option>
+          <option>平邮</option>
+          <option>EMS</option>
+          <option>TOLL</option>
+          <option>DHL</option>
+          <option>Qxpress</option>
+        </select>
+        | 580克 | 未打包 <img src="images/data.gif" title="出单日期：2013-11-25&#10;打包日期：2013-11-27&#10;发货日期：2013-11-29"/> |
+        <input type="submit" name="button" id="button" value="打印配货单">
+        |
+        <input type="submit" name="button6" id="button6" value="添加" onClick="show('20001','1')" >
+        <input type="submit" name="button7" id="button7" value="删除">
+        <div id="20001"></div>
+        </span>
+        <table class="tr_h">
+          <thead>
+            <tr>
+              <th width="20"></th>
+              <th width="50">拆分数</th>
+              <th width="40">数量</th>
+              <th width="40">图片</th>
+              <th width="110">SKU</th>
+              <th width="60">重量</th>
+              <th width="60">销售</th>
+              <th width="60">状态</th>
+              <th width="70">性质</th>
+              <th >买家选择</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input name="input" type="checkbox" value=""></td>
+              <td><select name="">
+                  <option>1</option>
+                </select></td>
+              <td>1件</td>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0001-01-28</td>
+              <td>150克</td>
+              <td>销售中</td>
+              <td>待采购</td>
+              <td>普货-平邮</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td><input name="input2" type="checkbox" value=""></td>
+              <td><select name="select">
+                  <option>1</option>
+                </select></td>
+              <td>1件</td>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0031-02-28</td>
+              <td>120克</td>
+              <td>销售中</td>
+              <td>待发货</td>
+              <td>普货</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td><input name="input3" type="checkbox" value=""></td>
+              <td><select name="select2">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select></td>
+              <td>2件</td>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0301-01-L</td>
+              <td>285克</td>
+              <td>销售中</td>
+              <td>待配货</td>
+              <td>仿货</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td><input name="input7" type="checkbox" value=""></td>
+              <td><select name="select7">
+                  <option>1</option>
+                </select></td>
+              <td>1件</td>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0201-02-L</td>
+              <td>108克</td>
+              <td><span class="red">下架</span></td>
+              <td>待采购</td>
+              <td>货仿</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td><input name="input5" type="checkbox" value=""></td>
+              <td><select name="select4">
+                  <option>1</option>
+                </select></td>
+              <td>1件</td>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0201-02-L</td>
+              <td>108克</td>
+              <td>销售中</td>
+              <td>已配货</td>
+              <td>货仿</td>
+              <td>EMS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="r"> <span class="s_1">
+        <input name="input6" type="checkbox">
+        包裹号：60413638158550-1 |
+        <select name="select8">
+          <option>普货</option>
+          <option>仿货</option>
+        </select>
+        <select name="select9">
+          <option>小包-普</option>
+          <option>小包-仿</option>
+          <option>平邮</option>
+          <option>EMS</option>
+          <option>TOLL</option>
+          <option>DHL</option>
+          <option>Qxpress</option>
+        </select>
+        | 580克 | 未打包 <img src="images/data.gif" title="出单日期：2013-11-25&#10;发货日期：2013-11-29"/> |
+        <input type="submit" name="button" id="button" value="打印配货单">
+        |
+        <input type="submit" name="button6" id="button6" value="添加" onClick="show('20002','1')">
+        <input type="submit" name="button7" id="button7" value="删除">
+        <div id="20002"></div>
+        </span>
+        <table class="tr_h">
+          <thead>
+            <tr>
+              <th width="20"></th>
+              <th width="50">拆分数</th>
+              <th width="40">数量</th>
+              <th width="40">图片</th>
+              <th width="110">SKU</th>
+              <th width="60">重量</th>
+              <th width="60">销售</th>
+              <th width="60">状态</th>
+              <th width="70">性质</th>
+              <th >买家选择</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input name="input4" type="checkbox" value=""></td>
+              <td><select name="select3">
+                  <option>1</option>
+                </select></td>
+              <td>1件</td>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0201-02-L</td>
+              <td>108克</td>
+              <td><span class="red">下架</span></td>
+              <td>待采购</td>
+              <td>货仿</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td><input name="input4" type="checkbox" value=""></td>
+              <td><select name="select3">
+                  <option>1</option>
+                </select></td>
+              <td>1件</td>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0201-02-L</td>
+              <td>108克</td>
+              <td>销售中</td>
+              <td>已配货</td>
+              <td>货仿</td>
+              <td>EMS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="infobox1">
+    <h3 class="on"><strong>订单号：60413638158550 | 数量：8件 | 国家：美国 | 金额 ：$154 |  留言：有 | 状态：已发货</strong></h3>
+    <div class="ckong">
+      <div class="cnav_1">
+        <ul>
+          <li class="on"><a href="ddset_1.html">包裹信息</a></li>
+          <li><a href="ddset_3.html">收货人信息</a></li>
+          <li><a href="ddset_4.html">线上留言[有]</a></li>
+          <li><a href="ddset_5.html">所属店铺</a></li>
+        </ul>
+      </div>
+      <div class="r"> <span class="s_1">包裹号：60413638158550 |
+        普货
+        
+        | 小包-普 | 580克 |
+        运费[75] | 状态：已发货 <img src="images/data.gif" title="出单日期：2013-11-25&#10;打包日期：2013-11-27&#10;发货日期：2013-11-29"/> | 运单号：RB21001447CN | <img src="images/ico_6.gif"></span>
+        <table class="tr_h">
+          <thead>
+            <tr>
+              <th width="40">图片</th>
+              <th width="110">SKU</th>
+              <th width="60">重量</th>
+              <th width="60">销售</th>
+              <th width="70">性质</th>
+              <th >售后处理</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0001-01-28</td>
+              <td>150克</td>
+              <td>销售中</td>
+              <td>普货-平邮</td>
+              <td><select name="select5">
+                  <option>选择事件</option>
+                  <option>退款</option>
+                  <option selected>部分退款</option>
+                  <option>重发</option>
+                  <option>返品重发</option>
+                </select>
+                <input name="textfield2" type="text" id="textfield2" size="3">
+                <select name="select6">
+                  <option>选择原因</option>
+                  <option>发错</option>
+                  <option>漏发</option>
+                  <option>产品问题</option>
+                  <option>产品丢失</option>
+                  <option>运送中</option>
+                  <option>用户投诉</option>
+                </select>
+                <input type="submit" name="button4" id="button4" value="提交"></td>
+            </tr>
+            <tr>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0031-02-28</td>
+              <td>120克</td>
+              <td>销售中</td>
+              <td>普货</td>
+              <td class="sbtn">部分退款 - $5 - 发错 <a href="#">取消</a></td>
+            </tr>
+            <tr>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0301-01-L</td>
+              <td>285克</td>
+              <td>销售中</td>
+              <td>仿货</td>
+              <td class="sbtn"><a href="#">开始处理</a></td>
+            </tr>
+            <tr>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0201-02-L</td>
+              <td>108克</td>
+              <td><span class="red">下架</span></td>
+              <td>货仿</td>
+              <td class="sbtn"><a href="#">开始处理</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="r"> <span class="s_1">包裹号：60413638158550 |
+        
+        普货
+        | 小包-普 | 580克 |
+        运费[35] | 状态：已发货 <img src="images/data.gif" title="出单日期：2013-11-25&#10;打包日期：2013-11-27&#10;发货日期：2013-11-29"/> | 运单号：RB21001447CN | <img src="images/ico_6.gif"></span>
+        <table class="tr_h">
+          <thead>
+            <tr>
+              <th width="40">图片</th>
+              <th width="110">SKU</th>
+              <th width="60">重量</th>
+              <th width="60">销售</th>
+              <th width="70">性质</th>
+              <th >售后处理</th>
+            </tr>
+            <tr>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0301-01-L</td>
+              <td>285克</td>
+              <td>销售中</td>
+              <td>仿货</td>
+              <td class="sbtn"><a href="#">开始处理</a></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><img src="images/g.jpg" class="img_1"></td>
+              <td>GS0041-01-M</td>
+              <td>210克</td>
+              <td>销售中</td>
+              <td>普货-平邮</td>
+              <td class="sbtn"><a href="#">开始处理</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="infobox1">
+    <h3 class="on"><strong>订单号：60413638158550 | 数量：8件 | 国家：美国 | 金额 ：$89 |  留言：有 | 状态：部分发货（有下架）</strong>
+      <input type="submit" name="button8" id="button8" value="处理模式">
+    </h3>
+    <div class="ckong">
+      <div class="cnav_1">
+        <ul>
+          <li class="on"><a href="ddset_1.html">包裹信息</a></li>
+          <li><a href="ddset_3.html">收货人信息</a></li>
+          <li><a href="ddset_4.html">线上留言[有]</a></li>
+          <li><a href="ddset_5.html">所属店铺</a></li>
+        </ul>
+      </div>
+      <div class="r"> <span class="s_1"> 包裹号：60413638158550 |
+        普货 | 小包
+        
+        | 580克 | 未打包 </span>
+        <table class="tr_h">
+          <thead>
+            <tr>
+              <th width="110">SKU</th>
+              <th width="60">重量</th>
+              <th width="70">销售状态</th>
+              <th width="70">状态</th>
+              <th width="65">性质</th>
+              <th >买家选择</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GS0001-01-28</td>
+              <td>150克</td>
+              <td>销售中</td>
+              <td>待采购</td>
+              <td>普货-平邮</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td>GS0031-02-28</td>
+              <td>120克</td>
+              <td>销售中</td>
+              <td>待采购</td>
+              <td>普货</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td>GS0301-01-L</td>
+              <td>285克</td>
+              <td>销售中</td>
+              <td>待采购</td>
+              <td>仿货</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td>GS0201-02-L</td>
+              <td>108克</td>
+              <td><span class="red">下架</span></td>
+              <td>待采购</td>
+              <td>货仿</td>
+              <td>小包</td>
+            </tr>
+            <tr>
+              <td>GS0201-02-L</td>
+              <td>108克</td>
+              <td>销售中</td>
+              <td>待采购</td>
+              <td>货仿</td>
+              <td>EMS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="r"><span class="s_1">包裹号：60413638158550 |
+        普货 | 小包
+        
+        | 580克 | 已发货 | 运单号：RB21001447CN | <img src="images/ico_6.gif"> </span>
+        <table class="tr_h">
+          <thead>
+            <tr>
+              <th width="110">SKU</th>
+              <th width="60">重量</th>
+              <th width="70">销售状态</th>
+              <th width="65">性质</th>
+              <th width="65">销售价</th>
+              <th >售后处理</th>
+            </tr>
+            <tr>
+              <td>GS0301-01-L</td>
+              <td>285克</td>
+              <td>销售中</td>
+              <td>仿货</td>
+              <td>$5.4</td>
+              <td class="sbtn">部分退款 - $5 - 发错</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GS0041-01-M</td>
+              <td>210克</td>
+              <td>销售中</td>
+              <td>普货-平邮</td>
+              <td>$5.4</td>
+              <td class="sbtn">-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</HTML>

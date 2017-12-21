@@ -1,0 +1,601 @@
+﻿@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>乐诚电商管理系统</title>
+    <meta name="description" content="描述" />
+    <meta name="keywords" content="关键词" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/font/iconfont.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/jqadmin.css" media="all">
+    <style type="text/css">
+        #closealltab {
+            position: absolute;
+            display: inline-block;
+            z-index: 9999;
+            right: 0px;
+            top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header header">
+            <!-- logo区域 -->
+            <div class="jqadmin-logo-box">
+                <a class="logo" href="http://www.baidu.com/" title="乐诚电商管理系统"><img src="/images/logo3.png" style="width:100%;margin-top:16px;" alt=""></a>
+            </div>
+            <!-- 主菜单区域 -->
+            <div class="jqadmin-main-menu">
+                <ul class="layui-nav clearfix" lay-filter="main-menu">
+                    <li class="layui-nav-item layui-this">
+                        <a href="javascript:;"><i class="iconfont">&#xe637; </i>基础数据</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="iconfont">&#xe638; </i>业务处理</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="iconfont ">&#xe672; </i>查询管理</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="iconfont">&#xe615; </i>财务管理</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="iconfont">&#xe629; </i>其他</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 头部右侧导航 -->
+            <div class="header-right" style="float:right;">
+                <ul class="layui-nav jqadmin-header-item right-menu">
+                    <li class="layui-nav-item first">
+                        <a href="javascript:;">
+                            <cite> <i class="iconfont " data-icon='&#xe672;'>&#xe672; </i> @ViewData["username"]</cite>
+                            <span class="layui-nav-more"></span>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascrpt:void(0)" id="logout"><i class="iconfont ">&#xe64b; </i>退出</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item tab-menu"><a class="msg" href="javascript:;" data-url="msg.html" data-title="站内信息"><i class="iconfont" data-icon='&#xe63c;'>&#xe63c; </i><span class="msg-num">1</span></a></li>
+                </ul>
+                <button title="关闭所有菜单" class="layui-btn layui-btn-normal " id="closealltab"><i class="iconfont" data-icon='&#xe600;'>&#xe600;</i></button>
+            </div>
+        </div>
+        <!-- 左侧导航-->
+        <div class="layui-side jqamdin-left-bar">
+            <!--子菜单项-->
+            <p class="jqadmin-home tab-menu">
+                <a href="javascript:;" data-url="index.html" data-title="后台首页">
+                    <i class="iconfont" data-icon='&#xe600;'>&#xe600;</i>
+                    <span>后台首页</span>
+                </a>
+            </p>
+            <div class="sub-menu">
+                <!--系统管理-->
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item layui-nav-itemed" data-bind="">
+                        <a href="javascript:;" data-title="产品管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>产品管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/Product/Index" data-title="产品分类">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>产品分类</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/NewProduct/index" data-title="产品添加">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>产品添加</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Product/GetProcudtList" data-title="产品管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>产品管理</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed" data-bind="">
+                        <a href="javascript:;" data-title="用户管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>用户管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/User/UserManage" data-title="用户和权限">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>用户和权限</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed" data-bind="">
+                        <a href="javascript:;" data-title="仓库管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>仓库管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/WareHouse/Index" data-title="仓库管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>仓库管理</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/StorageBin/Index" data-title="库位管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>库位管理</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Stock/Index" data-title="仓库库存管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>仓库库存管理</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed" data-bind="">
+                        <a href="javascript:;" data-title="供应商管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>供应商管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/Supplier/SerachSupplier" data-title="供应商管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>供应商管理</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed" data-bind="">
+                        <a href="javascript:;" data-title="平台及店铺管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>平台及店铺管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/Platform/Index" data-title="平台管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>平台管理</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Shop/Index" data-title="店铺管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>店铺管理</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed" data-bind="">
+                        <a href="javascript:;" data-title="快递公司管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>快递公司管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/Express/Index" data-title="快递公司管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>快递公司管理</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Express/Import" data-title="导入快递单号">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>导入快递单号</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Express/Search" data-title="剩余单号查询">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>剩余单号查询</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Express/UseExpressCode" data-title="使用系统快递单号">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>使用系统快递单号</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed" data-bind="">
+                        <a href="javascript:;" data-title="打印管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>打印管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/Printer/Index" data-title="打印插件管理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>打印插件管理</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sub-menu">
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-title="订单管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>订单管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/ImportOrder/index" data-title="订单导入">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>订单导入</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/ImportOrder/GetOrderCountByTime" data-title="订单处理">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>订单处理</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/OrderQuery_Shop/Index" data-title="店铺订单查询">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>店铺订单查询</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/ExportCSV/Index" data-title="导出已发货数据">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>导出已发货数据</span>
+                                </a>
+                            </dd>
+                            @*<dd>
+                                    <a href="javascript:;" data-url="/MangagePackge/Index" data-title="客户退货换货">
+                                        <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                        <span>客户退货换货</span>
+                                    </a>
+                                </dd>*@
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-title="采购管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>采购管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/WaitPurchase/Index" data-title="等待采购">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>等待采购</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/GoodsReceived/Index" data-title="填写快递单号">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>填写快递单号</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/MaterialReceipt/Index" data-title="等待收货">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>等待收货及检验</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Procurement/Index" data-title="采购历史">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>采购历史</span>
+                                </a>
+                            </dd>
+                            @*<dd>
+                                    <a href="javascript:;" data-url="/MangagePackge/Index" data-title="不良品处理">
+                                        <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                        <span>不良品处理</span>
+                                    </a>
+                                </dd>*@
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-title="配货管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>配货管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/MangagePackge/Index" data-title="商品配货">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>商品配货</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Printer/PrintSelect" data-title="打印拣选">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>打印拣选</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Express/ExportSelectExpress" data-title="导出对应快递数据">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>导出对应快递数据</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/MangagePackge/Index" data-title="装箱发货">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>装箱发货</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/NotPicking/Index" data-title="未配货查询">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>未配货查询</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Declaration/Index" data-title="报关管理">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>报关管理</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Express/AssociateExpressCode" data-title="关联单号">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>关联单号</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Express/AssociateDHLExpressCode" data-title="国际单号关联">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>国际单号关联</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-title="海外管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>海外管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/OverseasDelivery/Index" data-title="待收货处理">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>待收货处理</span>
+                                </a>
+                            </dd>
+                            @*<dd>
+                                    <a href="javascript:;" data-url="/MangagePackge/Index" data-title="海外费用管理">
+                                        <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                        <span>海外费用管理</span>
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="javascript:;" data-url="/MangagePackge/Index" data-title="退货返品处理">
+                                        <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                        <span>退货返品处理</span>
+                                    </a>
+                                </dd>*@
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sub-menu">
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-title="综合查询">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>综合查询</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/LogisticsQuery/Index" data-title="物流综合查询">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>物流综合查询</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/InternationalQuiry/Index" data-title="国际物流查询">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>国际物流查询</span>
+                                </a>
+                            </dd>
+                            @*<dd>
+                                    <a href="javascript:;" data-url="/MangagePackge/Index" data-title="销售数量查询">
+                                        <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                        <span>销售数量查询</span>
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="javascript:;" data-url="/MangagePackge/Index" data-title="发货数量查询">
+                                        <i class="iconfont " data-icon='&#xe74d;'>&#xe74d;</i>
+                                        <span>发货数量查询</span>
+                                    </a>
+                                </dd>*@
+                            <dd>
+                                <a href="javascript:;" data-url="/OrderQuery/Index" data-title="订单综合查询">
+                                    <i class="iconfont " data-icon='&#xe74d;'>&#xe74d;</i>
+                                    <span>订单综合查询</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sub-menu">
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-title="财务管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>财务管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/StoreSales/Index" data-title="店铺销售额查询">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>店铺销售额查询</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/ProcurementCosts/Index" data-title="采购费用">
+                                    <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                    <span>采购费用查询</span>
+                                </a>
+                            </dd>
+                            @*<dd>
+                                    <a href="javascript:;" data-url="/MangagePackge/Index" data-title="物流费用">
+                                        <i class="iconfont" data-icon='&#xe60f;'>&#xe60f;</i>
+                                        <span>物流费用查询</span>
+                                    </a>
+                                </dd>*@
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sub-menu">
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-title="报表管理">
+                            <i class="iconfont">&#xe672;</i>
+                            <span>报表管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/MangagePackge/Index" data-title="报表查询">
+                                    <i class="iconfont" data-icon='&#xe630;'>&#xe630;</i>
+                                    <span>报表查询</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- 左侧侧边导航结束 -->
+        <!-- 右侧主体内容 -->
+        <div class="layui-body jqadmin-body" id="jqadmin-body">
+            <div class="display-arrow">
+                <span class="arrow-box">
+                    <i class="iconfont">&#xe616;</i>
+                </span>
+            </div>
+            <div class="layui-tab layui-tab-card jqadmin-tab-box" id="jqadmin-tab" lay-filter="tabmenu" lay-allowclose="true" lay-notauto="true">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" id="admin-home"><i class="iconfont">&#xe600;</i><em>首页</em></li>
+                </ul>
+                @*<div id="closealltab" class="layui-nav-item" style="position:fixed;right:10px;top:200px;">
+                        <button title="全部关闭" class="layui-btn">
+                            <i class="iconfont">&#xe62e; </i>全部关闭
+                        </button>
+                    </div>*@
+                <div class="tab-move-btn">
+                    <span class="move-left-btn"><i class="iconfont">&#xe616;</i></span>
+                    <span class="move-right-btn"><i class="iconfont ">&#xe618;</i></span>
+                </div>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <iframe class="jqadmin-iframe" data-id='0' src=""></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部区域 -->
+        <div class="layui-footer jqadmin-foot" id="jqadmin-footer">
+            <div class="layui-mian">
+                <span>用户:</span><span style="margin-right: 150px;"><a>admin</a></span>
+                <span>登录时间:</span><span style="margin-right: 150px;"><a>2017-04-24</a></span>
+                <span>软件所有者:</span><span style="margin-right: 150px;"><a>乐诚</a></span>
+                <span>版本号:</span><span style="margin-right: 150px;"><a>1.0.0.0</a></span>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+    <script type="text/javascript">
+        layui.config({
+            base: '/Scripts'
+        }).extend({
+            elem: '/jqmodules/elem',
+            tabmenu: '/jqmodules/tabmenu'
+        }).use('/index');
+
+        layui.use(['layer'], function () {
+            var layer = layui.layer;
+            //layer.msg("1111111");
+
+            $("#logout").click(function () {
+                layer.msg('确定要退出吗？', {
+                    time: 0 //不自动关闭
+                  , btn: ['确认', '取消']
+                  , yes: function (index) {
+                      layer.close(index);
+                      $.post('@Url.Content("~/Main/Logout")', {}, function (data) {
+                          if (data.State == 1) {
+                              window.location.href = data.URL;
+                          } else {
+                              layer.msg(data.Msg);
+                          }
+                      })
+                  }
+                });
+            })
+
+        });
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            //关闭全部选项卡 logout
+            $("#closealltab").click(function () {
+                $(".layui-tab-close").click();
+            })
+        });
+    </script>
+</body>
+</html>
+
+
+
+

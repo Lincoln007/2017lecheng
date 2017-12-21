@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    
+    <link rel="shortcut icon" href="images/title.ico" type="image/png"><!--标题图标-->
+    <title>乐诚国际电商系统</title>
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+     <link rel="stylesheet" type="text/css" href="./layui/css/layui.css" media="all">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="login-body">
+
+<div class="container">
+
+    <form class="form-signin" action="index.html">
+        <div class="form-signin-heading text-center">
+            <h1 class="sign-title">乐诚国际电商管理系统</h1>
+            <img src="images/login-logo.png" alt=""/>
+        </div>
+        <div class="login-wrap">
+            <div><input type="text"  id="userid" placeholder="用户名" autofocus style="height: 40px; width:100%;" ></div>
+            <div><input type="password" id="password" placeholder="密码" style="height: 40px; width:100%;"></div>
+            <div><input type="text"  id="validecode" placeholder="验证码" style="width:50%;height:40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="http://erp.ywsto.com/ValidCode/"></div>
+
+            <button class="btn btn-lg btn-login btn-block" type="button" id="login">
+                <i class="fa fa-check"></i>
+            </button>
+
+            <!--div class="registration">
+                Not a member yet?
+                <a class="" href="registration.html">
+                    Signup
+                </a>
+            </div-->
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> 记住我
+                <span class="pull-right">
+                    <a data-toggle="modal" href="#myModal" id="getpass"> 忘记密码?</a>
+
+                </span>
+            </label>
+
+        </div>
+
+        <!-- Modal -->
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModalTest" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Forgot Password ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your e-mail address below to reset your password.</p>
+                        <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                        <button class="btn btn-primary" type="button">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal -->
+
+    </form>
+
+</div>
+
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="./layui/layui.js"></script>
+  <script type="text/javascript">
+        $(function () {
+              
+                 layui.use(['layer', 'laypage', 'element', 'form'], function () {
+                            var layer = layui.layer
+                                    , laypage = layui.laypage
+                                    , form = layui.form
+                                    , element = layui.element();
+
+                                })
+
+                 $("#getpass").on("click", function(){
+                         layer.alert('如果忘记密码请联系管理员', {
+                               icon: 6,
+                               skin: 'layui-layer-molv'
+                              ,closeBtn: 0
+                              ,anim: 4 //动画类型
+                            });
+                     });
+                  $("#login").on("click", function(){
+                    var userid=$("#userid").val();
+                    var password=$("#password").val();
+                    var ValidCode=$("#validecode").val();
+                      if(false==getCorrect(userid,password,ValidCode))
+                      {
+                         return;
+                      }
+                     
+                     //验证通过，提交到服务端
+                          var wait = layer.load(0, {
+                              shade: [0.1, '#676a6c'] //0.1透明度的白色背景
+                          });
+
+                $.post("~/AssetClass/Save", { userid: userid, password: password, ValidCode: ValidCode}, function (data) {
+                    layer.close(wait);
+                    if (data.result) {
+                        layer.msg("登录成功");
+                        window.location="/Main/Index";                    
+                    } else {
+                        layer.msg("登录失败,原因:" + data.message);
+                    }
+                })
+            })
+                   //获取图形验证码 ?rnd=" + Math.random()
+                  
+                      $("#validecode").click(function () {
+                          $(this).attr("src", "http://erp.ywsto.com/ValidCode/?rnd=" + Math.random());
+                      });
+                      
+                  //得到正确的提交信息
+                 function getCorrect(userid,password,ValidCode)
+                 {
+                    
+                    if(userid=="")
+                    {
+                        $("#userid").focus();
+                        layer.msg("用户ID不能为空!");
+                        return false;
+                    }  
+                     //检查字符串
+                    if(!/^[0-9a-zA-Z\u4e00-\u9fa5]+$/.test(userid)) {
+                        $("#userid").focus();
+                        layer.msg("用户ID不能包含特殊字符");
+                        return false;
+                   }
+                    if(password=="")
+                    {
+                        $("#password").focus();
+                         layer.msg("密码不能为空!");
+                        return false;
+                    }  
+                     //检查字符串
+                    if(!/^[0-9a-zA-Z\u4e00-\u9fa5]+$/.test(password)) {
+                        $("#password").focus();
+                        layer.msg("密码不能包含特殊字符");
+                        return false;
+                   }
+                    if(ValidCode=="")
+                    {
+                        $("#validecode").focus();
+                        layer.msg("验证码不能为空!");
+                        return false;
+                    }                   
+                 }
+        })
+ </script>
+
+</body>
+</html>

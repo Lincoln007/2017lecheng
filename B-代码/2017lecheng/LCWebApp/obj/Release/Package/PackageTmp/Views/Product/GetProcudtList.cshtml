@@ -1,0 +1,801 @@
+﻿@{
+    ViewBag.Title = "GetProcudtList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>乐诚</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/font/iconfont.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/jqadmin.css" media="all">
+    <link rel="stylesheet" type="text/css" href="~/css/main.css?v1.0.0" media="all">
+
+</head>
+<body>
+    <div style="margin-left:20px;margin-top:20px;">
+        <label>款号:</label><input type="text" id="prostyle"/>
+        <label>SKU:</label><input type="text" id="proskucode"/>
+        <label>开发人:</label><input type="text" id="prodevelpoer"/>
+        <input type="button" value="查询" class="layui-btn   layui-btn-small" id="searchPro"/>
+        <label style="color:red; margin-left:50px;">查询都是针对正式产品库的查询</label>
+    </div>
+    <div class="container-fluid larry-wrapper">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <!--头部搜索-->
+                <div class="layui-tab layui-tab-brief" lay-filter="demo">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this" lay-id="1">待审区</li>
+                        <li  lay-id="2" >产品库</li>
+                        <li lay-id="3">回收站</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" lay-skin="line" id="mytable" showpager="true" url="">
+                                <thead>
+                                    <tr>
+                                        <th >ID</th>
+                                        <th >图片</th>
+                                        <th >标题</th>
+                                        <th >类别</th>
+                                        <th >款号</th>
+                                        <th >开发人</th>
+                                        <th >开发时间</th>
+                                        <th >参考价(RMB)</th>
+                                        <th >状态</th>
+                                        <th >备注</th>
+                                        <th >产品详情</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody"></tbody>
+                            </table>
+                            <div>
+                                <span>总记录数:</span><span id="totil"></span>&nbsp;&nbsp;
+                                <span>总页数:</span><span id="totilpage"></span>&nbsp;&nbsp;
+                                <span>每页几条:</span>
+                                <select id="onepagecount">
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div id="laypage" class="layui-inline"></div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-table" lay-skin="line" id="mytable2" showpager="true" url="">
+                                <thead>
+                                    <tr>
+                                        <th field="prod_title">ID</th>
+                                        <th field="prod_title">图片</th>
+                                        <th field="prod_title">标题</th>
+                                        <th field="pic_url">类别</th>
+                                        <th field="prod_title">款号</th>
+                                        <th field="prod_title">开发人</th>
+                                        <th field="pic_url">开发时间</th>
+                                        <th field="prod_title">参考价(RMB)</th>
+                                        <th field="pic_url">状态</th>
+                                        <th field="pic_url">备注</th>
+                                        <th field="pic_url">产品详情</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody2"></tbody>
+                            </table>
+                            <div>
+                                <span>总记录数:</span><span id="totil2"></span>&nbsp;&nbsp;
+                                <span>总页数:</span><span id="totilpage2"></span>&nbsp;&nbsp;
+                                <span>每页几条:</span>
+                                <select id="onepagecount2">
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div id="laypage2" class="layui-inline"></div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-table" lay-skin="line" id="mytable2" showpager="true" url="">
+                                <thead>
+                                    <tr>
+                                        <th field="prod_title">ID</th>
+                                        <th field="prod_title">图片</th>
+                                        <th field="prod_title">标题</th>
+                                        <th field="pic_url">类别</th>
+                                        <th field="prod_title">款号</th>
+                                        <th field="prod_title">开发人</th>
+                                        <th field="pic_url">开发时间</th>
+                                        <th field="prod_title">参考价(RMB)</th>
+                                        <th field="pic_url">状态</th>
+                                        <th field="pic_url">备注</th>
+                                        <th field="pic_url">产品详情</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody3"></tbody>
+                            </table>
+                            <div>
+                                <span>总记录数:</span><span id="totil3"></span>&nbsp;&nbsp;
+                                <span>总页数:</span><span id="totilpage3"></span>&nbsp;&nbsp;
+                                <span>每页几条:</span>
+                                <select id="onepagecount3">
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div id="laypage3" class="layui-inline"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+    <script type="text/javascript" src="~/Scripts/table.js"></script>
+    <script type="text/javascript" src="~/Scripts/Najaxfileupload.js"></script>
+    <script type="text/javascript">
+
+    //更新SKU
+    function aa(e) {
+        var codeID = $(e).parent().children().eq(0).val();
+        var skucode = $(e).parent().children().eq(1).val();
+        $.post('@Url.Content("~/Product/UpdateSKU")', { codeID: codeID, skucode: skucode }, function (data) {
+            if (data.State == 1) {
+                layer.msg(data.Msg, { icon: 6, time: 1000 });
+            } else {
+                layer.msg(data.Msg);
+            }
+        })
+    }
+
+    //更新保存
+    function UpdateSKU() {
+        var proid = $("#proid").val();//产品ID
+        var code = $("#code").val(); //款号
+        var proname = $("#proname").val();//标题
+        var bgname = $("#bgname").val(); //报关名称
+        var bgcode = $("#bgcode").val(); //报关编码
+        var bgprice = $("#bgprice").val();//报关价格
+        var weight = $("#weight").val(); //重量
+        var price = $("#price").val(); //参考价格
+        var remark = $("#remark").val(); //备注
+        var purchase_url = $("#purchase_url").val();//采购地址
+        var profly = $("#profly").val();//分类
+        var promodel = $("#promodel").val();//颜色型号
+        var prosize = $("#prosize").val(); //大小
+        var prostatus = $("#pro_status").val(); //状态，未审核
+        $.post('@Url.Content("~/NewProduct/UpdateNewProduct")', {
+            code: code, proname: proname, bgname:bgname,bgcode: bgcode, bgprice: bgprice, weight: weight,
+            price: price, remark: remark, profly: profly, promodel: promodel, prosize: prosize, proid: proid, prostatus: prostatus, purchase_url: purchase_url
+        },
+        function (data) {
+            if (data.State == 1) {
+                layer.msg(data.Msg, { icon: 6, time: 2000 });
+            } else {
+                layer.msg(data.Msg);
+            }
+        })
+    }
+
+    var openedit;
+    function Setpro(pro) {
+        $("#proid").val(pro.prod_id);
+        $("#code").val(pro.prod_style);
+        $("#proname").val(pro.prod_title);
+        $("#bgcode").val(pro.bgcode);
+        $("#bgprice").val(pro.price_us);
+        $("#weight").val(pro.pre_weight);
+        $("#price").val(pro.price_cn);
+        $("#remark").val(pro.remark);
+        $("#purchase_url").val(pro.prod_url);//Url
+        $("#clasf option[value='" + pro + "']").attr("selected", "selected");
+        // $("#profly").val(pro.);
+        $("#profly option[value='" + pro.prod_class_id + "']").attr("selected", "selected");
+        $("#prod_status option[value='" + pro.prod_status + "']").attr("selected", "selected");
+        $("#promodel").val(pro.model);//颜色型号  prod_status
+        $("#prosize").val(pro.size);
+    }
+    //绑定数据到表格
+    function BuildSku(list) {
+        var body = $("#tbodysku");
+        var totiltext;
+        for (var i = 0; i < list.length; i++) {
+            var mtext = "<tr>";
+            mtext = mtext + buildTrS(list[i]);
+            mtext = mtext + "</tr>";
+            totiltext = totiltext + mtext;
+        }
+        body.append(totiltext);
+    }
+    function buildTrS(tr) {
+        var trContent = "<td><input type='hidden' value='" + tr.code_id + "'><input type='text' value='" + tr.sku_code + "' onblur='aa(this)' /></td>";
+        trContent += "<td>销售中</td>";
+        trContent += "<td><input type='button' class='layui-btn layui-btn-mini layui-btn-normal' onclick='DeleteSKU(this)' value='删除'/></td>";
+        return trContent;
+    }
+
+    function SetSKU(proskus) {
+        $('#tbodysku').children().remove();
+        BuildSku(proskus);
+    }
+
+    //产品设置供应商
+    function SetSupp(prosupp) {
+        $('#supplierlist').find("option").remove();
+        $("#supplierlist").empty();
+
+        var body = $("#supplierlist");
+        var totiltext;
+        for (var i = 0; i < prosupp.length; i++) {
+            var mtext = "<option ";
+            mtext = mtext + "value='" + prosupp[i].rel_id + "'";
+            mtext = mtext + ">" + prosupp[i].lev_purch + "." + prosupp[i].suppliername + "</option>";
+            totiltext = totiltext + mtext;
+        }
+        body.append(totiltext);
+        //form.render();
+    }
+
+    //处理无图
+    function noFindImg() {
+        var img = event.srcElement;
+        img.src = "/upload/400-400.jpg";
+        img.onerror = null;
+    }
+
+    var currproid = "";
+    $("#fileup").change(function () {
+        $.ajaxFileUpload({
+            url: '/Product/UploadMainImage', //你处理上传文件的服务端
+            secureuri: false,//是否启用安全机制
+            fileElementId: "#fileup",//file的id
+            dataType: 'json',//返回的类型
+            data: { proid: currproid },
+            success: function (data) {//调用成功时怎么处理
+                if (data.State == 1) {
+                    $('#mainimg').attr('src', data.URL);
+                    ///layer.msg(data.URL);
+                } else {
+                    layer.msg(data.Msg);
+                }
+            }
+        });
+    });
+
+    //点击弹出框,获取数据
+    function ProDetail(e) {
+        var proID = $(e).parent().parent().children().eq(0).text();
+        currproid = $(e).parent().parent().children().eq(0).text();
+        $.post('@Url.Content("~/Product/GetProductDetail")', { proID: proID }
+                , function (data) {
+                    if (data.State) {
+                        var pro = data.DataResult.pro;
+                        var proskus = data.DataResult.proskus;
+                        var proimgs = data.DataResult.proimgs; //图片数据
+                        var prosupp = data.DataResult.prosupp; //得到供应商数据
+                        Setpro(pro); //设置产品数据
+                        SetSKU(proskus);//设置SKU
+                        SetSupp(prosupp);
+                        Setimg(proimgs, pro);
+                    }
+
+                });
+
+            $("#fileup").change(function () {
+                $.ajaxFileUpload({
+                    url: '/Product/UploadMainImage', //你处理上传文件的服务端
+                    secureuri: false,//是否启用安全机制
+                    fileElementId: "fileup",//file的id
+                    dataType: 'json',//返回的类型
+                    data: { proid: proID },
+                    success: function (data) {//调用成功时怎么处理
+                        if (data.State == 1) {
+                            $('#mainimg').attr('src', data.URL);
+                            ///layer.msg(data.URL);
+                        } else {
+                            layer.msg(data.Msg);
+                        }
+                    }
+                });
+            });
+            //产品设置图片
+            function Setimg(proimgs, pro) {
+                $('#mainimg').attr("src", pro.pic_url);
+                //$('#myullist').children().remove();style='width:180px;height:200px;border: 1px solid #ddd;padding: 5px;background: #fff; background:url(" + proimgs[i].pic_url + ");background-size：cover;'
+                $("#myullist").find("li").remove();
+                var body = $("#myullist");
+                var totiltext = "";
+                for (var i = 0; i < proimgs.length; i++) {
+                    var mtext = "<li style='float:left;margin-left:20px;width:200px;'><a href='' title='删除' style='float:right;'><i class='layui-icon'>&#xe640;</i> </a>";
+                    mtext = mtext + "";
+                    mtext = mtext + "<div><img onerror='noFindImg()' src='" + proimgs[i].pic_url + "' style='width:180px;height:200px;border: 1px solid #ddd;padding: 5px;background: #fff;z-Index:-100'/><input type='file' onchange='ChangeImg(this)' class='fileclass' name='files' id='" + proimgs[i].prod_model + "' multiple /> ";
+                    mtext = mtext + "<input type='text' name='' value='" + proimgs[i].prod_model + "' style='text-align:center;width:180px;'/> </div></li>";
+                    totiltext = totiltext + mtext;
+                    //form.render();
+                }
+                body.append(totiltext);
+
+                $("body").on("change", ".fileclass", function () {
+                    var e = $(this);
+                    var c = e.context.previousSibling;
+
+                    var itemID = e.attr('id');
+                    $.ajaxFileUpload({
+                        url: '/Product/UploadImage', //你处理上传文件的服务端
+                        secureuri: false,//是否启用安全机制
+                        fileElementId: itemID,//file的id
+                        dataType: 'json',//返回的类型
+                        data: { proid: pro.prod_id, model: itemID },
+                        success: function (data) {//调用成功时怎么处理
+                            if (data.State == 1) {
+                                c.attributes["src"].value = data.URL;
+                                ///layer.msg(data.URL);
+                            } else {
+                                layer.msg(data.Msg);
+                            }
+                        }
+                    });
+                })
+            }
+                var p_status = $(e).parent().parent().children().eq(8).text();
+                //if (p_status == "回收站") {
+                //    $("#pro_status").find("option").removeAttr("selected");
+                //    $("#pro_status").find("option[value='2']").attr("selected", "selected");
+                //}
+                //else if (p_status == "销售中") {
+                //    $("#pro_status").find("option").removeAttr("selected");
+                //    $("#pro_status").find("option[value='1']").attr("selected", "selected");
+                //}
+                //else if (p_status == "待审核") {
+                //    $("#pro_status").find("option").removeAttr("selected");
+                //    $("#pro_status").find("option[value='0']").attr("selected", "selected");
+                //}
+
+                openedit = layer.open({
+                    type: 1,
+                    title: "产品详情",
+                    content: $('#layersupp'),
+                    area: ['1200px', '800px']
+                });
+        }
+
+        //添加供应商DeleteSupplier()
+        function DeleteSupplier() {
+            layer.msg('确定要删除吗？', {
+                time: 0 //不自动关闭
+                 , btn: ['确认', '取消']
+                 , yes: function (index) {
+                     layer.close(index);
+                     var supplier = $("#supplierlist").find("option:selected");
+                     var proid = currproid;
+                     if ("" == supplier || null == supplier) {
+                         layer.msg("请选择一个要删除的供应商");
+                         return;
+                     }
+                   $.post('@Url.Content("~/Product/DeleteProductSupplier")', { relid: supplier.val(), proid: proid }, function (data) {
+                     if (data.State == 1) {
+                              $("#supplierlist").find("option:selected").remove();//删除当前选中的项
+                           } else {
+                             layer.msg(data.Msg);
+                           }
+
+                      })
+                 }
+            });
+           
+
+        }
+
+        function AddSupplier() {
+            var supplier = $('#suppliername').val();
+            var proid = currproid;
+            if ("" == supplier)
+            {
+                layer.msg("供应商不能为空");
+                return;
+            }
+            $.post('@Url.Content("~/Product/AddProductSupplier")', { supplier: supplier, proid: proid }, function (data) {
+            if (data.State == 1) {
+                $('#supplierlist').append("<option value='" + data.DataResult.rel_id + "'>" + data.DataResult.lev_purch + "." + supplier + "</option>");
+                $('#suppliername').val("");
+            } else {
+                layer.msg(data.Msg);
+            }
+
+        })
+    }
+    </script>
+    <script>
+
+        $(function () {
+            layui.use(['form', 'layer', 'laypage', 'element', 'upload'], function () {
+                var form = layui.form()
+                      , layer = layui.layer
+                     , laypage = layui.laypage
+                     , element = layui.element();
+                     
+
+
+                GetSHpage(); //第一个tab
+                Getproclsfly(); //页面加载就加载下拉菜单，好奇葩
+
+                function Getproclsfly() {
+                    $.post('@Url.Content("~/GetDropDownList/GetProductClasfly")', {}, function (data) {
+                        $('#profly').children().remove();
+                        for (var i = 0; i < data.length; i++) {
+
+                            $('#profly').append("<option value='" + data[i].prod_class_id + "'>" + data[i].class_name + "</option>"); //为Select追加一个Option(下拉项)
+                        }
+                        form.render('select');
+                    })
+                }
+                //监听tab切换
+                element.on('tab(demo)', function (data) {
+                    console.log(this); //当前Tab标题所在的原始DOM元素
+                    console.log(data.index); //得到当前Tab的所在下标
+                    console.log(data.elem); //得到当前的Tab大容器
+                    if (this.innerText == "待审区") {
+                        rendertable(1, 0,"", "","");
+                    } else if (this.innerText == "产品库") {
+                        rendertable(1, 1),"","","";
+                    } else if (this.innerText == "回收站") {
+                        rendertable(1, 2,"","","");
+                    }
+                });
+
+                //绑定数据到表格
+                function Build(objlist) {
+                    var body = $("#tbody");
+                    var totiltext;
+                    $(objlist).each(function (i, e) {
+                        var mtext = "<tr>";
+                        mtext = mtext + buildTr(e);
+                        mtext = mtext + "</tr>";
+                        totiltext = totiltext + mtext;
+                    })
+                    body.append(totiltext);
+                }
+
+                function Build2(objlist) {
+                    var body = $("#tbody2");
+                    var totiltext;
+                    $(objlist).each(function (i, e) {
+                        var mtext = "<tr>";
+                        mtext = mtext + buildTr(e);
+                        mtext = mtext + "</tr>";
+                        totiltext = totiltext + mtext;
+                    })
+                    body.append(totiltext);
+                }
+
+                function Build3(objlist) {
+                    var body = $("#tbody3");
+                    var totiltext;
+                    $(objlist).each(function (i, e) {
+                        var mtext = "<tr>";
+                        mtext = mtext + buildTr(e);
+                        mtext = mtext + "</tr>";
+                        totiltext = totiltext + mtext;
+                    })
+                    body.append(totiltext);
+                }
+                //时间转换
+                function data_string(str) {
+                    var d = eval('new ' + str.substr(1, str.length - 2));
+                    var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()];
+                    for (var i = 0; i < ar_date.length; i++) ar_date[i] = dFormat(ar_date[i]);
+                    return ar_date.slice(0, 3).join('-') + ' ' + ar_date.slice(3).join(':');
+
+                    function dFormat(i) { return i < 10 ? "0" + i.toString() : i; }
+                }
+
+                function buildTr(tr) {
+                    var trContent = "<td>" + tr.prod_id + "</td>";
+                    trContent += "<td><img src='" + tr.pic_url + "' style='width:100px;height:100px;'></td>";
+                    trContent += "<td>" + tr.prod_title + "</td>";
+                    trContent += "<td>" + tr.prod_property + "</td>";
+                    trContent += "<td>" + tr.prod_style + "</td>";
+                    trContent += "<td>" + tr.prod_developer + "</td>";
+                    trContent += "<td>" + data_string(tr.create_time) + "</td>";
+                    trContent += "<td>" + tr.price_cn + "</td>";
+                    trContent += "<td>" + tr.prod_status + "</td>";
+                    trContent += "<td>" + tr.remark + "</td>";
+                    trContent += "<td><input type='button' class='layui-btn  layui-btn-normal' onclick='ProDetail(this)' value='产品详情及设置'/></td>";
+                    return trContent;
+                }
+
+             
+
+
+                $("#searchPro").click(function () {
+                    var prostyle = $("#prostyle").val().trim();
+                    var proskucode = $("#proskucode").val().trim();
+                    var prodevelpoer = $("#prodevelpoer").val().trim();
+                    rendertable(1, 1, prostyle, proskucode, prodevelpoer);
+                });
+                //渲染表格数据
+                function rendertable(index, status, prostyle,  proskucode,  prodevelpoer) {
+                    var daoru = layer.load(0, {
+                        shade: [0.1, '#676a6c']  //0.1透明度的白色背景 layui-btn-mini
+                    });
+                    var pagesize = 0;
+                    if (status == 0) {
+                        pagesize = $("#onepagecount").val();
+                        $("#tbody").children().remove();
+                        $("#laypage").children().remove();//清空数据
+                    } else if (status == 1) {
+                        pagesize = $("#onepagecount2").val();
+                        $("#tbody2").children().remove();
+                        $("#laypage2").children().remove();//清空数据
+                    } else if (status == 2) {
+                        pagesize = $("#onepagecount3").val();
+                        $("#tbody3").children().remove();
+                        $("#laypage3").children().remove();//清空数据
+                    }
+
+                    //var pagecount = $("#onepagecount").val();//单页几条数据
+                    $.post('@Url.Content("~/Product/GetProcudtListByCondtion")', { pageIndex: index, onepagecount: pagesize, status: status, prostyle:prostyle,  proskucode:proskucode,  prodevelpoer:prodevelpoer}
+                           , function (data) {
+                               if (data.State) {
+                                   if (data.objlist.length > 0) { //如果有数据
+                                       if (status == 0) {
+                                           Build(data.objlist); //绑定数据到表格
+                                           $("#totil").text(data.count);
+                                           $("#totilpage").text(data.pageCount);
+                                           totil = data.count;
+                                           totilpage = data.pageCount;
+                                           laypage({
+                                               cont: 'laypage'
+                                               , curr: index
+                                               , skip: false
+                                               , pages: totilpage
+                                               , jump: function (obj, first) {
+                                                   if (!first)//不是首次加载
+                                                   {
+                                                       rendertable(obj.curr, status,"","",""); //自动调用的函数
+                                                   }
+                                               }
+                                           });
+                                       } else if (status == 1) {
+                                           Build2(data.objlist); //绑定数据到表格
+                                           $("#totil2").text(data.count);
+                                           $("#totilpage2").text(data.pageCount);
+                                           totil = data.count;
+                                           totilpage = data.pageCount;
+                                           laypage({
+                                               cont: 'laypage2'
+                                               , curr: index
+                                               , skip: false
+                                               , pages: totilpage
+                                               , jump: function (obj, first) {
+                                                   if (!first)//不是首次加载
+                                                   {
+                                                       rendertable(obj.curr, status,"","",""); //自动调用的函数
+                                                   }
+                                               }
+                                           });
+                                       } else if (status == 2) {
+                                           Build3(data.objlist); //绑定数据到表格
+                                           $("#totil3").text(data.count);
+                                           $("#totilpage3").text(data.pageCount);
+                                           totil = data.count;
+                                           totilpage = data.pageCount;
+                                           laypage({
+                                               cont: 'laypage3'
+                                               , curr: index
+                                               , skip: false
+                                               , pages: totilpage
+                                               , jump: function (obj, first) {
+                                                   if (!first)//不是首次加载
+                                                   {
+                                                       rendertable(obj.curr, status,"","",""); //自动调用的函数
+                                                   }
+                                               }
+                                           });
+                                       }
+                                   }
+                                   else {
+                                       layer.msg("未找到任何数据");
+                                   }
+                               }
+                               else {
+                                   layer.msg("查询失败，失败原因：" + data.message);
+                               }
+                               layer.close(daoru);
+                           });
+                }
+                function GetSHpage() {
+                    rendertable(1, 0,"","","");
+                }
+
+           
+
+                //监听tab切换
+                element.on('tab(demo2)', function (data) {
+                    console.log(this); //当前Tab标题所在的原始DOM元素
+                    console.log(data.index); //得到当前Tab的所在下标
+                    console.log(data.elem); //得到当前的Tab大容器
+                    if (this.innerText == "产品详情") {
+                        rendertable(1, 0, "", "", "");
+                    } else if (this.innerText == "供应商及采购设置") {
+                        rendertable(1, 1), "", "", "";
+                    } else if (this.innerText == "产品图片信息") {
+                        rendertable(1, 2, "", "", "");
+                    }
+                });
+            })
+        })
+    </script>
+</body>
+<div id="layersupp" style="display:none">
+    <div class="layui-tab layui-tab-brief" lay-filter="demo2">
+        <ul class="layui-tab-title">
+            <li class="layui-this" lay-id="11">产品详情</li>
+            <li lay-id="22">供应商及采购设置</li>
+            <li lay-id="33">产品图片信息</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <table class="layui-table" lay-skin="line">
+                    <tr>
+                        <td>
+                            <label>产品状态:&nbsp;</label>
+                                <select id="pro_status">
+                                <option value="0">待审核</option>
+                                <option value="1">销售中</option>
+                                <option value="2">回收站</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="display:none"><input type="text" name="" id="proid" readonly="readonly" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><label>产品款号:&nbsp;</label><input type="text" name="" id="code" readonly="readonly" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>商品名称:&nbsp;</label><input type="text" name="" id="proname" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>报关名称:&nbsp;</label><input type="text" name="" id="bgname" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>报关编号:&nbsp;</label><input type="text" name="" id="bgcode" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>报关价格:&nbsp;</label><input type="text" name="" id="bgprice" value="" />(USD)</td>
+                    </tr>
+                    <tr>
+                        <td><label>预估重量:&nbsp;</label><input type="text" name="" id="weight" value="" />g</td>
+                    </tr>
+                    <tr>
+                        <td><label>参考价格:&nbsp;</label><input type="text" name="" id="price" value="" />(RMB)</td>
+                    </tr>
+                    <tr>
+                        <td><label>采购URL:&nbsp;</label><input type="text" name="" style="width:80%" placeholder="填写采购链接" id="purchase_url" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>产品备注:&nbsp;</label><input type="text" name="" style="width:80%" placeholder="填写如：采购注意（三双一组等），品牌，注意事项，材料等" id="remark" value="" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>产品类别:&nbsp;</label>
+                            <select id="clasf">
+                                <option value="0">普货</option>
+                                <option value="1" selected>仿货</option>
+                            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label>产品分类:&nbsp;</label>
+                            <select id="profly">
+                                <option value="0">衣服</option>
+                                <option value="1" selected>工具</option>
+                                <option value="2">母婴</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>颜色/型号:&nbsp;</label><input type="text" name="Model" id="promodel" value="" /><label style="color:red;">只能增加不能减少颜色型号</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>尺码/大小:&nbsp;</label><input type="text" name="Size" id="prosize" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button class="layui-btn layui-btn-normal" onclick="UpdateSKU()">保存</button></td>
+                    </tr>
+                </table>
+
+                <table class="layui-table">
+                    <thead>
+                        <tr style="background-color:#5CB85C">
+                            <th>SKU</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodysku">
+                        <tr>
+                            <td>bk188-01-00</td>
+                            <td>销售中</td>
+                            <td><button class="layui-btn layui-btn-small layui-btn-danger">删除</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <input type="text" placeholder="SKU" style="height:30px;" id="addsku">&nbsp;&nbsp;&nbsp;&nbsp;<button class="layui-btn layui-btn-small" onclick="AddSKU()">添加SKU</button>
+                </div>
+
+            </div>
+            <div class="layui-tab-item">
+                <div class="container-fluid larry-wrapper">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <!--头部搜索-->
+                            <section class="panel panel-padding">
+                                <blockquote class="layui-elem-quote">
+                                    绑定供应商
+                                </blockquote>
+                                <label  style="width:auto">当前产品绑定的供应商列表:</label>
+
+                                <select multiple="multiple" id="supplierlist" style="min-width:300px; min-height:80px;margin-top:40px;">
+                                    <option value="0">--请选择--</option>
+                                </select>
+                                <label style="width:auto">添加供应商:</label>
+                                <input type="text" placeholder="添加供应商" style="height:30px;" id="suppliername">&nbsp;&nbsp;&nbsp;&nbsp;<button class="layui-btn layui-btn-small" onclick="AddSupplier()">添加</button>
+                                <button class="layui-btn layui-btn-small" onclick="DeleteSupplier()">删除</button>
+                            </section>
+                            <!--列表-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-tab-item">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label>产品主图添加：</label>                               
+                                <div><img id="mainimg" src="" onerror='noFindImg()' style="width:200px;height:200px;border: 5px solid #ddd;padding: 5px;background: #fff;"><input type="file" name="myfile" id="fileup"/></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>产品颜色型号图片：</label>
+                                <div>
+                                    <ul style="list-style-type:none;" id="myullist">
+                                        <li style="float:left;margin-left:20px;">
+                                            <a href="" title="删除" style="float:right;"><i class="layui-icon">&#xe640;</i> </a> 
+                                            <input type="file" id="excelfile" name="file" lay-type="file" class="layui-upload-file">                                         
+                                            <p><img src="myimages/1.jpg" alt="" style="width:180px;height:200px;border: 1px solid #ddd;padding: 5px;background: #fff;"></p>
+                                            <input type="text" name="" value="BK133-01-00" style="text-align:center;">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div style="clear:both;margin-top:30px;">
+                                    <button class="btn btn-info">上传图片包</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-warning">下载图片包</button>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

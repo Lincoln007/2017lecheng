@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<LINK rel=stylesheet type=text/css href="css/base.css">
+<style type="text/css">
+<!--
+.fy {
+	margin: 20px auto 0;
+	overflow: hidden;
+	text-align: left;
+	width: 500px;
+}
+.pag_num a {
+	color: #ffffff;
+	text-decoration: underline;
+}
+.pag_num {
+	float: left;
+	padding: 10px 0;
+	text-align: right;
+	width: 100%;
+}
+.pag_num li {
+	float: left;
+	list-style-type: none;
+}
+.pag_num li a {
+	width:28px;
+	height:27px;
+	background:url("images/bg-png.png") no-repeat scroll -121px -246px transparent;
+	TEXT-DECORATION: none;
+	text-align:center;
+	line-height:27px;
+	float:left;
+	color:#ffffff;
+	margin-right:3px;
+}
+.pag_num li a:link, .pag_num li a:visited {
+	color: #ffffff;
+}
+.pag_num li a:hover {
+	width:28px;
+	height:27px;
+	background:url("images/bg-png.png") no-repeat scroll -156px -246px transparent;
+	TEXT-DECORATION: none;
+	text-align:center;
+	line-height:27px;
+	float:left;
+	color:#ffffff;
+}
+.pag_num li.button2 {
+	border: 1px solid #CCCCCC;
+	color: #666464;
+	display: block;
+	height: 25px;
+	line-height:25px;
+	margin:0 2px 0 2px;
+	padding: 0 4px !important;
+	text-align: center;
+	text-decoration: none;
+	width: auto !important;
+	background:#fafafa;
+}
+.pag_num li.button3 {
+	width:60px;
+	height:27px;
+	background:url("images/bg-png.png") no-repeat scroll -258px -282px transparent;
+	TEXT-DECORATION: none;
+	text-align:center;
+	line-height:27px;
+	float:left;
+	color:#ffffff;
+	margin-right:3px;
+}
+.pag_num li.now span {
+	width:28px;
+	height:27px;
+	background:url("images/bg-png.png") no-repeat scroll -189px -246px transparent;
+	TEXT-DECORATION: none;
+	text-align:center;
+	line-height:27px;
+	float:left;
+	color:#ffffff;
+	margin-right:3px;
+}
+.pag_num li.button a {
+	width:60px;
+	height:27px;
+	background:url("images/bg-png.png") no-repeat scroll -121px -282px transparent;
+	TEXT-DECORATION: none;
+	text-align:center;
+	line-height:27px;
+	float:left;
+	color:#ffffff;
+	margin-right:3px;
+}
+.pag_num li.button a:hover {
+	background:url("images/bg-png.png") no-repeat scroll -189px -282px transparent;
+}
+.pag_num li.button input {
+	border: 1px solid #cccccc;
+	height: 20px;
+	padding-top: 4px;
+	width: 25px;
+}
+.pag_num li.button4 input {
+	width:28px;
+	height:27px;
+	background:url("images/bg-png.png") no-repeat scroll -121px -246px transparent;
+	TEXT-DECORATION: none;
+	text-align:center;
+	line-height:27px;
+	float:left;
+	color:#ffffff;
+	margin-left:3px;
+	border:none;
+	cursor:pointer;
+}
+.pag_num li.button4 input:hover {
+	background:url("images/bg-png.png") no-repeat scroll -156px -246px transparent;
+}
+-->
+</style>
+</head>
+<body>
+<div >
+  <DIV class=pag_num id=pageRows1>
+    <UL>
+      <li class=button2>第1/4页
+      <li class=button3>首页
+      <li class=button3>上页
+      <li class=now><span>1</span>
+      <li><a href="JavaScript:GotoPage(2)" >2</a>
+      <li><a href="JavaScript:GotoPage(3)" >3</a>
+      <li><a href="JavaScript:GotoPage(4)" >4</a>
+      <li class=button><a href="JavaScript:GotoPage(2)">下页</a>
+      <li class=button><a href="JavaScript:GotoPage(4)">尾页</a>
+      <li class=button>
+        <input maxlength="3"  type="text" id="pageno" name="pageno" class="sty_PageNo" onkeydown="if(event.keyCode==13){GotoPage(this.value);return false;}" >
+      <li class=button4>
+        <input type="button" onclick="if(pageno.value!='')GotoPage(pageno.value)" value="转">
+    </UL>
+  </DIV>
+</div>
+</div>
+</body>
+</html>

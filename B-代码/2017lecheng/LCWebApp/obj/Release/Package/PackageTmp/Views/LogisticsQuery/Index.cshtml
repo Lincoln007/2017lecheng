@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{}
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-11">
+            <section class="panel panel-success">
+                <header class="panel-heading">
+                    物流综合查询
+                    <span class="tools pull-right">
+                        <a class="fa fa-chevron-down" href="javascript:;"></a>
+                        <!--a class="fa fa-times" href="javascript:;"></a--><!---关闭面板按钮-->
+                    </span>
+                </header>
+                <div class="panel-body" style="display: block;">
+                    <div>
+                        <label>物流公司:</label>
+                        <select style="width:180px" id="express_id"></select>&nbsp;&nbsp;
+                        <label>快递单号:</label>
+                        <input type="text" name="" placeholder="单号" id="express_code">
+                        <button class="btn btn-info" id="search">查询</button>
+                    </div>
+                    <div>
+                        <table class="table  table-hover general-table">
+                            <tbody id="info"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+    layui.use(['form', 'layer', 'laypage', 'element'], function () {
+        var form = layui.form()
+              , layer = layui.layer
+             , laypage = layui.laypage
+             , element = layui.element();
+        var currpage = 0;
+        $(document).ready(function () {
+            $.post('@Url.Content("~/LogisticsQuery/GetExpressList")', {}
+           , function (data) {
+               if (data.success) {
+                   $("#express_id").append(data.Msg);
+               }
+               else {
+                   layer.msg(data.Msg);
+               }
+           });
+
+            $("#search").click(function () {
+                var express_coded = $.trim($("#express_id").val());
+                var express_name = $("#express_id").find("option:selected").text();
+                var express_code = $.trim($("#express_code").val());
+                if (express_coded == "0") {
+                    layer.msg("请选择物流公司");
+                    return false;
+                }
+                if (express_code == "") {
+                    layer.msg("请填写快递单号");
+                    return false;
+                }
+                var code = express_code + "|" + express_coded;
+                GetInfo(code, express_name);
+            })
+        });
+
+
+        function GetInfo(code, name) {
+            $.post('@Url.Content("~/InternationalQuiry/GetKDContent")', { code: code }
+               , function (data) {
+                   if (data.success) {
+                       var obj = eval(data.DataResult);
+                       if (obj[0].Success) {
+                           $("#info").children().remove();
+                           var html = "";
+                           for (var i = 0; i < obj.length; i++) {
+                               html += "   <tr>" +
+                                     " <td><label>快递公司:</label>&nbsp;&nbsp;<label>" + name + "</label></td>" +
+                                  "</tr>" +
+                                  "<tr>" +
+                                      "<td><label>快递单号:</label>&nbsp;&nbsp;<label>" + obj[i].LogisticCode + "</label></td>" +
+                                  "</tr>" +
+                                  "<tr>" +
+                                      "<td><label>物流信息:</label></td>" +
+                                    "</tr>";
+                               if (obj[i].Traces.length > 0) {
+                                   for (var e = 0; e < obj[i].Traces.length; e++) {
+
+                                       html += "<tr>" +
+                               "<td><label> " + obj[i].Traces[e].AcceptTime + "&nbsp;&nbsp; " + obj[i].Traces[e].AcceptStation + "</label></td>" +
+                               "</tr> ";
+                                   }
+                               }
+                           }
+                           $("#info").append(html);
+                       } else {
+                           layer.msg("查询失败，失败原因：" + obj[0].Reason);
+                       }
+
+
+
+                   }
+                   else {
+                       layer.msg("查询失败，失败原因：" + data.Msg);
+                   }
+               });
+        }
+    })
+</script>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>SKU管理</TITLE>
+<META content="IE=7.0000" http-equiv="X-UA-Compatible">
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<LINK rel=stylesheet type=text/css href="css/base.css">
+</HEAD>
+<body>
+<div class="main">
+  <p><a href="goods_add.html" class="btnalt">+添加产品</a> 标题：
+    <input type="text" value="" name="Quantity" size="12">
+    | SKU:
+    <input type="text" value="" name="Quantity" size="12">
+    | 开发人:
+    <input type="text" value="" name="Quantity" size="8">
+    | 类别：
+    <select name="select">
+      <option value="1">不指定</option>
+      <option value="2">鞋</option>
+      <option value="3">包</option>
+    </select>
+    | 性质：
+    <select name="select">
+      <option value="1">不指定</option>
+      <option value="2">普货</option>
+      <option value="3">仿货</option>
+    </select>
+    | 状态：
+    <select name="select">
+      <option value="1">销售中</option>
+      <option value="2">已下架</option>
+    </select>
+    | <a href="#" class="btn_1">搜索</a> </p>
+  <div class="cnav">
+    <ul>
+      <li><a href="goods_check.html">待审区</a></li>
+      <li class="on"><a href="goods_list.html">产品库</a></li>
+      <li><a href="goods_off.html">下架产品</a></li>
+      <li><a href="goods_dell.html">回收站</a></li>
+    </ul>
+  </div>
+  <select name="select" style="margin-bottom:6px;">
+    <option value="1">添加时间筛选</option>
+    <option value="2">最近7天</option>
+    <option value="3">最近30天</option>
+  </select>
+  <select name="select" style="margin-bottom:6px;">
+    <option value="1">销售量筛选</option>
+    <option value="2">最近7天</option>
+    <option value="3">最近30天</option>
+    <option value="3">最近60天</option>
+    <option value="3">全部</option>
+  </select>
+  <table class="tr_o">
+    <thead>
+      <tr>
+        <th width="50">id</th>
+        <th width="70">SKU</th>
+        <th width="120">图片</th>
+        <th width="50">类别</th>
+        <th width="50">参考价</th>
+        <th width="50">性质</th>
+        <th width="50">销量</th>
+        <th width="90">标题翻译</th>
+        <th width="60">产品图</th>
+        <th width="50">状态</th>
+        <th width="60">标记</th>
+        <th width="60">开发人</th>
+        <th>添加时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr onClick="location.href='goods_detail.html'">
+        <td>10</td>
+        <td>SG500</td>
+        <td class="pimg"><img src="images/sp_1.jpg"></td>
+        <td>鞋包</td>
+        <td>￥36</td>
+        <td>普货<br/>
+          挂号</td>
+        <td>120</td>
+        <td><img src="images/f-01.gif"><img src="images/f-03.gif"></td>
+        <td><span class="red">无图</span></td>
+        <td>销售中</td>
+        <td>已上架</td>
+        <td>高豪</td>
+        <td>2013-05-14</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>SG500</td>
+        <td class="pimg"><img src="images/sp_1.jpg"></td>
+        <td>鞋包</td>
+        <td>￥36</td>
+        <td>普货<br/>
+          <span class="blue">平邮</span></td>
+        <td>120</td>
+        <td><img src="images/f-01.gif"><img src="images/f-04.gif"></td>
+        <td><img src="images/t-1.gif"/></td>
+        <td>销售中</td>
+        <td><span class="red">未上架</span></td>
+        <td>高豪</td>
+        <td>2013-05-14</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>SG500</td>
+        <td class="pimg"><img src="images/sp_1.jpg"></td>
+        <td>鞋包</td>
+        <td>￥36</td>
+        <td>普货<br/>
+          挂号</td>
+        <td>120</td>
+        <td><img src="images/f-01.gif"><img src="images/f-04.gif"></td>
+        <td><img src="images/t-2.gif"/></td>
+        <td>销售中</td>
+        <td>已上架</td>
+        <td>高豪</td>
+        <td>2013-05-14</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pages"><span class="first">首页</span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a><span>...</span><a href="#?page=199">19</a><a href="#?page=200">20</a><a href="#?page=2" class="first">末页</a></div>
+</div>
+</body>
+</HTML>

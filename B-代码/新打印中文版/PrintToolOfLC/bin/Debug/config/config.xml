@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PrintList>
+  <Printer ID="1">
+    <printmachine>\\10.1.1.178\Canon iP2700 series</printmachine>
+    <page>拣货单</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="2">
+    <printmachine>ZDesigner GK888d (EPL)</printmachine>
+    <page>Yamato</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="4">
+    <printmachine>ZDesigner GK888d (EPL)</printmachine>
+    <page>Umail</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="5">
+    <printmachine>ZDesigner GK888d (EPL)</printmachine>
+    <page>包裹号</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="6">
+    <printmachine>ZDesigner GK888d (EPL)</printmachine>
+    <page>SKU</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="7">
+    <printmachine>ZDesigner GK888d (EPL)</printmachine>
+    <page>转运单</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="8">
+    <printmachine>ZDesigner GK888d (EPL)</printmachine>
+    <page>Upacket</page>
+    <Model>模式一</Model>
+  </Printer>
+</PrintList>

@@ -1,0 +1,10 @@
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\bin\Release\MyLib\x64\SQLite.Interop.dll
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\bin\Release\MyLib\x86\SQLite.Interop.dll
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\bin\Release\SqlSugarRepository.dll
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\bin\Release\SqlSugarRepository.pdb
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\bin\Release\MySql.Data.dll
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\bin\Release\Oracle.ManagedDataAccess.dll
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\bin\Release\System.Data.SQLite.dll
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\obj\Release\SqlSugarRepository.csprojResolveAssemblyReference.cache
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\obj\Release\SqlSugarRepository.dll
+F:\2017lechengSys\B-代码\2017lecheng\STO.SqlSugarRepository\obj\Release\SqlSugarRepository.pdb

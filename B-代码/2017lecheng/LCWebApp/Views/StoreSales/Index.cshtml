@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{}
+<div class="wrapper">
+    <div class="col-md-12">
+        <section class="panel panel-success">
+            <header class="panel-heading">
+                店铺销售查询
+                <span class="tools pull-right">
+                    <a class="fa fa-chevron-down" href="javascript:;"></a>
+                    <!--a class="fa fa-times" href="javascript:;"></a--><!---关闭面板按钮-->
+                </span>
+            </header>
+            <div class="panel-body">
+                <div class="col-md-10">
+                    <label>选择平台:&nbsp;&nbsp;</label>
+                    <select id="platform_id"></select>&nbsp;&nbsp;
+                    <label>店铺:&nbsp;&nbsp;</label>
+                    <select style="width:180px" id="shop_id"></select>&nbsp;&nbsp;
+                    <label>开始时间:</label>
+                    <input class="form_datetime" size="16" id="start_time" name="start_time" onclick="layui.laydate({elem: this, festival: true})">&nbsp;&nbsp;
+                    <label>结束时间:</label><input class="form_datetime" size="16" id="end_time" name="end_time" onclick="layui.laydate({elem: this, festival: true})">&nbsp;&nbsp;
+                    <button class="btn btn-info" id="search">查询</button><br>
+                    <table class="table  table-hover general-table" id="table"></table>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+
+<script>
+
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        var start = {
+            min: laydate.now()
+          , max: '2099-06-16 23:59:59'
+          , istoday: false
+          , choose: function (datas) {
+              end.min = datas; //开始日选好后，重置结束日的最小日期
+              end.start = datas //将结束日的初始值设定为开始日
+          }
+        };
+
+        var end = {
+            min: laydate.now()
+          , max: '2099-06-16 23:59:59'
+          , istoday: false
+          , choose: function (datas) {
+              start.max = datas; //结束日选好后，重置开始日的最大日期
+          }
+        };
+    });
+
+    layui.use(['form', 'layer', 'laypage', 'element'], function () {
+        var form = layui.form()
+              , layer = layui.layer
+             , laypage = layui.laypage
+             , element = layui.element();
+        var totil = 0; //总数据
+        var totilpage = 0; //总页数
+        var currpage = 0;
+        $(document).ready(function () {
+            $.post('@Url.Content("~/Shop/GetPlatformList")', {}
+                , function (data) {
+                    if (data.success) {
+                        $("#platform_id").append(data.Msg);
+                    }
+                    else {
+                        layer.msg(data.Msg);
+                    }
+                    layer.close(daoru);
+                });
+
+            $("#platform_id").change(function () {
+                $("#shop_id").children().remove();
+                $.post('@Url.Content("~/StoreSales/GetShopList")', { platform_id: $("#platform_id").val() }
+                 , function (data) {
+                     if (data.success) {
+                         $("#shop_id").append(data.Msg);
+                     }
+                     else {
+                         layer.msg(data.Msg);
+                     }
+                 });
+            })
+
+            $("#search").click(function () {
+                GetInfo();
+            })
+
+        });
+
+
+        function GetInfo() {
+            var platform_id = $("#platform_id").val();
+            var shop_id = $("#shop_id").val();
+            var start_time = $("#start_time").val();
+            var end_time = $("#end_time").val();
+            if (end_time < start_time) {
+                layer.msg("结束时间不得小于开始时间!");
+                return false;
+            }
+            $.post('@Url.Content("~/StoreSales/GetStoreSalesInfo")', {
+                platform_id: platform_id, shop_id: shop_id, start_time: start_time, end_time: end_time
+            }
+             , function (data) {
+                 if (data.success) {
+                     $("#table").children().remove();
+                     var html = "";
+                     if (data.DataResult.supplist.length > 0) { //如果有数据
+                         for (var i = 0; i < data.DataResult.supplist.length; i++) {
+                             html += " <tbody>" +
+                          "<tr>" +
+                       "<td><label>平台:</label>&nbsp;&nbsp;&nbsp;&nbsp;<label style=\"color:red;\">" + data.DataResult.supplist[i].platform_name + " </label></td>" +
+                       "</tr>" +
+                       "<tr>" +
+                       "<td><label>店铺:</label>&nbsp;&nbsp;&nbsp;&nbsp;<label style=\"color:red;\">" + data.DataResult.supplist[i].shop_name + "</label></td>" +
+                       "</tr>" +
+                       "<tr>" +
+                       "<td><label>平台销售额:</label>&nbsp;&nbsp;&nbsp;&nbsp;<label style=\"color:red;\">" + data.DataResult.supplist[i].sumplatformmoney + "</label><br></td>" +
+                       "</tr>" +
+                       "<tr>" +
+                       "<td><label>店铺销售额:</label>&nbsp;&nbsp;&nbsp;&nbsp;<label style=\"color:red;\">" + data.DataResult.supplist[i].sumshopmoney + "</label><br></td>" +
+                       "</tr>" +
+                       "</tbody>";
+                         }
+
+                         $("#table").html(html);
+                     }
+                     else {
+                         layer.msg("暂无数据");
+                     }
+                 }
+                 else {
+                     layer.msg("查询失败，失败原因：" + data.Msg);
+                 }
+                 layer.close(daoru);
+             });
+
+
+        }
+
+
+    })
+</script>

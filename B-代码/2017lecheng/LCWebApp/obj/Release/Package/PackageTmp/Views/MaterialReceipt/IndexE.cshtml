@@ -1,0 +1,267 @@
+﻿@{
+    ViewBag.Title = "IndexE";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{}
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    采购详情
+                    <span class="tools pull-right">
+                        <a href="javascript:;" class="fa fa-chevron-down"></a>
+                        <a href="javascript:;" class="fa fa-times"></a>
+                    </span>
+                </div>
+                <input type="hidden" id="id" value="@ViewBag.id" />
+                <div class="panel-body">
+                    <div>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="width:15%"><label style="float:right;">采购单号：</label></td>
+                                    <td><label>@ViewBag.purch_code</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购数量：</label></td>
+                                    <td><label> @ViewBag.purch_numb</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购总价：</label></td>
+                                    <td><label>￥:@ViewBag.purch_sum</label></td>
+                                </tr>
+
+                                <tr>
+                                    <td><label style="float:right">运费：</label></td>
+                                    <td>
+                                        <label>￥:@ViewBag.sum_freight</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">合计总金额：</label></td>
+                                    <td><label>￥:@ViewBag.sum_money</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购备注信息：</label></td>
+                                    <td><label>@ViewBag.purch_remark</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购时间：</label></td>
+                                    <td><label>@ViewBag.create_time</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">采购方式：</label></td>
+                                    <td><label> @ViewBag.purch_type</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="float:right">状态：</label></td>
+                                    <td><label> @ViewBag.purch_status</label></td>
+                                </tr>
+                                @*<tr>
+                                        <td><label style="float:right">锁定：</label></td>
+                                        <td><input type="checkbox" name=""></td>
+                                    </tr>*@
+                                <tr>
+                                    <td><button class="btn btn-success" id="add">确认到货</button></td>
+                                    @*<td><button class="btn btn-info">打印所有SKU</button></td>*@
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div id="list"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+<script>
+    var layer;
+    var laypage;
+    var form;
+    var element;
+    layui.use(['layer', 'laypage', 'element', 'form'], function () {
+        layer = layui.layer;
+        laypage = layui.laypage;
+        element = layui.element();
+        form = layui.form();
+    })
+    $(document).ready(function () {
+        var id = @ViewBag.id;
+        if (id == "") {
+            layer.msg("参数错误!");
+            return false;
+        }
+
+        $.post('@Url.Content("~/MaterialReceipt/GetpageE")', { purch_id: id }
+             , function (data) {
+                 if (data.success) {
+                     if (data.DataResult.supplist.length > 0) { //如果有数据
+                         var html="";
+                         for (var i = 0; i < data.DataResult.supplist.length; i++) {
+                             html+=" <div style=\"clear:left;\">"+
+                                             "<table>"+
+                                                 "<tbody>"+
+                                                     "<tr>"+
+                                                         "<td>"+
+                                                             "<label>SKU:&nbsp;&nbsp;</label>"+
+                                                                                 "<input type=\"hidden\" value=\"" + data.DataResult.supplist[i].code_id + "\">"+
+                                                               "<input type=\"hidden\" value=\"" + data.DataResult.supplist[i].prod_id + "\">"+
+                                                                   "<input type=\"hidden\" value=\"" + data.DataResult.supplist[i].supp_id + "\">"+
+                                                                       "<input type=\"hidden\" value=\"" + data.DataResult.supplist[i].purch_count + "\">"+
+                                                             "<label style=\"color:blue;\">" + data.DataResult.supplist[i].sku_code + "</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label>|</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label>采购链接:&nbsp;&nbsp;</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<a href=\"" + data.DataResult.supplist[i].prod_url + "\" target='_blank'>打开</a>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label>|</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                            " <label>供应商:</label>"+
+                                                        " </td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label style=\"color:blue;\">&nbsp;&nbsp;<a href=\"" + data.DataResult.supplist[i].supp_url + " \" target='_blank'>" + data.DataResult.supplist[i].supp_name + "</a></label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label>|</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                            " <label>本次应采数:</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                         "<td>"+
+                                                             "<label style=\"color:red;\">" + data.DataResult.supplist[i].purch_count + "</label>"+
+                                                         "</td>&nbsp;&nbsp;"+
+                                                     "</tr>"+
+                                                 "</tbody>"+
+                                             "</table>"+
+
+                                             "<div style=\"display:inline-block;\">"+
+                                                 "<table class=\"table  table-hover general-table\">"+
+                                                     "<thead>"+
+                                                         "<tr>"+
+                                                             "<th>店铺</th>"+
+                                                             "<th>包裹号</th>"+
+                                                             "<th>数量</th>"+
+                                                              //"<th>状态</th>"+
+                                                         "</tr>"+
+                                                            "</thead>"+
+                                                                " <tbody>";
+                             if (data.DataResult.supplist[i].details != null) {
+                                 if (data.DataResult.supplist[i].details.length > 0) {
+                                     for (var e = 0; e < data.DataResult.supplist[i].details.length; e++) {
+                                         html+= "<tr>"+
+                                                    "<td>" + data.DataResult.supplist[i].details[e].shop_name + "</td>"+
+                                                    "<td>" + data.DataResult.supplist[i].details[e].order_code + "</td>"+
+                                                    "<td>" + data.DataResult.supplist[i].details[e].prod_num + "</td>"+
+                                                     //"<td>" + data.DataResult.supplist[i].details[e].order_tatusE + "</td>"+
+                                                "</tr>";
+                                     }
+                                 }}
+                             html+="</tbody>"+
+                                                "</table>"+
+                                                 "</div>"+
+                                                 "<div style=\"float:left;\">"+
+                                             "<img src=\"" + data.DataResult.supplist[i].pic_url + "\" alt=\"BK133-02-00\" style=\"width:150px;height:200px;border: 1px solid #ddd;padding: 5px;background: #fff;\">"+
+                                                 "</div>"+
+                                         "</div>";
+                         }
+
+                         $("#list").html(html);
+                     }
+                     else {
+                         layer.msg("暂无数据");
+                     }
+                 }
+                 else {
+                     layer.msg("查询失败，失败原因：" + data.Msg);
+                 }
+                 layer.close(daoru);
+             });
+    });
+
+    $("#add").click(function () {
+        var purch_typeE = @ViewBag.purch_typeE;
+        layer.msg('确定到货了吗？', {
+            time: 0 //不自动关闭
+          , btn: ['确认', '取消']
+          , yes: function (index) {
+              layer.close(index);
+              var length=$("#list").children("div").length;
+              var lists=[];
+              if (purch_typeE==1) {
+                  for (var i = 0; i < length; i++) {
+                      var list={};
+                      var code_id=0;
+                      var prod_id=0;
+                      var supp_id=0;
+                      var prod_num=0*1;
+                      var sss=$("#list").children("div").eq(i).find("table").eq(0).find("tr").find("input[type=hidden]");
+                      code_id=sss.eq(0).val();
+                      prod_id= sss.eq(1).val();
+                      supp_id= sss.eq(2).val();
+                      var length1 =$("#list").children("div").eq(i).find("table").eq(1).find("tbody").find("tr").length;
+                      // var details=[];
+                      for (var e = 0; e < length1; e++) {
+                          // var prod_nums={}
+                          // var prod_num=0*1;
+                          // prod_num=($("#list").children("div").eq(i).find("table").eq(1).find("tbody").find("tr").eq(e).find("td").eq(2).html())*1;
+                          // prod_nums.prod_num=prod_num;
+                          // details.push(prod_nums);
+                          prod_num+=($("#list").children("div").eq(i).find("table").eq(1).find("tbody").find("tr").eq(e).find("td").eq(2).html())*1;
+                      }
+                      // list.details=details;
+                      list.code_id=code_id;
+                      list.prod_id=prod_id;
+                      list.supp_id=supp_id;
+                      list.prod_num=prod_num;
+                      lists.push(list);
+                  }
+              }else if (purch_typeE==2) {
+                  for (var i = 0; i < length; i++) {
+                      var list={};
+                      var code_id=0;
+                      var prod_id=0;
+                      var supp_id=0;
+                      var prod_num=0*1;
+                      var sss=$("#list").children("div").eq(i).find("table").eq(0).find("tr").find("input[type=hidden]");
+                      code_id=sss.eq(0).val();
+                      prod_id= sss.eq(1).val();
+                      supp_id= sss.eq(2).val();
+                      prod_num= (sss.eq(3).val())*1;
+                      list.code_id=code_id;
+                      list.prod_id=prod_id;
+                      list.supp_id=supp_id;
+                      list.prod_num=prod_num;
+                      lists.push(list);
+                  }
+              }
+
+
+              var o = {};
+              o.purch_id=$("#id").val();
+              $.post('@Url.Content("~/MaterialReceipt/Save")', { model: o ,lists: lists,purch_type:purch_typeE }
+              , function (data) {
+                  if (data.success) {
+                      layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                          // window.location.href = data.URL;
+                      });
+                  } else {
+                      layer.msg(data.Msg);
+                  }
+              });
+          }
+        });
+    })
+
+</script>

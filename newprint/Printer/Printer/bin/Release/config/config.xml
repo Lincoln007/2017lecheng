@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PrintList>
+  <configSections> <connnetstring>server=222.46.96.214;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng</connnetstring>
+  </configSections>
+  <Printer ID="1">
+    <printmachine>Microsoft Print to PDF</printmachine>
+    <page>拣货单</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="4">
+    <printmachine>Microsoft Print to PDF</printmachine>
+    <page>Umail</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="5">
+    <printmachine>Microsoft Print to PDF</printmachine>
+    <page>包裹号</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="7">
+    <printmachine>Microsoft Print to PDF</printmachine>
+    <page>转运单</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="2">
+    <printmachine>Microsoft Print to PDF</printmachine>
+    <page>Yamato</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="8">
+    <printmachine>Microsoft Print to PDF</printmachine>
+    <page>Upacket</page>
+    <Model>模式一</Model>
+  </Printer>
+</PrintList>

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6A0EE1CC-40D5-4FAC-A618-477EFB1AFC6E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IBLLService</RootNamespace>
+    <AssemblyName>IBLLService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\Shop\IShopService.cs" />
+    <Compile Include="Base\Stock\IStockService.cs" />
+    <Compile Include="Base\StorageBin\IStorageBinService.cs" />
+    <Compile Include="Base\WareHouse\IWareHouseService.cs" />
+    <Compile Include="GoodsReceived\IGoodsReceivedService.cs" />
+    <Compile Include="IDeclaration.cs" />
+    <Compile Include="IExportCSV.cs" />
+    <Compile Include="IExpress.cs" />
+    <Compile Include="InternationalQuiry\IInternationalQuiryService.cs" />
+    <Compile Include="IPrint.cs" />
+    <Compile Include="LinqCompare.cs" />
+    <Compile Include="LogisticsQuery\ILogisticsQueryService.cs" />
+    <Compile Include="MaterialReceipt\IMaterialReceiptService.cs" />
+    <Compile Include="NotPicking\INotPickingService.cs" />
+    <Compile Include="OrderQuery\IOrderQueryService.cs" />
+    <Compile Include="OrderQuery_Shop\IOrderQuery_ShopService.cs" />
+    <Compile Include="Order\IOrderService.cs" />
+    <Compile Include="Base\Platform\IPlatformService.cs" />
+    <Compile Include="ILoginService.cs" />
+    <Compile Include="INewProduct.cs" />
+    <Compile Include="IProduct.cs" />
+    <Compile Include="ISupplier.cs" />
+    <Compile Include="IUserService.cs" />
+    <Compile Include="OverseasDelivery\IOverseasDeliveryService.cs" />
+    <Compile Include="ProcurementCosts\IProcurementCostsService.cs" />
+    <Compile Include="Procurement\IProcurementService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Purchase\IPurchaseService.cs" />
+    <Compile Include="RFT\IRFT.cs" />
+    <Compile Include="StoreSales\IStoreSalesService.cs" />
+    <Compile Include="WaitPurchase\IWaitPurchaseService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBModel\DBModel.csproj">
+      <Project>{9ebea282-5778-46b7-8b56-ed3f35da2183}</Project>
+      <Name>DBModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

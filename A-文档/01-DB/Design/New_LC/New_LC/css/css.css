@@ -1,0 +1,111 @@
+@charset "utf-8";
+/* CSS Document */
+BODY {
+	TEXT-ALIGN: center; margin:0;  background:#72485a repeat-x center top;
+}
+
+.content {
+	WIDTH:1000px; overflow:hidden; MARGIN-LEFT: auto; OVERFLOW: hidden; MARGIN-RIGHT: auto;
+}
+img{ border:0}
+a:link {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration:underline;
+}
+a:active {
+	text-decoration: none;
+}
+ul{ padding:0; margin:0;}
+li{ list-style-type:none;}
+.top{ background-image:url(images/top.jpg); width:1000px; height:587px; clear:both; float:left}
+.pub{ width:1000px; float:left; clear:both; overflow:hidden; text-align:left; background:#fff9eb;}
+.pleft{ background:url(images/d4.jpg); width:570px; float:left; overflow:hidden;}
+.pleft span{ width:460px; float:right; padding-top:190px;}
+.pright{ width:425px; float:left; text-align:left;}
+.QQ{ background:url(images/d9.jpg); width:1000px; height:107px; float:left; clear:both; overflow:hidden;}
+.QQ span{ width:370px; float:right; text-align:left; padding-top:57px;}
+.wb{ background:url(images/d10.jpg); width:1000px; height:122px; float:left; clear:both; overflow:hidden;}
+.wb span{ width:560px; float:right; text-align:left; padding-top:57px;}
+.tc1{ background:url(images/d12.jpg) #fff9eb no-repeat top; width:435px; clear:both; overflow:hidden; display:none;}
+.tc1 table{ width:374px; margin:0 auto;}
+.tc1 td{ height:37px; text-align:left; font-size:12px;}
+.tc1 td span{ color:#dd0800;}
+.tc1 td strong{ color:#dd0800;}
+.tc1 .bm{ text-align:center; vertical-align:middle; line-height:80px;}
+.tc2{background:url(images/d14.jpg) #fff9eb no-repeat top; width:435px; clear:both; overflow:hidden;}
+.tc2 table{ width:374px; margin:0 auto;}
+.tc2 td{ height:50px; vertical-align:top; text-align:center;}
+.close{ width:425px; margin:5px auto 100px; text-align:right;}
+.tc3{background:url(images/d17.jpg) #fff9eb no-repeat top; width:435px; clear:both; height:380px; overflow:hidden;display:none;}
+.tc4{background:url(images/d18.jpg) #fff9eb no-repeat top; width:435px; clear:both; height:379px; overflow:hidden;display:none;}
+.tc5{background:url(images/d19.jpg) #fff9eb no-repeat top; width:435px; clear:both; height:380px; overflow:hidden;display:none;}
+.tc5 table{ width:374px; margin:0 auto;}
+.tc5 td{ height:50px; vertical-align:top; text-align:center;}
+
+
+.xs{width:460px; float:right; clear:both; padding-top:15px; margin-bottom:5px;}
+.xs p{ margin:0; border-bottom:1px solid #e5ddca; height:22px; text-align:left; width:345px; padding-left:5px; font-size:12px;}
+.xs p strong{ font-size:14px; color:#e60007;}
+.xs p font{ font-size:12px; color:#e60007; font-weight:bold;}
+.xx{ width:452px; float:right; clear:both; overflow:hidden; padding:10px 0; font-size:12px; padding-left:8px; height:30px;}
+.xx li{ width:450px; float:left; clear:both; overflow:hidden; height:19px;}
+.f1{ background:url(images/d_02.jpg); width:1000px; height:143px; float:left; clear:both; overflow:hidden;}
+.f1 span{ float:right; text-align:left; width:436px; padding-top:6px;}
+.f2{ background:url(images/d_05.jpg); width:1000px; height:184px; float:left; clear:both; overflow:hidden;}
+.f2 span{ float:right; text-align:left; width:807px;}
+.f3{ background:url(images/d_06.jpg); width:1000px; height:210px; float:left; clear:both; overflow:hidden;}
+.f3 span{ float:right; text-align:left; width:353px;}
+.left{width:570px; float:left; overflow:hidden;}
+.leftpub{ width:570px; float:left; clear:both; overflow:hidden; padding-top:15px;}
+.right{ width:385px; float:right; text-align:left;}
+.right2{
+	width:293px;
+	float:right;
+	text-align:left;
+	position:absolute;
+	right:7px;
+	top:794px;
+	z-index:999;
+}
+.bd{ background:url(images/bd.jpg); width:335px; height:685px; float:left; clear:both; overflow:hidden; padding-top:120px;}
+.bd ul{ width:192px; margin:0 auto; clear:both; overflow:hidden;}
+.bd li{ width:192px;font-size:12px; float:left; text-align:left; clear:both; overflow:hidden; height:20px;}
+.rp{ width:385px; float:left; clear:both; overflow:hidden; text-align:left;}
+.wz{width:266px;color:#f21300; float:left; clear:both; overflow:hidden; padding-left:70px; text-align:left; line-height:23px; font-size:12px;}
+.wz a{ color:#f21300;}
+
+.bd2{ background:url(images/bd2.jpg); width:335px; height:915px; float:left; clear:both; overflow:hidden; padding-top:120px;}
+.bd2 ul{ width:192px; margin:0 auto; clear:both; overflow:hidden;}
+.bd2 li{ width:192px;font-size:12px; float:left; text-align:left; clear:both; overflow:hidden; height:20px;}
+.mc{  width:188px; margin:0 auto; clear:both; overflow:hidden; padding:5px 0; text-align:center; font-weight:bold; font-size:12px; color:#eb0100;}
+.mc2{  width:188px; margin:0 auto; clear:both; overflow:hidden; text-align:center; font-weight:bold; font-size:12px; color:#eb0100;}
+.wzsm{ width:480px; float:left; clear:both; overflow:hidden; padding-left:100px; font-size:14px; line-height:25px; color:#4b4b4b;}
+
+.pleft2{  width:570px; float:left; overflow:hidden; padding-top:30px;}
+.pleft2 span{ width:460px; float:right;}
+
+.fQQ{ background:url(images/d27.jpg); width:1000px; height:109px; float:left; clear:both; overflow:hidden;}
+.fQQ span{ float:right; text-align:left; width:321px; padding-top:60px;}
+.fwb{ background:url(images/d28.jpg); width:1000px; height:161px; float:left; clear:both; overflow:hidden;}
+.fwb span{ float:right; text-align:left; width:633px; padding-top:66px;}
+
+
+.xg{ width:1000px; float:left; clear:both; overflow:hidden; background:url(images/d25.jpg) #fff9eb no-repeat left bottom; height:825px;}
+.bd3{ background:url(images/bd3.jpg); width:293px; height:347px; float:left; clear:both; overflow:hidden; padding-top:70px;}
+.bd3 ul{ width:192px; margin:0 auto; clear:both; overflow:hidden;}
+.bd3 li{ width:192px;font-size:12px; float:left; text-align:left; clear:both; overflow:hidden; height:14px; padding-top:5px;}
+.bd3 .mc{font-size:14px; line-height:18px; text-align:center;}
+
+
+.bd4{ background:url(images/bd4.jpg); width:335px; height:399px; float:left; clear:both; overflow:hidden; padding-top:120px;}
+.bd4 ul{ width:192px; margin:0 auto; clear:both; overflow:hidden;}
+.bd4 li{ width:192px;font-size:12px; float:left; text-align:left; clear:both; overflow:hidden; height:20px;}
+
+.bd5{ background:url(images/bd5.jpg); width:335px; height:480px; float:left; clear:both; overflow:hidden; padding-top:120px;}
+.bd5 ul{ width:192px; margin:0 auto; clear:both; overflow:hidden;}
+.bd5 li{ width:192px;font-size:12px; float:left; text-align:left; clear:both; overflow:hidden; height:20px;}
