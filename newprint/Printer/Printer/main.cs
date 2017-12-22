@@ -16,6 +16,7 @@ using System.Windows.Forms;
 
 namespace Printer
 {
+  //**********************最新新系统打印插件更新时间2017.12.22****************************************************
     public partial class main : Form
     {
         int Hasprintcount = 0;

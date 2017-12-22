@@ -40,3 +40,11 @@ G:\lecheng2017\新打印中文版1010\DALPrint\bin\Debug\ModelPrint.pdb
 G:\lecheng2017\新打印中文版1010\DALPrint\obj\Debug\DALPrint.csprojResolveAssemblyReference.cache
 G:\lecheng2017\新打印中文版1010\DALPrint\obj\Debug\DALPrint.dll
 G:\lecheng2017\新打印中文版1010\DALPrint\obj\Debug\DALPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\DALPrint\bin\Debug\DALPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\DALPrint\bin\Debug\DALPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\DALPrint\bin\Debug\ModelPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\DALPrint\bin\Debug\ModelPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\DALPrint\obj\Debug\DALPrint.csprojResolveAssemblyReference.cache
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\DALPrint\obj\Debug\DALPrint.csproj.CoreCompileInputs.cache
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\DALPrint\obj\Debug\DALPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\DALPrint\obj\Debug\DALPrint.pdb

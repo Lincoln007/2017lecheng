@@ -28,3 +28,9 @@ G:\lecheng2017\新打印中文版1010\ModelPrint\bin\Debug\ModelPrint.pdb
 G:\lecheng2017\新打印中文版1010\ModelPrint\obj\Debug\ModelPrint.csprojResolveAssemblyReference.cache
 G:\lecheng2017\新打印中文版1010\ModelPrint\obj\Debug\ModelPrint.dll
 G:\lecheng2017\新打印中文版1010\ModelPrint\obj\Debug\ModelPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\ModelPrint\bin\Debug\ModelPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\ModelPrint\bin\Debug\ModelPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\ModelPrint\obj\Debug\ModelPrint.csprojResolveAssemblyReference.cache
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\ModelPrint\obj\Debug\ModelPrint.csproj.CoreCompileInputs.cache
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\ModelPrint\obj\Debug\ModelPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\ModelPrint\obj\Debug\ModelPrint.pdb
