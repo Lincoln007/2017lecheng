@@ -101,11 +101,12 @@ namespace Printer.Service
                 row["packgeinfo"] = pwork.data_1;
                 row["MessageForBuyer"] = null;   
                 row["SKU"] = pwork.data_7;
-                row["SendShopname"] = "Shop: " + pwork.Platform + " + " + pwork.Shopname;
+                row["SendShopname"] = "Shop: " + pwork.Shopname; // + pwork.Platform + " + "
                 row["packgecode"] = pwork.data_10;
-                row["shopname"] = pwork.Shopname;
-                row["shoppost"] = pwork.Shopzip;
-                row["shopphone"] = pwork.Shopphone;  
+                row["shopname"] = "Name: "+pwork.Shopname;
+                row["shoppost"] = "[差出人返還先]  〒：" + pwork.Shopzip;
+                row["shopphone"] = "TEL: "+pwork.Shopphone;
+                row["Companyaddr"] = pwork.Shopaddress;
                 row["Companyaddr2"] ="";
                 dt.Rows.Add(row);
                 PrintCenter printer = new PrintCenter();

@@ -32,3 +32,15 @@ F:\2017lechengSys\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepo
 F:\2017lechengSys\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.csproj.CoreCompileInputs.cache
 F:\2017lechengSys\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.dll
 F:\2017lechengSys\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\bin\Debug\Oracle.ManagedDataAccess.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\bin\Debug\MyLib\x64\SQLite.Interop.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\bin\Debug\MyLib\x86\SQLite.Interop.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\bin\Debug\SqlSugarRepository.XML
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\bin\Debug\SqlSugarRepository.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\bin\Debug\SqlSugarRepository.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\bin\Debug\MySql.Data.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\bin\Debug\System.Data.SQLite.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.csproj.CoreCompileInputs.cache
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.csprojResolveAssemblyReference.cache
