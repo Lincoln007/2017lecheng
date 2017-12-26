@@ -54,7 +54,7 @@ namespace DBModel.Common
             //获取缓存中的链接字符串    "server=10.10.200.74;uid=sa;pwd=123!@#QAZ;database=Newlecheng";
             var obj = SessionHelper.Get(SystemConfig.connectionStringKey);
             if (obj == null||obj=="")
-                return "server=127.0.0.1;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng";
+                return "server=112.12.29.172;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng";
             return obj.ToString();
         }
     }
