@@ -2009,6 +2009,7 @@ namespace BLLServices.Order
             int mysendID = 0;
             int orderID = 0;
 
+            //需要插入的五张表
             busi_custorder cusorder = new busi_custorder();
             busi_custorder_detail detail = new busi_custorder_detail();
             busi_sendorder cussendorde = new busi_sendorder();
@@ -2017,16 +2018,17 @@ namespace BLLServices.Order
             using (var db = SugarDao.GetInstance(LoginUser.GetConstr()))
             {
                 db.CommandTimeOut = 10000;//设置超时时间 10秒
-                List<string> order = new List<string>();
+                List<string> order = new List<string>(); //用来储存订单号
                 try
                 {
                     db.BeginTran();//开启事务
                     long newpack = GetPackCode(); //得到包裹号
                     foreach (var item in list)
                     {
-                        ordercode = item.SysOrderNub;
+                        ordercode = item.SysOrderNub;//系统订单号
                         #region 插入数据
-                        if (!order.Contains(ordercode)) //如果没有插入订单表和包裹表，第一次插入数据
+                        //如果没有插入订单表和包裹表，第一次插入数据
+                        if (!order.Contains(ordercode)) 
                         {
                             sku = db.Queryable<base_prod_code>().Where(s1 => s1.sku_code == item.SKU1 + item.SKU2).FirstOrDefault();
                             if (sku == null)
@@ -2060,7 +2062,7 @@ namespace BLLServices.Order
                             cusorder.cus_zip = item.zip;
 
                             orderID = db.Insert<busi_custorder>(cusorder).ObjToInt();
-                            order.Add(item.SysOrderNub);
+                            order.Add(item.SysOrderNub);//添加到集合中
 
 
                             cussendorde.create_time = DateTime.Now;
@@ -2172,8 +2174,8 @@ namespace BLLServices.Order
                                 throw new Exception("在系统中不存在此SKU:" + item.SKU1 + item.SKU2);
                             }
                             shop = db.Queryable<base_shop>().Where(s => s.shop_id == item.shop_id).FirstOrDefault();
-
-                            Lsend = db.Queryable<busi_sendorder>().Where(s => s.order_id == mysendID).FirstOrDefault();
+                            //修复订单多件但是中间有其他订单信息隔开的情况，防止配错货物
+                            Lsend = db.Queryable<busi_sendorder>().Where(s => s.custorder_id == num.order_id).FirstOrDefault();
                             Lsend.prod_num = Lsend.prod_num + (int)item.Num;
                             Lsend.prod_money = (decimal)(Lsend.prod_money + item.totilMoney);
                             db.Update<busi_sendorder>(Lsend, it => it.order_id == Lsend.order_id);
@@ -2218,9 +2220,9 @@ namespace BLLServices.Order
                             for (int i = 0; i < (int)item.Num; i++)
                             {
                                 workinfo.area_id = null;
-                                workinfo.packid = mysendID;
+                                workinfo.packid = Lsend.order_id;
                                 workinfo.create_time = DateTime.Now;
-                                workinfo.custorder_id = orderID;
+                                workinfo.custorder_id = num.order_id;
                                 workinfo.create_user_id = LoginUser.Current.user_id;
                                 workinfo.custorder_detail_id = Convert.ToInt64(isdetail2);
                                 workinfo.del_flag = true;

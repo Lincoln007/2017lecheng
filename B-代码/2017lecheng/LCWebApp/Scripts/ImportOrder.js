@@ -56,6 +56,7 @@ $(function () {
                     layer.close(leadin);
                     layer.msg(data.Msg, { icon: 5, time: 2000 });
                 }
+                $("#SearchOrder").click(); //查询刷新一下防止重复导入
             })
         })
         //转换SKU
