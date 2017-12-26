@@ -289,6 +289,7 @@
     <Content Include="font\iconfont.ttf" />
     <Content Include="font\iconfont.woff" />
     <Content Include="images\Student\6b1095c1-d92f-467f-b402-bd7c98695146.xlsx" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\lecheng.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap\advanced-datatable\css\demo_page.css" />
