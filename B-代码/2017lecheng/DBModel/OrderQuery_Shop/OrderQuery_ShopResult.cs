@@ -71,6 +71,7 @@ namespace DBModel.OrderQuery_Shop
         public string print_timeE { get; set; }
 
         public List<OrderQuery_ShopModelEE> details { get; set; }
+      
 
     }
 
@@ -93,6 +94,8 @@ namespace DBModel.OrderQuery_Shop
         public int purch_status { get; set; }
 
         public string purch_statusE { get; set; }
+        public int work_type { get; set; }
+        public string usedepot { get; set; }
     }
 
 }

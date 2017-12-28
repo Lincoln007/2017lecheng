@@ -71,9 +71,9 @@ namespace LCWebApp.Infrastructure
                     
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             
         }

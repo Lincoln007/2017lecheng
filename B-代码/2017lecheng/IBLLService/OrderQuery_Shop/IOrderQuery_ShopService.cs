@@ -12,7 +12,7 @@ namespace IBLLService.OrderQuery_Shop
     {
 
         List<OrderQuery_ShopModel> GetOrderQuery_ShopList(int pagenum, int onepagecount, out int totil, out int totilpage, out string exmsg,
-            Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day);
+            Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day,int? usedepot,int? orderstate);
 
 
         /// <summary>

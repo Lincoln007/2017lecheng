@@ -30,15 +30,16 @@ namespace BLLServices.OrderQuery_Shop
         /// <param name="day"></param>
         /// <returns></returns>
         public List<OrderQuery_ShopModel> GetOrderQuery_ShopList(int pagenum, int onepagecount, out int totil, out int totilpage, out string exmsg,
-          Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day)
+          Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day, int? usedepot, int? orderstate)
         {
             using (var db = SugarDao.GetInstance(LoginUser.GetConstr()))
             {
                 try
                 {
                     var getwhere = db.Queryable<busi_custorder>()
-                                   .JoinTable<busi_sendorder>((s1, s2) => s1.order_id == s2.custorder_id)
-                                   .JoinTable<base_shop>((s1, s3) => s1.shop_id == s3.shop_id)
+                                   .JoinTable<busi_sendorder>((s1, s2) => s1.order_id == s2.custorder_id,JoinType.Left)
+                                   .JoinTable<base_shop>((s1, s3) => s1.shop_id == s3.shop_id, JoinType.Left)
+                                   .JoinTable<busi_workinfo>((s1,s4) => s1.order_id == s4.custorder_id, JoinType.Left) //只要订单中有一个SKU是使用库存的就显示出来
                                    .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1")
                                    .OrderBy("s1.order_id DESC");
                     if (create_time.HasValue)
@@ -62,11 +63,19 @@ namespace BLLServices.OrderQuery_Shop
                     {
                         getwhere = getwhere.Where(s1 => s1.cus_name.Contains(emp_name));
                     }
-                    if (state > 0)
+                    if (1==usedepot)
+                    {
+                        getwhere = getwhere.Where<busi_workinfo>((s1,s4) => s4.work_type==4); //使用库存配货
+                    }
+                    if (0 < orderstate)//代表有选择状态
+                    {
+                        getwhere = getwhere.Where(s1 => s1.order_status== orderstate); //订单状态
+                    }
+                    if (state > 0) //说明有选择已纳期还是未纳期
                     {
                         DateTime time = DateTime.Now;
                         string time3 = DateTime.Now.ToShortDateString();
-                        if (state == 1)
+                        if (state == 1)//1 代表未纳期
                         {
                             if (day > 0)
                             {
@@ -83,7 +92,7 @@ namespace BLLServices.OrderQuery_Shop
                                 getwhere = getwhere.Where(s1 => s1.latest_date >= time);
                             }
                         }
-                        else if (state == 2)
+                        else if (state == 2)//2 代表已纳期
                         {
                             if (day > 0)
                             {
@@ -125,7 +134,8 @@ namespace BLLServices.OrderQuery_Shop
                     {
                         totilpage++;
                     }
-                    return list.ToList();
+                    var mylist = list.ToList();
+                    return mylist;
                 }
                 catch (Exception ex)
                 {
@@ -206,9 +216,9 @@ namespace BLLServices.OrderQuery_Shop
                                     is_print = s1.is_print,
                                     print_time = s1.print_time,
                                 }).ToList();
-                    if (sql1.Count > 0)
+                    if (sql1.Count > 0)//找到这条订单，如果存在这个包裹，继续执行
                     {
-                        foreach (var item in sql1)
+                        foreach (var item in sql1) //便利所有的包裹，因为一条订单对应多个包裹的可能
                         {//40.已配货;50.已拣选;60.已包装;70.已发货;80.已转运;90.已再入库 
                             item.order_tatusE = item.order_tatus == 40 ? "已配货" : item.order_tatus == 50 ? "已拣选" : item.order_tatus == 60 ? "已包装" :
                                 item.order_tatus == 70 ? "已发货" : item.order_tatus == 80 ? "已转运" : item.order_tatus == 90 ? "已再入库" : "";
@@ -218,9 +228,9 @@ namespace BLLServices.OrderQuery_Shop
                             List<OrderQuery_ShopModelEE> list1 = new List<OrderQuery_ShopModelEE>();
                             List<Int64> ids = new List<Int64>();
                             var busi_sendorder_detail = db.Queryable<busi_sendorder_detail>().Where(c => c.del_flag && c.order_id == item.order_id).ToList();
-                            if (busi_sendorder_detail.Count > 0)
+                            if (busi_sendorder_detail.Count > 0)//包裹中有SKU数据存在，可能多件
                             {
-                                foreach (var item1 in busi_sendorder_detail)
+                                foreach (var item1 in busi_sendorder_detail)//遍历包裹中的所有SKU
                                 {
                                     ids.Add(item1.detail_id);
                                     var purchasedetail = db.Queryable<busi_purchasedetail>().Where(c => c.del_flag && c.send_detail_id == item1.detail_id).ToList();
@@ -233,7 +243,7 @@ namespace BLLServices.OrderQuery_Shop
                                          .JoinTable<busi_workinfo>((s1, s5) => s1.detail_id == s5.sendorder_detail_id)
                                          .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1 and s5.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
 
-                                         .Select<OrderQuery_ShopModelEE>(" s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id")
+                                         .Select<OrderQuery_ShopModelEE>(" s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type")
                                          .ToList();
                                     }
                                     else
@@ -251,6 +261,7 @@ namespace BLLServices.OrderQuery_Shop
                                                          purch_status = 0,
                                                          is_work = s3.is_work,
                                                          work_id = s3.work_id,
+                                                        work_type=s3.work_type
                                                      }).ToList();
                                     }
 
@@ -317,7 +328,7 @@ namespace BLLServices.OrderQuery_Shop
                                          .JoinTable<busi_purchasedetail, busi_purchase>((s1, s3, s4) => s3.purch_id == s4.purch_id)
                                          .JoinTable<busi_workinfo>((s1, s5) => s1.detail_id == s5.sendorder_detail_id)
                                          .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1 and s5.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
-                                         .Select<OrderQuery_ShopModelEE>("s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id")
+                                         .Select<OrderQuery_ShopModelEE>("s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type")
                                          .ToList();
                                     }
                                     else
@@ -335,6 +346,7 @@ namespace BLLServices.OrderQuery_Shop
                                                          purch_status = 0,
                                                          is_work = s3.is_work,
                                                          work_id = s3.work_id,
+                                                         work_type=s3.work_type
                                                      }).ToList();
                                     }
 
@@ -402,7 +414,7 @@ namespace BLLServices.OrderQuery_Shop
                                          .JoinTable<busi_purchasedetail, busi_purchase>((s1, s3, s4) => s3.purch_id == s4.purch_id)
                                          .JoinTable<busi_workinfo>((s1, s5) => s1.detail_id == s5.sendorder_detail_id)
                                          .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1 and s5.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
-                                         .Select<OrderQuery_ShopModelEE>("s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id")
+                                         .Select<OrderQuery_ShopModelEE>("s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type")
                                          .ToList();
                                     }
                                     else
@@ -420,6 +432,7 @@ namespace BLLServices.OrderQuery_Shop
                                                          purch_status = 0,
                                                          is_work = s3.is_work,
                                                          work_id = s3.work_id,
+                                                         work_type = s3.work_type
                                                      }).ToList();
                                     }
 
@@ -441,7 +454,15 @@ namespace BLLServices.OrderQuery_Shop
                     #endregion
 
                     exmsg = "";
-                    return list.ToList();
+                    var mylist = list.ToList();
+                    for (int m=0; m< mylist.Count;m++)
+                    {
+                        for (int n=0;n<mylist[m].details.Count;n++)
+                        {
+                            mylist[m].details[n].usedepot = Enum.GetName(typeof(Pwork_type), mylist[m].details[n].work_type);  
+                        }
+                    }
+                    return mylist;
                 }
                 catch (Exception ex)
                 {
@@ -451,7 +472,14 @@ namespace BLLServices.OrderQuery_Shop
             }
 
         }
-
+        enum Pwork_type
+        {
+            初始=0,
+            网页配货=1,
+            手持配货=2,
+            网页批量=3,
+            库存配货=4
+        }
         /// <summary>
         /// 修改收件人信息
         /// </summary>
@@ -594,9 +622,20 @@ namespace BLLServices.OrderQuery_Shop
                     {
                         db.RollbackTran();
                         result.success = false;
-                        result.Msg = "不存在的信息";
+                        result.Msg = "包裹不存在此SKU信息";
                         return result;
                     }
+                    //如果存在这个SKU信息，判断这个SKU 是否已配货，或者采购
+                    //*暂时的解决方案是，如果已采购未配货，可以删除，如果已配货，还是让他发出去，
+                    //*/
+                    //busi_workinfo def=db.Queryable<busi_workinfo>().Where(s => s.work_id == work_id).FirstOrDefault();
+                    //if (def.is_work)
+                    //{
+                    //    db.RollbackTran();
+                    //    result.success = false;
+                    //    result.Msg = "该包裹已装箱,无法删除";
+                    //    return result;
+                    //}
                     rstNum = db.Update<busi_sendorder_detail>(new { del_flag = false, remark = "订单退货" }, a => a.detail_id == detail_id);
                     rstNums = db.Update<busi_workinfo>(new { del_flag = false, remark = "订单退货", DelOrBarter = 1 }, a => a.work_id == work_id);
                     var sendorder = db.Queryable<busi_sendorder>().Where(a => a.del_flag).InSingle(list.order_id);
@@ -606,7 +645,7 @@ namespace BLLServices.OrderQuery_Shop
                         {
                             db.RollbackTran();
                             result.success = false;
-                            result.Msg = "该包裹已装箱,无法操作";
+                            result.Msg = "该包裹已装箱,无法删除";
                             return result;
                         }
 

@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace LCWebApp.Controllers.Base
 {
+  
     public class WareHouseController : Controller
     {
 

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using BLLServices;
 using System.Text.RegularExpressions;
 using DBModel.ViewModel;
+using LCWebApp.Infrastructure;
 
 namespace LCWebApp.Controllers.Base
 {

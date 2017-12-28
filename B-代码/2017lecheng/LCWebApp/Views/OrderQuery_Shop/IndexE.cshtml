@@ -12,7 +12,7 @@
                 <header class="panel-heading custom-tab blue-tab">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#SKUDetail" data-toggle="tab">订单SKU信息</a>
+                            <a href="#SKUDetail" data-toggle="tab">订单SKU信息</a>                            
                         </li>
                         <li class="">
                             <a href="#infoUser" data-toggle="tab" data-order_id=@ViewBag.id>收件人信息</a>
@@ -22,7 +22,12 @@
                 <div class="panel-body">
                     <div class="tab-content">
                         <div class="tab-pane active" id="SKUDetail">
-                            <div id="list"></div>
+                            <div>
+                                <span style="color:red;">删除和编辑功能针对的是未转运货物</span>
+                            </div>
+                            <div id="list">
+
+                            </div>
 
                         </div>
                         <div class="tab-pane" id="infoUser">
@@ -79,7 +84,8 @@
                                 "<table class=\"table table-hover general-table\">"+
                                     "<thead>"+
                                         "<tr>"+
-                                            "<th>SKU</th>"+
+                                            "<th>SKU</th>" +
+                                            "<th>是否使用库存</th>" +
                                             "<th>数量</th>"+
                                             "<th>SKU状态</th>"+
                                             "<th>采购单号</th>"+
@@ -93,7 +99,8 @@
                                      for (var e = 0; e < data.DataResult.supplist[i].details.length; e++) {
                                          html+=  "<tr>"+
                                                               "<td>" + data.DataResult.supplist[i].details[e].sku_code + "</td>"+
-                                                              "<td>1</td>"+
+                                             "<td style='color:red;'>" + data.DataResult.supplist[i].details[e].usedepot + "</td>" +
+                                             "<td>1</td>" +
                                                               "<td>" + data.DataResult.supplist[i].details[e].is_workE + "</td>"+
                                                               "<td>" + data.DataResult.supplist[i].details[e].purch_code + "</td>"+
                                                               "<td>" + data.DataResult.supplist[i].details[e].purch_statusE + "</td>"+
@@ -187,7 +194,7 @@
                }
            });
     })
-
+    ///删除SKU
     function Del(detail_id,work_id,id)
     {
         if (detail_id=="undefined" || detail_id=="0" || work_id=="undefined" || work_id=="0") {
@@ -218,6 +225,7 @@
     var  g_detail_id;
     var old_sku;
     var g_id;
+    ///编辑或者换货
     function Edit(detail_id,work_id,code_sku,id)
     {
         var obj=$("#"+work_id+"");
@@ -225,9 +233,9 @@
         g_work_id=work_id;
         g_detail_id=detail_id;
         old_sku=code_sku;
-        g_id=id;
+        g_id=id;//g_id就是订单的ID
     }
-
+    ///修改SKU换货
     $("body").on("blur",".abc",function()
     {
         var sku = $(this).val();

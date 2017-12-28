@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace LCWebApp.Controllers.NotPicking
 {
+
     public class NotPickingController : Controller
     {
         private INotPickingService _service;

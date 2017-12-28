@@ -4,6 +4,7 @@ using DBModel.ViewModel;
 using IBLLService.InternationalQuiry;
 using Jade.Lecheng.Server;
 using Jade.Lecheng.Server.tool;
+using LCWebApp.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 
 namespace LCWebApp.Controllers.InternationalQuiry
 {
+  
     public class InternationalQuiryController : Controller
     {
 
