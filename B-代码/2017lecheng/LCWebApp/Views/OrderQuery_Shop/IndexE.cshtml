@@ -23,7 +23,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="SKUDetail">
                             <div>
-                                <span style="color:red;">删除和编辑功能针对的是未转运货物</span>
+                                <span style="color:red;">注意: 编辑更换SKU最好是同一供应商的</span>
                             </div>
                             <div id="list">
 
@@ -90,7 +90,8 @@
                                             "<th>SKU状态</th>"+
                                             "<th>采购单号</th>"+
                                             "<th>采购状态</th>"+
-                                            "<th>操作</th>"+
+                                 "<th>操作</th>" +
+                                 "<th>备注</th>" +
                                         "</tr>"+
                                     "</thead>"+
                                     "<tbody>";
@@ -110,7 +111,8 @@
                                                                   "<a id='"+data.DataResult.supplist[i].details[e].work_id+"' class=\"edit\"  href=\"javascript:;\" onclick=\"Edit(" + data.DataResult.supplist[i].details[e].detail_id + "," + data.DataResult.supplist[i].details[e].work_id + ",'" + data.DataResult.supplist[i].details[e].sku_code + "',@ViewBag.id)\">编辑</a>"+
                                                                   "<label>&nbsp;&nbsp;|&nbsp;&nbsp;</label>"+
                                                                   "<a class=\"delete\" href=\"javascript:;\" onclick=\"Del(" + data.DataResult.supplist[i].details[e].detail_id + "," + data.DataResult.supplist[i].details[e].work_id + ",@ViewBag.id)\">删除</a>"+
-                                                              "</td>"+
+                                                               "</td>" +
+                                                           "<td style='color:red;'>" + data.DataResult.supplist[i].details[e].Senddetailremark + "</td>" +
                                                           "</tr>";
                                      }
                                  }
@@ -211,7 +213,8 @@
                   if (data.success) {
                       layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
                           // window.location.href = data.URL;
-                          $("#"+work_id+"").parents("tr:eq(0)").remove();
+                          //$("#"+work_id+"").parents("tr:eq(0)").remove();//前端删除这一条订单
+                          document.location.reload();//当前页面
                       });
                   } else {
                       layer.msg(data.Msg);

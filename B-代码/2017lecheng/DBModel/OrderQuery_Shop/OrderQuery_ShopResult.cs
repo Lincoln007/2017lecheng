@@ -96,6 +96,8 @@ namespace DBModel.OrderQuery_Shop
         public string purch_statusE { get; set; }
         public int work_type { get; set; }
         public string usedepot { get; set; }
+        public string remark { get; set; }
+        public string Senddetailremark { get; set; }
     }
 
 }

@@ -227,7 +227,7 @@ namespace BLLServices.OrderQuery_Shop
                             List<OrderQuery_ShopModelEE> getwhere1 = new List<OrderQuery_ShopModelEE>();
                             List<OrderQuery_ShopModelEE> list1 = new List<OrderQuery_ShopModelEE>();
                             List<Int64> ids = new List<Int64>();
-                            var busi_sendorder_detail = db.Queryable<busi_sendorder_detail>().Where(c => c.del_flag && c.order_id == item.order_id).ToList();
+                            var busi_sendorder_detail = db.Queryable<busi_sendorder_detail>().Where(c => c.del_flag && c.order_id == item.order_id).ToList();//c.del_flag &&
                             if (busi_sendorder_detail.Count > 0)//包裹中有SKU数据存在，可能多件
                             {
                                 foreach (var item1 in busi_sendorder_detail)//遍历包裹中的所有SKU
@@ -241,9 +241,9 @@ namespace BLLServices.OrderQuery_Shop
                                          .JoinTable<busi_purchasedetail>((s1, s3) => s1.detail_id == s3.send_detail_id)
                                          .JoinTable<busi_purchasedetail, busi_purchase>((s1, s3, s4) => s3.purch_id == s4.purch_id)
                                          .JoinTable<busi_workinfo>((s1, s5) => s1.detail_id == s5.sendorder_detail_id)
-                                         .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1 and s5.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
+                                         .Where(" s1.del_flag=1 and  s5.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1  and s1.detail_id=" + item1.detail_id + "")//s1.del_flag=1 and and s5.del_flag=1
 
-                                         .Select<OrderQuery_ShopModelEE>(" s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type")
+                                         .Select<OrderQuery_ShopModelEE>(" s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type,s1.remark")
                                          .ToList();
                                     }
                                     else
@@ -251,7 +251,7 @@ namespace BLLServices.OrderQuery_Shop
                                         list1 = db.Queryable<busi_sendorder_detail>()
                                                      .JoinTable<base_prod_code>((s1, s2) => s1.code_id == s2.code_id)
                                                      .JoinTable<busi_workinfo>((s1, s3) => s1.detail_id == s3.sendorder_detail_id)
-                                                       .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
+                                                       .Where(" s1.del_flag=1 and s3.del_flag=1 and s2.del_flag=1  and s1.detail_id=" + item1.detail_id + "")//s1.del_flag=1 and and s3.del_flag=1
                                                      .Select<base_prod_code, busi_workinfo, OrderQuery_ShopModelEE>((s1, s2, s3) => new OrderQuery_ShopModelEE
                                                      {
                                                          //prod_num = 1,
@@ -261,7 +261,8 @@ namespace BLLServices.OrderQuery_Shop
                                                          purch_status = 0,
                                                          is_work = s3.is_work,
                                                          work_id = s3.work_id,
-                                                        work_type=s3.work_type
+                                                         work_type=s3.work_type,
+                                                         remark = s1.remark
                                                      }).ToList();
                                     }
 
@@ -314,7 +315,7 @@ namespace BLLServices.OrderQuery_Shop
                             List<OrderQuery_ShopModelEE> getwhere1 = new List<OrderQuery_ShopModelEE>();
                             List<OrderQuery_ShopModelEE> list1 = new List<OrderQuery_ShopModelEE>();
 
-                            var busi_sendorder_detail = db.Queryable<busi_sendorder_detail>().Where(c => c.del_flag && c.order_id == item.order_id).ToList();
+                            var busi_sendorder_detail = db.Queryable<busi_sendorder_detail>().Where(c => c.del_flag && c.order_id == item.order_id).ToList();//c.del_flag && 
                             if (busi_sendorder_detail.Count > 0)
                             {
                                 foreach (var item1 in busi_sendorder_detail)
@@ -327,8 +328,8 @@ namespace BLLServices.OrderQuery_Shop
                                          .JoinTable<busi_purchasedetail>((s1, s3) => s1.detail_id == s3.send_detail_id)
                                          .JoinTable<busi_purchasedetail, busi_purchase>((s1, s3, s4) => s3.purch_id == s4.purch_id)
                                          .JoinTable<busi_workinfo>((s1, s5) => s1.detail_id == s5.sendorder_detail_id)
-                                         .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1 and s5.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
-                                         .Select<OrderQuery_ShopModelEE>("s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type")
+                                         .Where(" s1.del_flag=1 and  s5.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1  and s1.detail_id=" + item1.detail_id + "")//s1.del_flag=1 and and s5.del_flag=1
+                                         .Select<OrderQuery_ShopModelEE>("s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type,s1.remark")
                                          .ToList();
                                     }
                                     else
@@ -336,7 +337,7 @@ namespace BLLServices.OrderQuery_Shop
                                         list1 = db.Queryable<busi_sendorder_detail>()
                                                      .JoinTable<base_prod_code>((s1, s2) => s1.code_id == s2.code_id)
                                                      .JoinTable<busi_workinfo>((s1, s3) => s1.detail_id == s3.sendorder_detail_id)
-                                                       .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
+                                                       .Where(" s1.del_flag=1  and s3.del_flag=1 and s2.del_flag=1  and s1.detail_id=" + item1.detail_id + "")//s1.del_flag=1 and and s3.del_flag=1
                                                      .Select<base_prod_code, busi_workinfo, OrderQuery_ShopModelEE>((s1, s2, s3) => new OrderQuery_ShopModelEE
                                                      {
                                                          detail_id = s1.detail_id,
@@ -346,7 +347,8 @@ namespace BLLServices.OrderQuery_Shop
                                                          purch_status = 0,
                                                          is_work = s3.is_work,
                                                          work_id = s3.work_id,
-                                                         work_type=s3.work_type
+                                                         work_type=s3.work_type,
+                                                         remark=s1.remark
                                                      }).ToList();
                                     }
 
@@ -400,7 +402,7 @@ namespace BLLServices.OrderQuery_Shop
                             List<OrderQuery_ShopModelEE> getwhere1 = new List<OrderQuery_ShopModelEE>();
                             List<OrderQuery_ShopModelEE> list1 = new List<OrderQuery_ShopModelEE>();
 
-                            var busi_sendorder_detail = db.Queryable<busi_sendorder_detail>().Where(c => c.del_flag && c.order_id == item.order_id).ToList();
+                            var busi_sendorder_detail = db.Queryable<busi_sendorder_detail>().Where(c => c.del_flag && c.order_id == item.order_id).ToList();//c.del_flag && 
                             if (busi_sendorder_detail.Count > 0)
                             {
                                 foreach (var item1 in busi_sendorder_detail)
@@ -413,8 +415,8 @@ namespace BLLServices.OrderQuery_Shop
                                          .JoinTable<busi_purchasedetail>((s1, s3) => s1.detail_id == s3.send_detail_id)
                                          .JoinTable<busi_purchasedetail, busi_purchase>((s1, s3, s4) => s3.purch_id == s4.purch_id)
                                          .JoinTable<busi_workinfo>((s1, s5) => s1.detail_id == s5.sendorder_detail_id)
-                                         .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1 and s5.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
-                                         .Select<OrderQuery_ShopModelEE>("s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type")
+                                         .Where(" s1.del_flag=1 and  s5.del_flag=1 and s2.del_flag=1 and s3.del_flag=1  and s4.del_flag=1  and s1.detail_id=" + item1.detail_id + "")//s1.del_flag=1 and and s5.del_flag=1
+                                         .Select<OrderQuery_ShopModelEE>("s1.detail_id,s2.sku_code,s4.purch_code,s3.purch_status,s5.is_work,s5.work_id,s5.work_type,s1.remark")
                                          .ToList();
                                     }
                                     else
@@ -422,7 +424,7 @@ namespace BLLServices.OrderQuery_Shop
                                         list1 = db.Queryable<busi_sendorder_detail>()
                                                      .JoinTable<base_prod_code>((s1, s2) => s1.code_id == s2.code_id)
                                                      .JoinTable<busi_workinfo>((s1, s3) => s1.detail_id == s3.sendorder_detail_id)
-                                                       .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1 and s1.detail_id=" + item1.detail_id + "")
+                                                       .Where("s1.del_flag=1  and s3.del_flag=1 and s2.del_flag=1  and s1.detail_id=" + item1.detail_id + "")//s1.del_flag=1 and and s3.del_flag=1
                                                      .Select<base_prod_code, busi_workinfo, OrderQuery_ShopModelEE>((s1, s2, s3) => new OrderQuery_ShopModelEE
                                                      {
                                                          detail_id = s1.detail_id,
@@ -432,7 +434,8 @@ namespace BLLServices.OrderQuery_Shop
                                                          purch_status = 0,
                                                          is_work = s3.is_work,
                                                          work_id = s3.work_id,
-                                                         work_type = s3.work_type
+                                                         work_type = s3.work_type,
+                                                         remark = s1.remark
                                                      }).ToList();
                                     }
 
@@ -459,7 +462,8 @@ namespace BLLServices.OrderQuery_Shop
                     {
                         for (int n=0;n<mylist[m].details.Count;n++)
                         {
-                            mylist[m].details[n].usedepot = Enum.GetName(typeof(Pwork_type), mylist[m].details[n].work_type);  
+                            mylist[m].details[n].usedepot = Enum.GetName(typeof(Pwork_type), mylist[m].details[n].work_type);
+                            mylist[m].details[n].Senddetailremark = mylist[m].details[n].remark == null ? "" : mylist[m].details[n].remark;
                         }
                     }
                     return mylist;
@@ -622,53 +626,73 @@ namespace BLLServices.OrderQuery_Shop
                     {
                         db.RollbackTran();
                         result.success = false;
-                        result.Msg = "包裹不存在此SKU信息";
+                        result.Msg = "包裹不存在此SKU信息,可能此SKU已经删除，不能重复删除";
                         return result;
                     }
                     //如果存在这个SKU信息，判断这个SKU 是否已配货，或者采购
-                    //*暂时的解决方案是，如果已采购未配货，可以删除，如果已配货，还是让他发出去，
+                    //*暂时的解决方案是，先不管采购，判断这个包裹是单件还是多件，如果是单件的，删除这个SKU 和包裹，如果是多件 的，只是删除这个SKU吧，下个版本弄最新解决方案。
                     //*/
-                    //busi_workinfo def=db.Queryable<busi_workinfo>().Where(s => s.work_id == work_id).FirstOrDefault();
-                    //if (def.is_work)
-                    //{
-                    //    db.RollbackTran();
-                    //    result.success = false;
-                    //    result.Msg = "该包裹已装箱,无法删除";
-                    //    return result;
-                    //}
-                    rstNum = db.Update<busi_sendorder_detail>(new { del_flag = false, remark = "订单退货" }, a => a.detail_id == detail_id);
-                    rstNums = db.Update<busi_workinfo>(new { del_flag = false, remark = "订单退货", DelOrBarter = 1 }, a => a.work_id == work_id);
-                    var sendorder = db.Queryable<busi_sendorder>().Where(a => a.del_flag).InSingle(list.order_id);
-                    if (sendorder != null)
+                    var mypackge = db.Queryable<busi_sendorder>().Where(a => a.del_flag).InSingle(list.order_id);
+                    if (mypackge.prod_num > 1)//多件的
                     {
-                        if (sendorder.tran_id > 0)
+                        rstNumss = db.Update<busi_sendorder>(new { prod_num = mypackge.prod_num - 1, prod_money = mypackge.prod_money - list.prod_price }, a => a.order_id == mypackge.order_id);
+                        var custorder = db.Queryable<busi_custorder>().Where(a => a.del_flag).InSingle(mypackge.custorder_id);
+                        if (custorder != null)
                         {
-                            db.RollbackTran();
-                            result.success = false;
-                            result.Msg = "该包裹已装箱,无法删除";
-                            return result;
+                            rstNumsss = db.Update<busi_custorder>(new { order_sumqty = custorder.order_sumqty - 1, order_summoney = custorder.order_summoney - list.prod_price }, a => a.order_id == custorder.order_id);
                         }
-
-                        if (sendorder.prod_num > 1)
+                        rstNum = db.Update<busi_sendorder_detail>(new { del_flag = false, remark = "订单退货" }, a => a.detail_id == detail_id);//删除这一件
+                        rstNums = db.Update<busi_workinfo>(new { del_flag = false, remark = "订单退货", DelOrBarter = 1 }, a => a.work_id == work_id);
+                    }
+                    else//单件的
+                    {
+                        rstNumss = db.Update<busi_sendorder>(new { del_flag = false }, a => a.order_id == mypackge.order_id);
+                        var packges=db.Queryable<busi_sendorder>().Where(s => s.custorder_id == mypackge.custorder_id).ToList();
+                        if (packges.Count == 1)//代表这个订单是一个包裹的，删除这个订单，如果是多个包裹的不删除
                         {
-                            rstNumss = db.Update<busi_sendorder>(new { prod_num = sendorder.prod_num - 1, prod_money = sendorder.prod_money - list.prod_price }, a => a.order_id == sendorder.order_id);
-                            var custorder = db.Queryable<busi_custorder>().Where(a => a.del_flag).InSingle(sendorder.custorder_id);
-                            if (custorder != null)
-                            {
-                                rstNumsss = db.Update<busi_custorder>(new { order_sumqty = custorder.order_sumqty - 1, order_summoney = custorder.order_summoney - list.prod_price }, a => a.order_id == custorder.order_id);
-                            }
-                        }
-                        else
-                        {
-                            rstNumss = db.Update<busi_sendorder>(new { del_flag = false }, a => a.order_id == sendorder.order_id);
-                            var custorder = db.Queryable<busi_custorder>().Where(a => a.del_flag).InSingle(sendorder.custorder_id);
+                            var custorder = db.Queryable<busi_custorder>().Where(a => a.del_flag).InSingle(mypackge.custorder_id);
                             if (custorder != null)
                             {
                                 rstNumsss = db.Update<busi_custorder>(new { del_flag = false }, a => a.order_id == custorder.order_id);
                             }
                         }
+                        rstNum = db.Update<busi_sendorder_detail>(new { del_flag = false, remark = "订单退货" }, a => a.detail_id == detail_id);
+                        rstNums = db.Update<busi_workinfo>(new { del_flag = false, remark = "订单退货", DelOrBarter = 1 }, a => a.work_id == work_id);
                     }
-                    if (rstNum && rstNums && rstNumss && rstNumsss)
+
+                    //rstNum = db.Update<busi_sendorder_detail>(new { del_flag = false, remark = "订单退货" }, a => a.detail_id == detail_id);
+                    //rstNums = db.Update<busi_workinfo>(new { del_flag = false, remark = "订单退货", DelOrBarter = 1 }, a => a.work_id == work_id);
+                    //var sendorder = db.Queryable<busi_sendorder>().Where(a => a.del_flag).InSingle(list.order_id);
+                    //if (sendorder != null)
+                    //{
+                    //    if (sendorder.tran_id > 0)
+                    //    {
+                    //        db.RollbackTran();
+                    //        result.success = false;
+                    //        result.Msg = "该包裹已装箱,无法删除";
+                    //        return result;
+                    //    }
+
+                    //    if (sendorder.prod_num > 1)
+                    //    {
+                    //        rstNumss = db.Update<busi_sendorder>(new { prod_num = sendorder.prod_num - 1, prod_money = sendorder.prod_money - list.prod_price }, a => a.order_id == sendorder.order_id);
+                    //        var custorder = db.Queryable<busi_custorder>().Where(a => a.del_flag).InSingle(sendorder.custorder_id);
+                    //        if (custorder != null)
+                    //        {
+                    //            rstNumsss = db.Update<busi_custorder>(new { order_sumqty = custorder.order_sumqty - 1, order_summoney = custorder.order_summoney - list.prod_price }, a => a.order_id == custorder.order_id);
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        rstNumss = db.Update<busi_sendorder>(new { del_flag = false }, a => a.order_id == sendorder.order_id);
+                    //        var custorder = db.Queryable<busi_custorder>().Where(a => a.del_flag).InSingle(sendorder.custorder_id);
+                    //        if (custorder != null)
+                    //        {
+                    //            rstNumsss = db.Update<busi_custorder>(new { del_flag = false }, a => a.order_id == custorder.order_id);
+                    //        }
+                    //    }
+                    //}
+                    if (rstNum &&  rstNums  && rstNumss && rstNumsss)
                     {
                         db.CommitTran();
                         result.success = true;
@@ -705,7 +729,7 @@ namespace BLLServices.OrderQuery_Shop
         {
             bool rstNum = false;
             bool rstNums = false;
-            // bool rstNumss = false;
+            bool rstNumss = false;
             //bool rstNumsss = false;
             OrderQuery_ShopResult result = new OrderQuery_ShopResult();
             using (var db = SugarDao.GetInstance(LoginUser.GetConstr()))
@@ -713,7 +737,7 @@ namespace BLLServices.OrderQuery_Shop
                 try
                 {
                     db.BeginTran();
-                    var prod_code = db.Queryable<base_prod_code>().Where(a => a.del_flag && a.sku_code == sku).FirstOrDefault();
+                    var prod_code = db.Queryable<base_prod_code>().Where(a => a.del_flag && a.sku_code == sku).FirstOrDefault();//获得新的sku
                     if (prod_code == null)
                     {
                         db.RollbackTran();
@@ -721,90 +745,129 @@ namespace BLLServices.OrderQuery_Shop
                         result.Msg = "无效的sku,操作失败";
                         return result;
                     }
-
+                   
                     var list = db.Queryable<busi_sendorder_detail>().Where(a => a.del_flag).InSingle(detail_id);
                     if (list == null)
                     {
                         db.RollbackTran();
                         result.success = false;
-                        result.Msg = "不存在的信息";
+                        result.Msg = "此包裹不存在这个SKU，可能被其他用户已经删除";
                         return result;
                     }
+                    var oldprocode = db.Queryable<base_prod_code>().Where(a => a.del_flag && a.code_id == list.code_id).FirstOrDefault();//获得原先的SKU信息
 
                     var sendorder = db.Queryable<busi_sendorder>().Where(a => a.del_flag).InSingle(list.order_id);
                     if (sendorder == null)
                     {
                         db.RollbackTran();
                         result.success = false;
-                        result.Msg = "不存在的信息";
+                        result.Msg = "不存在此包裹";
                         return result;
                     }
-
+                    //判断这个SKU是否已经配货
+                    busi_workinfo info=db.Queryable<busi_workinfo>().Where(s => s.work_id == work_id && s.del_flag == true).FirstOrDefault();
+                    if (null==info || info.is_work==true)
+                    {
+                        db.RollbackTran();
+                        result.success = false;
+                        result.Msg = "该SKU已经配货,无法操作,请删除整个包裹,然后重新导入下单（记得修改购物车号）";
+                        return result;
+                    }
                     if (sendorder.tran_id > 0)
                     {
                         db.RollbackTran();
                         result.success = false;
-                        result.Msg = "该包裹已装箱,无法操作";
+                        result.Msg = "该包裹已转运发出,无法操作,请删除整个包裹,然后重新导入下单（记得修改购物车号）";
                         return result;
                     }
-
-
+                    busi_purchasedetail purdetail=db.Queryable<busi_purchasedetail>().JoinTable<busi_purchase>((s1, s2) => s1.purch_id == s2.purch_id).Where(s1 => s1.send_detail_id == list.detail_id)
+                        .Where<busi_purchase>((s1, s2) => s2.purch_status <= 1).Select<busi_purchasedetail>("s1.*").FirstOrDefault();
+                    if (null!=purdetail) //说明未采购,更新采购单中的SKU信息,更换的SKU最好是同一个供应商的，省下重新生成采购单的功能，或者使用库存的功能
+                    {
+                        purdetail.prod_id = prod_code.prod_id;
+                        purdetail.code_id = prod_code.code_id;
+                        db.Update<busi_purchasedetail>(purdetail);//更新采购详情
+                    }
                     decimal? price_cn;
                     var product = db.Queryable<base_product>().Where(a => a.del_flag).InSingle(prod_code.prod_id);
-                    if (product == null) { price_cn = 0; } else { price_cn = product.price_cn; }
-                    rstNum = db.Update<busi_sendorder_detail>(new { prod_num = list.prod_num - 1 }, a => a.detail_id == detail_id);
-                    busi_sendorder_detail sdetail = new busi_sendorder_detail();
-                    sdetail.code_id = prod_code.code_id;
-                    sdetail.create_time = DateTime.Now;
-                    sdetail.create_user_id = LoginUser.Current.user_id;
-                    sdetail.del_flag = true;
-                    sdetail.del_time = DateTime.Now;
-                    sdetail.del_user_id = 0;
-                    sdetail.detail_status = 0;
-                    sdetail.edit_time = DateTime.Now;
-                    sdetail.edit_user_id = 0;
-                    sdetail.order_id = list.order_id;
-                    sdetail.prod_id = prod_code.prod_id;
-                    sdetail.prod_name = "";
-                    sdetail.prod_num = 1;
-                    sdetail.remark = "订单换货";
-                    sdetail.prod_price = price_cn;
-                    var isdetail = db.Insert<busi_sendorder_detail>(sdetail).ObjToInt();
+                    if (product == null)
+                    {
+                        price_cn = 0;
+                    }
+                    else
+                    {
+                        price_cn = product.price_cn;
+                    }
+                    //rstNum = db.Update<busi_sendorder_detail>(new { prod_num = list.prod_num - 1 }, a => a.detail_id == detail_id);
+                    //**************换货的过程，得到这个订单sku详情，设置为删除，然后新增一个SKU订单信息
+                    //1.先得到这个SKU订单信息
+                    list.del_flag = true;
+                    list.remark = "订单换货:原SKU是"+ oldprocode.sku_code;
+                    list.code_id = prod_code.code_id;
+                    list.edit_time = DateTime.Now;
+                    list.edit_user_id = LoginUser.Current.user_id;
+                    list.prod_id = prod_code.prod_id;
+                    rstNums=db.Update<busi_sendorder_detail>(list); //设置为新的SKU,直接更新原先的SKU信息，讲原先的SKU信息存在remark字段中
+                    //busi_sendorder_detail sdetail = new busi_sendorder_detail();
+                    //sdetail.code_id = prod_code.code_id;
+                    //sdetail.create_time = DateTime.Now;
+                    //sdetail.create_user_id = LoginUser.Current.user_id;
+                    //sdetail.del_flag = true;
+                    //sdetail.del_time = DateTime.Now;
+                    //sdetail.del_user_id = 0;
+                    //sdetail.detail_status = 0;
+                    //sdetail.edit_time = DateTime.Now;
+                    //sdetail.edit_user_id = 0;
+                    //sdetail.order_id = list.order_id;
+                    //sdetail.prod_id = prod_code.prod_id;
+                    //sdetail.prod_name = "";
+                    //sdetail.prod_num = 1;
+                    //sdetail.remark = "客户换货新SKU";
+                    //sdetail.prod_price = price_cn;
+                    //var isdetail = db.Insert<busi_sendorder_detail>(sdetail).ObjToInt();
 
-                    var isworkinfo = 0;
+                    //var isworkinfo = 0;
                     var workinfos = db.Queryable<busi_workinfo>().Where(a => a.del_flag).InSingle(work_id);
                     if (workinfos != null)
                     {
-                        rstNums = db.Update<busi_workinfo>(new { DelOrBarter = 2, del_flag = false, remark = "订单换货" }, a => a.work_id == work_id);
-                        busi_workinfo workinfo = new busi_workinfo();
-                        workinfo.area_id = 0;
-                        workinfo.packid = workinfos.packid;
-                        workinfo.create_time = DateTime.Now;
-                        workinfo.custorder_id = workinfos.custorder_id;
-                        workinfo.create_user_id = LoginUser.Current.user_id;
-                        workinfo.custorder_detail_id = Convert.ToInt64(isdetail);
-                        workinfo.del_flag = true;
-                        workinfo.del_time = DateTime.Now;
-                        workinfo.del_user_id = 0;
-                        workinfo.detail_source = 2;
-                        workinfo.edit_time = DateTime.Now;
-                        workinfo.edit_user_id = 0;
-                        workinfo.is_work = false;
-                        workinfo.locat_id = 0;
-                        workinfo.plat_id = 0;
-                        workinfo.prod_code_id = prod_code.code_id;
-                        workinfo.remark = "订单换货";
-                        workinfo.sendorder_detail_id = Convert.ToInt64(isdetail);
-                        workinfo.shop_id = workinfos.shop_id;
-                        workinfo.wh_id = 0;
-                        workinfo.work_time = DateTime.Now;
-                        workinfo.work_type = 0;
-                        workinfo.islock = 0;
-                        workinfo.DelOrBarter = 2;
-                        workinfo.DelOrBarter_work_id = workinfos.work_id;
-                        isworkinfo = db.Insert<busi_workinfo>(workinfo).ObjToInt();
+                        workinfos.DelOrBarter = 2;
+                        workinfos.remark = "订单换货:原SKU是" + oldprocode.sku_code;
+                        workinfos.edit_time = DateTime.Now;
+                        workinfos.edit_user_id = LoginUser.Current.user_id;
+                        workinfos.is_work = false;
+                        workinfos.prod_code_id = prod_code.code_id;
+                        workinfos.islock = 0;
+                        rstNumss = db.Update<busi_workinfo>(workinfos);
+                        //rstNums = db.Update<busi_workinfo>(new { DelOrBarter = 2, del_flag = false, remark = "订单换货" }, a => a.work_id == work_id);
+                        //busi_workinfo workinfo = new busi_workinfo();
+                        //workinfo.area_id = 0;
+                        //workinfo.packid = workinfos.packid;
+                        //workinfo.create_time = DateTime.Now;
+                        //workinfo.custorder_id = workinfos.custorder_id;
+                        //workinfo.create_user_id = LoginUser.Current.user_id;
+                        //workinfo.custorder_detail_id = Convert.ToInt64(isdetail);
+                        //workinfo.del_flag = true;
+                        //workinfo.del_time = DateTime.Now;
+                        //workinfo.del_user_id = 0;
+                        //workinfo.detail_source = 2;
+                        //workinfo.edit_time = DateTime.Now;
+                        //workinfo.edit_user_id = 0;
+                        //workinfo.is_work = false;
+                        //workinfo.locat_id = 0;
+                        //workinfo.plat_id = 0;
+                        //workinfo.prod_code_id = prod_code.code_id;
+                        //workinfo.remark = "客户换货新SKU";
+                        //workinfo.sendorder_detail_id = Convert.ToInt64(isdetail);
+                        //workinfo.shop_id = workinfos.shop_id;
+                        //workinfo.wh_id = 0;
+                        //workinfo.work_time = DateTime.Now;
+                        //workinfo.work_type = 0;
+                        //workinfo.islock = 0;
+                        //workinfo.DelOrBarter = 2;
+                        //workinfo.DelOrBarter_work_id = workinfos.work_id;
+                        //isworkinfo = db.Insert<busi_workinfo>(workinfo).ObjToInt();
                     }
-                    if (rstNum && rstNums && isdetail > 0 && isworkinfo > 0)
+                    if (rstNums && rstNumss)
                     {
                         db.CommitTran();
                         result.success = true;

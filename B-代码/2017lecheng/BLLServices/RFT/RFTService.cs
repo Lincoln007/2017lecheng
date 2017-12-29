@@ -95,21 +95,21 @@ namespace BLLServices.RFT
                     {
                         list = db.SqlQuery<string[]>(@"select top 1 a.order_code,a.latest_date,b.work_id,b.packid,b.shop_id,b.prod_code_id,c.prod_num,c.order_code,a.order_id from busi_custorder a right join 
                                                     busi_workinfo b on a.order_id=b.custorder_id left join busi_sendorder c on c.order_id=b.packid 
-                                                    where b.del_flag=1 and b.is_work=0 and b.islock=0 and b.prod_code_id=@codeid and c.order_code=@packcode order by  
+                                                    where b.del_flag=1 and b.is_work=0 and b.islock=0 and c.del_flag=1 and b.prod_code_id=@codeid and c.order_code=@packcode order by  
                                                     a.order_date ,c.prod_num,b.create_time", new { codeid = codeid, packcode = packcode }).SingleOrDefault();
                     }
                     else if (0 != shopID)//店铺优先
                     {
                         list = db.SqlQuery<string[]>(@"select top 1 a.order_code,a.latest_date,b.work_id,b.packid,b.shop_id,b.prod_code_id,c.prod_num,c.order_code,a.order_id from busi_custorder a right join 
                                                     busi_workinfo b on a.order_id=b.custorder_id left join busi_sendorder c on c.order_id=b.packid 
-                                                    where b.del_flag=1 and b.is_work=0 and b.islock=0 and b.prod_code_id=@codeid and a.shop_id=@shopID order by  
+                                                    where b.del_flag=1 and b.is_work=0 and b.islock=0 and c.del_flag=1 and b.prod_code_id=@codeid and a.shop_id=@shopID order by  
                                                     a.order_date ,c.prod_num,b.create_time", new { codeid = codeid, shopID = shopID }).SingleOrDefault();
                     }
                     else 
                     {
                         list = db.SqlQuery<string[]>(@"select top 1 a.order_code,a.latest_date,b.work_id,b.packid,b.shop_id,b.prod_code_id,c.prod_num,c.order_code,a.order_id from busi_custorder a right join 
                                                     busi_workinfo b on a.order_id=b.custorder_id left join busi_sendorder c on c.order_id=b.packid 
-                                                    where b.del_flag=1 and b.is_work=0 and b.islock=0 and b.prod_code_id=@codeid order by  
+                                                    where b.del_flag=1 and b.is_work=0 and b.islock=0 and c.del_flag=1 and b.prod_code_id=@codeid order by  
                                                     a.order_date ,c.prod_num,b.create_time", new { codeid = codeid }).SingleOrDefault();
                     }
                     if (list==null) //无可配包裹
@@ -720,7 +720,8 @@ namespace BLLServices.RFT
                         {
                             throw new Exception("包裹已装箱,请先出箱!");
                         }
-                        db.Update<busi_sendorder>(new { tran_id = tran.tran_id }, it => it.order_code == packgecode);
+                        db.Update<busi_sendorder>(new { tran_id = tran.tran_id, order_tatus=80 }, it => it.order_code == packgecode);//更新已转运状态
+                        db.Update<busi_custorder>(new { order_status = 80 }, it => it.order_id==send.custorder_id);
                         tran.tran_count++;
                         bool isok2 = db.Update<busi_transfer>(tran);//更新转运单中包裹数量
                         return isok2;
