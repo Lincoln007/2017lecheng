@@ -31,6 +31,6 @@ namespace IBLLService.OrderQuery_Shop
 
         OrderQuery_ShopResult Del(Int64? detail_id, Int64? work_id, Int64? id);
         OrderQuery_ShopResult Barter(Int64? detail_id, Int64? work_id, string sku, Int64? id);
-
+        OrderQuery_ShopResult Delpackge(string packgecode);
     }
 }

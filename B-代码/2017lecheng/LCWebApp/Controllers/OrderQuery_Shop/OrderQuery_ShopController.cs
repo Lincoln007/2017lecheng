@@ -164,9 +164,33 @@ namespace LCWebApp.Controllers.OrderQuery_Shop
             }
 
         }
+        [HttpPost]
+        public ActionResult Delpackge(string packgecode)
+        {
+            OrderQuery_ShopResult com = new OrderQuery_ShopResult();
+            try
+            {
+                if (string.IsNullOrEmpty(packgecode))
+                {
+                    com.Msg = "参数错误!";
+                    com.success = false;
+                    return Json(com);
+                }
+                com = _service.Delpackge(packgecode);
+                return Json(com);
+
+            }
+            catch (Exception ex)
+            {
+                com.Msg = ex.ToString();
+                com.success = false;
+                return Json(com);
+            }
+
+        }
 
         /// <summary>
-        /// 换货
+        /// 换货 Delpackge
         /// </summary>
         /// <param name="detail_id"></param>
         /// <param name="work_id"></param>

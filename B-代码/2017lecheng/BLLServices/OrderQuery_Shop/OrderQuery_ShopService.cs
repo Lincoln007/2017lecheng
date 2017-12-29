@@ -891,5 +891,40 @@ namespace BLLServices.OrderQuery_Shop
             }
         }
 
+        /// <summary>
+        /// 设置包裹不能打印且删除这个包裹
+        /// </summary>
+        /// <param name="packgecode"></param>
+        /// <returns></returns>
+        public OrderQuery_ShopResult Delpackge(string packgecode)
+        {
+            OrderQuery_ShopResult result = new OrderQuery_ShopResult();
+            try
+            {
+                using (var db = SugarDao.GetInstance(LoginUser.GetConstr()))
+                {
+                    busi_sendorder send = db.Queryable<busi_sendorder>().Where(s => s.order_code == packgecode).FirstOrDefault();
+                    send.del_flag = false;
+                    bool isok = db.Update<busi_sendorder>(send);
+                    if (isok)
+                    {
+                        result.success = true;
+                        result.Msg = "删除成功";
+                        return result;
+                    }
+                    else
+                    {
+                        result.success = false;
+                        result.Msg = "删除失败";
+                        return result;
+                    }
+                }               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+          
+        }
     }
 }
