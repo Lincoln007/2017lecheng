@@ -432,7 +432,7 @@ namespace BLLServices
                 }
                 catch (Exception ex)
                 {
-                    db.CommitTran();//提交事务
+                    db.RollbackTran();//回滚事务
                     throw ex;
                 }
             }
@@ -478,7 +478,7 @@ namespace BLLServices
                 }
                 catch (Exception ex)
                 {
-                    db.CommitTran();//提交事务
+                    db.RollbackTran();//回滚事务
                     throw ex;
                 }
             }
