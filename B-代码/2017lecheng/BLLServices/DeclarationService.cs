@@ -273,10 +273,32 @@ namespace BLLServices
                         .Where<busi_transfer>((s1, s5) => s5.tran_code == zhuanyuncode.Trim())
                         .GroupBy<base_product>(s1 => s1.bgcode)
                         .GroupBy<base_product>(s1 => s1.bgname)
-                        .Select("s1.bgcode,s1.bgname,count(s3.prod_num) as count,count(s1.price_cn) as money").ToDataTable();
-
-                    Printer(list, fullpath, dhlcode);
-                    return fullpath;                      
+                        .GroupBy<base_product>(s1 => s1.prod_style)
+                        .Select("s1.bgcode,s1.bgname,s1.prod_style,count(s3.prod_num) as count,count(s1.price_cn) as money").ToDataTable();
+          
+                    string cbgcode = string.Empty;
+                    string cbgname = string.Empty;
+                    string proname = string.Empty;
+                    for (int i=0; i<list.Rows.Count;i++)//增加判断，如果某一个产品没有填写报关信息，如报关名称或者报关编码，提醒
+                    {
+                        cbgcode=list.Rows[i]["bgcode"].ToString();
+                        cbgname= list.Rows[i]["bgname"].ToString();
+                        if (string.IsNullOrEmpty(cbgcode) || string.IsNullOrEmpty(cbgname))
+                        {
+                            proname= list.Rows[i]["prod_style"].ToString();
+                            break;
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(proname))
+                    {
+                        throw new Exception("款号:"+proname+"不存在报关编码或者报关名称！请先添加");
+                    }
+                    else
+                    {
+                        Printer(list, fullpath, dhlcode);
+                        return fullpath;
+                    }
+                                        
                 }
                 catch (Exception ex)
                 {
