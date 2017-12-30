@@ -12,7 +12,7 @@ namespace IBLLService.OrderQuery_Shop
     {
 
         List<OrderQuery_ShopModel> GetOrderQuery_ShopList(int pagenum, int onepagecount, out int totil, out int totilpage, out string exmsg,
-            Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day);
+            Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day,int? usedepot,int? orderstate);
 
 
         /// <summary>
@@ -31,6 +31,6 @@ namespace IBLLService.OrderQuery_Shop
 
         OrderQuery_ShopResult Del(Int64? detail_id, Int64? work_id, Int64? id);
         OrderQuery_ShopResult Barter(Int64? detail_id, Int64? work_id, string sku, Int64? id);
-
+        OrderQuery_ShopResult Delpackge(string packgecode);
     }
 }

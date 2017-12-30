@@ -20,7 +20,7 @@
                         <div style="margin : 15px 0px 15px 0px;">
 
                             @*<label>系统平台:&nbsp;&nbsp;</label>
-                                <select style="width:180px" id="platform_id"></select>&nbsp;&nbsp;*@
+        <select style="width:180px" id="platform_id"></select>&nbsp;&nbsp;*@
                             <label>店铺:</label>
                             <select style="width:180px" id="shop_id"></select>
                             <label>时间:</label>
@@ -31,7 +31,16 @@
                             <input type="text" name="custorder_code" id="custorder_code" placeholder="平台订单号"><br />
                             <label>客户名:</label>
                             <input type="text" name="emp_name" id="emp_name" placeholder="客户名">
-                            <label>状态:</label>
+                            <label>订单状态:</label>
+                            <select style="width:180px" id="orderstate">
+                                <option value="0">请选择...</option>
+                                <option value="1">导入成功</option>
+                                <option value="10">已确认</option>
+                                <option value="11">采购已收货</option>
+                                <option value="40">已配货</option>
+                                <option value="80">已转运</option>
+                            </select>
+                            <label>纳期状态:</label>
                             <select style="width:180px" id="state">
                                 <option value="0">请选择...</option>
                                 <option value="1">未纳期</option>
@@ -47,9 +56,11 @@
                                 <option value="5">5天</option>
                                 <option value="6">6天</option>
                             </select>
+                            <span>是否有使用库存</span>
+                            <input type="checkbox" id="usedepot"/>
                             <button class="btn btn-info" id="search">查询</button>
                             &nbsp; &nbsp;
-                            <span style="color:red">注： （未纳期：距离纳期天数，已纳期：超过纳期天数）</span>
+                            <span style="color:red">注：（未纳期：距离纳期天数，已纳期：超过纳期天数）</span>
 
                         </div>
                         <div>
@@ -193,9 +204,18 @@
             var emp_name = $("#emp_name").val();
             var state = $("#state").val();
             var day = $("#day").val();
+            var orderstate = $("#orderstate").val();
+            var usedepot;
+            if ($('#usedepot').is(':checked')) {
+                // do something
+                usedepot = 1;
+            } else {
+                usedepot = 0;
+            }
             $.post('@Url.Content("~/OrderQuery_Shop/Getpage")', {
                 pagenum: index, onepagecount: pagecount, shop_id: shop_id, create_time: create_time,
-                order_code: order_code, custorder_code: custorder_code, emp_name: emp_name, state: state, day: day
+                order_code: order_code, custorder_code: custorder_code, emp_name: emp_name, state: state, day: day, usedepot: usedepot
+                , orderstate: orderstate
             }
                , function (data) {
                    if (data.success) {

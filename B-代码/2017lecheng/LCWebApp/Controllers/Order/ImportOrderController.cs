@@ -22,7 +22,6 @@ using STO.Utility;
 
 namespace LCWebApp.Controllers.Order
 {
-
     public class ImportOrderController : Controller
     {
         private IOrderService _service;

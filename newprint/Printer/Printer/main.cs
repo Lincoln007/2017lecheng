@@ -284,6 +284,7 @@ namespace Printer
                         MessageBox.Show("包裹已取消，请取出!");
                         textBox1.Text = "";
                         textBox1.Focus();
+                        return;
                     }
                     //2.如果包裹存在系统中，正常,取出包裹的信息
                     List<PackgePrintInfo> packinfolist=CheckSysInfo.GetPckgePrintInfo(packgecode);

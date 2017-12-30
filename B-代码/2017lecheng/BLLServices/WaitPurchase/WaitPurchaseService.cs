@@ -47,6 +47,7 @@ namespace BLLServices.WaitPurchase
                           supp_name = s3.supp_name,
                           isLocked = s1.isLocked,
                           Locked_userid = s1.Locked_userid,
+                          purnum=s1.purch_numb
                       }).ToList();
                     if (totil > 0)
                     {
@@ -146,6 +147,7 @@ namespace BLLServices.WaitPurchase
                                    .JoinTable<base_product_imgs>((s1, s6) => s1.code_id == s6.code_id)
                                    .Where("s1.del_flag=1 and s2.del_flag=1 and s3.del_flag=1 and s4.del_flag=1 and s5.del_flag=1 and s6.del_flag=1 and s1.purch_id=" + purch_id + "  and s1.purch_status=1")
                                    .GroupBy("s1.code_id, s1.supp_id,s3.sku_code,s4.supp_name,s5.prod_url,s5.prod_id,s6.pic_url,s5.prod_id, s5.prod_title,s4.supp_url")
+                                   .OrderBy("s3.sku_code")
                                    .Select<WaitPurchaseModelE>("s1.code_id, s1.supp_id,s3.sku_code,s4.supp_name,s5.prod_url,SUM(s1.purch_count) as purch_count,s6.pic_url,s5.prod_id, s5.prod_title,s4.supp_url")
                                    .ToList();
 

@@ -12,7 +12,7 @@
                 <header class="panel-heading custom-tab blue-tab">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#SKUDetail" data-toggle="tab">订单SKU信息</a>
+                            <a href="#SKUDetail" data-toggle="tab">订单SKU信息</a>                            
                         </li>
                         <li class="">
                             <a href="#infoUser" data-toggle="tab" data-order_id=@ViewBag.id>收件人信息</a>
@@ -22,7 +22,12 @@
                 <div class="panel-body">
                     <div class="tab-content">
                         <div class="tab-pane active" id="SKUDetail">
-                            <div id="list"></div>
+                            <div>
+                                <span style="color:red;">注意: 编辑更换SKU最好是同一供应商的</span>
+                            </div>
+                            <div id="list">
+
+                            </div>
 
                         </div>
                         <div class="tab-pane" id="infoUser">
@@ -75,16 +80,19 @@
                                 "<label>国际运单号:</label><label>" + data.DataResult.supplist[i].gjexpress_code + "</label>|<br>"+
                                 "<label>转运单号:</label><label>" + data.DataResult.supplist[i].tran_code + "</label>|&nbsp;&nbsp;"+
                                 "<label>面单是否打印:</label><label>" + data.DataResult.supplist[i].is_printE + "</label>|&nbsp;&nbsp;"+
-                                "<label>面单打印时间:</label><label>" + data.DataResult.supplist[i].print_timeE + "</label>|&nbsp;&nbsp;"+
+                                 "<label>面单打印时间:</label><label>" + data.DataResult.supplist[i].print_timeE + "</label>|&nbsp;&nbsp;" +
+                                 "<label><input type='button' class='btn btn- warning' value='删除此包裹设置不能打印' onclick=delpackge("+data.DataResult.supplist[i].order_code+")  ></label>|&nbsp;&nbsp;" +
                                 "<table class=\"table table-hover general-table\">"+
                                     "<thead>"+
                                         "<tr>"+
-                                            "<th>SKU</th>"+
+                                            "<th>SKU</th>" +
+                                            "<th>是否使用库存</th>" +
                                             "<th>数量</th>"+
                                             "<th>SKU状态</th>"+
                                             "<th>采购单号</th>"+
                                             "<th>采购状态</th>"+
-                                            "<th>操作</th>"+
+                                 "<th>操作</th>" +
+                                 "<th>备注</th>" +
                                         "</tr>"+
                                     "</thead>"+
                                     "<tbody>";
@@ -93,7 +101,8 @@
                                      for (var e = 0; e < data.DataResult.supplist[i].details.length; e++) {
                                          html+=  "<tr>"+
                                                               "<td>" + data.DataResult.supplist[i].details[e].sku_code + "</td>"+
-                                                              "<td>1</td>"+
+                                             "<td style='color:red;'>" + data.DataResult.supplist[i].details[e].usedepot + "</td>" +
+                                             "<td>1</td>" +
                                                               "<td>" + data.DataResult.supplist[i].details[e].is_workE + "</td>"+
                                                               "<td>" + data.DataResult.supplist[i].details[e].purch_code + "</td>"+
                                                               "<td>" + data.DataResult.supplist[i].details[e].purch_statusE + "</td>"+
@@ -103,7 +112,8 @@
                                                                   "<a id='"+data.DataResult.supplist[i].details[e].work_id+"' class=\"edit\"  href=\"javascript:;\" onclick=\"Edit(" + data.DataResult.supplist[i].details[e].detail_id + "," + data.DataResult.supplist[i].details[e].work_id + ",'" + data.DataResult.supplist[i].details[e].sku_code + "',@ViewBag.id)\">编辑</a>"+
                                                                   "<label>&nbsp;&nbsp;|&nbsp;&nbsp;</label>"+
                                                                   "<a class=\"delete\" href=\"javascript:;\" onclick=\"Del(" + data.DataResult.supplist[i].details[e].detail_id + "," + data.DataResult.supplist[i].details[e].work_id + ",@ViewBag.id)\">删除</a>"+
-                                                              "</td>"+
+                                                               "</td>" +
+                                                           "<td style='color:red;'>" + data.DataResult.supplist[i].details[e].Senddetailremark + "</td>" +
                                                           "</tr>";
                                      }
                                  }
@@ -187,7 +197,7 @@
                }
            });
     })
-
+    ///删除SKU
     function Del(detail_id,work_id,id)
     {
         if (detail_id=="undefined" || detail_id=="0" || work_id=="undefined" || work_id=="0") {
@@ -204,7 +214,8 @@
                   if (data.success) {
                       layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
                           // window.location.href = data.URL;
-                          $("#"+work_id+"").parents("tr:eq(0)").remove();
+                          //$("#"+work_id+"").parents("tr:eq(0)").remove();//前端删除这一条订单
+                          document.location.reload();//当前页面
                       });
                   } else {
                       layer.msg(data.Msg);
@@ -213,11 +224,38 @@
           }
         });
     }
-
+    //设置这个包裹删除状态
+    function delpackge(packgecode) {
+        if ("" == packgecode)
+        {
+            layer.msg("获取包裹号失败！");
+            return;
+        }
+            layer.msg('删除后不可恢复,确定要删除吗?', {
+            time: 0 //不自动关闭
+          , btn: ['确认', '取消']
+          , yes: function (index) {
+              layer.close(index);
+              $.post('@Url.Content("~/OrderQuery_Shop/Delpackge")', { packgecode: packgecode}
+              , function (data) {
+                  if (data.success) {
+                      layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                          // window.location.href = data.URL;
+                          //$("#"+work_id+"").parents("tr:eq(0)").remove();//前端删除这一条订单
+                          document.location.reload();//当前页面
+                      });
+                  } else {
+                      layer.msg(data.Msg);
+                  }
+              });
+          }
+        });
+    }
     var g_work_id;
     var  g_detail_id;
     var old_sku;
     var g_id;
+    ///编辑或者换货
     function Edit(detail_id,work_id,code_sku,id)
     {
         var obj=$("#"+work_id+"");
@@ -225,9 +263,9 @@
         g_work_id=work_id;
         g_detail_id=detail_id;
         old_sku=code_sku;
-        g_id=id;
+        g_id=id;//g_id就是订单的ID
     }
-
+    ///修改SKU换货
     $("body").on("blur",".abc",function()
     {
         var sku = $(this).val();

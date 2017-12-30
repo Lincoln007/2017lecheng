@@ -27,9 +27,21 @@ namespace LCWebApp.Controllers.OrderQuery_Shop
             return View();
         }
 
-
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <param name="pagenum"></param>
+        /// <param name="onepagecount"></param>
+        /// <param name="shop_id"></param>
+        /// <param name="create_time"></param>
+        /// <param name="order_code"></param>
+        /// <param name="custorder_code"></param>
+        /// <param name="emp_name"></param>
+        /// <param name="state"></param>
+        /// <param name="day"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult Getpage(string pagenum, string onepagecount, Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day)
+        public ActionResult Getpage(string pagenum, string onepagecount, Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day,int? usedepot,int? orderstate)
         {
             OrderQuery_ShopResult com = new OrderQuery_ShopResult();
             if (!Regex.IsMatch(pagenum, @"(?i)^[0-9a-z\u4e00-\u9fa5]+$") && !string.IsNullOrEmpty(pagenum))
@@ -49,7 +61,7 @@ namespace LCWebApp.Controllers.OrderQuery_Shop
             int totilpage = 0;
             string exmsg = string.Empty;
             List<OrderQuery_ShopModel> mylist = _service.GetOrderQuery_ShopList(Convert.ToInt32(pagenum), Convert.ToInt32(onepagecount), out totil,
-                out totilpage, out exmsg, shop_id, create_time, order_code, custorder_code, emp_name, state, day);
+                out totilpage, out exmsg, shop_id, create_time, order_code, custorder_code, emp_name, state, day, usedepot,orderstate);
             if (!string.IsNullOrEmpty(exmsg))
             {
                 com.Msg = exmsg;
@@ -152,9 +164,33 @@ namespace LCWebApp.Controllers.OrderQuery_Shop
             }
 
         }
+        [HttpPost]
+        public ActionResult Delpackge(string packgecode)
+        {
+            OrderQuery_ShopResult com = new OrderQuery_ShopResult();
+            try
+            {
+                if (string.IsNullOrEmpty(packgecode))
+                {
+                    com.Msg = "参数错误!";
+                    com.success = false;
+                    return Json(com);
+                }
+                com = _service.Delpackge(packgecode);
+                return Json(com);
+
+            }
+            catch (Exception ex)
+            {
+                com.Msg = ex.ToString();
+                com.success = false;
+                return Json(com);
+            }
+
+        }
 
         /// <summary>
-        /// 换货
+        /// 换货 Delpackge
         /// </summary>
         /// <param name="detail_id"></param>
         /// <param name="work_id"></param>
@@ -190,10 +226,6 @@ namespace LCWebApp.Controllers.OrderQuery_Shop
             }
 
         }
-
-
-
-
 
     }
 }

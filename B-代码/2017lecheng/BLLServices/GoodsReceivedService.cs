@@ -23,7 +23,7 @@ namespace BLLServices
         /// <param name="totilpage"></param>
         /// <param name="exmsg"></param>
         /// <returns></returns>
-        public List<GoodsReceivedModel> GetGoodsReceivedList(int pagenum, int onepagecount, out int totil, out int totilpage, out string exmsg)
+        public List<GoodsReceivedModel> GetGoodsReceivedList(int pagenum, int onepagecount, string tb_order_code,out int totil, out int totilpage, out string exmsg)
         {
             using (var db = SugarDao.GetInstance(LoginUser.GetConstr()))
             {
@@ -34,6 +34,11 @@ namespace BLLServices
                             .JoinTable<base_supplier>((s1, s3) => s1.supp_id == s3.supp_id)
                             .Where("s1.del_flag=1 and s2.del_flag=1 and s1.purch_status=2")
                             .OrderBy("s1.purch_id DESC");
+                   
+                    if (!string.IsNullOrEmpty(tb_order_code))
+                    {
+                        getwhere = getwhere.Where(s1=>s1.OrderCode== tb_order_code);
+                    }
                     totil = getwhere.Count();
                     var list = getwhere.Skip(onepagecount * (pagenum - 1)).Take(onepagecount)
                       .Select<base_users, base_supplier, GoodsReceivedModel>((s1, s2, s3) => new GoodsReceivedModel
@@ -153,5 +158,37 @@ namespace BLLServices
 
         }
 
+        public GoodsReceivedResult ResetOrdercode(long? purch_id, string OrderCode)
+        {
+            bool isok = false;
+            GoodsReceivedResult result = new GoodsReceivedResult();
+            using (var db = SugarDao.GetInstance(LoginUser.GetConstr()))
+            {
+                try
+                {
+                    busi_purchase pur=db.Queryable<busi_purchase>().Where(s=>s.purch_id==purch_id).FirstOrDefault();
+                    pur.OrderCode = OrderCode;
+                    isok =db.Update<busi_purchase>(pur);
+                    if (isok)
+                    {
+                        result.success = true;
+                        result.Msg = "操作成功";
+                        return result;
+                    }
+                    else
+                    {
+                        result.success = false;
+                        result.Msg = "操作失败";
+                        return result;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    result.success = false;
+                    result.Msg = "操作失败"+ex.Message;
+                    return result;
+                }
+            }
+        }
     }
 }

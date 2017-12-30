@@ -31,6 +31,7 @@
                                                 <th>状态</th>
                                                 <th>供应商</th>
                                                 <th>是否锁定</th>
+                                                <th>采购数量</th>
                                                 <th>采购详情</th>
                                             </tr>
                                         </thead>
@@ -93,6 +94,7 @@
             trContent += "<td>" + tr.purch_statusE + "</td>";
             trContent += "<td>" + tr.supp_name + "</td>";
             trContent += "<td>" + tr.isLockedE + "</td>";
+            trContent += "<td>" + tr.purnum + "</td>";
             trContent += "<td><a href=\"/WaitPurchase/IndexE?id=" + tr.purch_id + "\"><button class=\"btn btn-info\">详情</button></a></td>";
             return trContent;
         }

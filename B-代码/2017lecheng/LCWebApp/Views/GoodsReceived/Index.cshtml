@@ -17,6 +17,9 @@
                 </header>
                 <div class="panel-body" style="display: block;">
                     <div class="tab-content">
+                        <label>订单号:</label>
+                        <input type="text" name="" id="tb_order_code">
+                        <button class="btn btn-info" id="search">查询</button>
                         <div class="tab-pane active" id="purhistory">
                             <div>
                                 <div>
@@ -72,6 +75,9 @@
         var currpage = 0;
         $(document).ready(function () {
             rendertable(1);
+            $("#search").click(function () {
+                rendertable(1);
+            })
         });
 
         //绑定数据到表格
@@ -100,6 +106,7 @@
             trContent += "<td><select id=\"" + tr.purch_id + "\">" + express_info + " </select></td>";
             //trContent += "<td>" + tr.isLockedE + "</td>";
             trContent += "<td><button class=\"btn btn-warning\" data-purch_id='" + tr.purch_id + "' onclick=\"AddCode($(this))\" >提交</button></td>";
+            trContent += "<td><button class=\"btn btn-danger\" data-purch_id='" + tr.purch_id + "' onclick=\"ResetOrdercode($(this))\" >修改采购订单号</button></td>";
             return trContent;
         }
 
@@ -111,7 +118,8 @@
             $("#tableBody").children().remove();
             $("#laypage").children().remove();//清空数据
             var pagecount = $("#onepagecount").val();//单页几条数据
-            $.post('@Url.Content("~/GoodsReceived/Getpage")', { pagenum: index, onepagecount: pagecount }
+            var tb_order_code = $("#tb_order_code").val();
+            $.post('@Url.Content("~/GoodsReceived/Getpage")', { pagenum: index, onepagecount: pagecount, tb_order_code: tb_order_code}
                , function (data) {
                    if (data.success) {
                        if (data.DataResult.supplist.length > 0) { //如果有数据
@@ -146,6 +154,31 @@
                });
         }
     })
+
+    //修改淘宝订单号
+    function ResetOrdercode(obj)
+    {
+        var purch_id = obj.attr("data-purch_id");
+        var OrderCode = $("#" + purch_id + "_").val();
+           layer.msg('确认修改订单号吗？', {
+            time: 0 //不自动关闭
+       , btn: ['确认', '取消']
+       , yes: function (index) {
+           layer.close(index);
+           $.post('@Url.Content("~/GoodsReceived/ResetOrdercode")', { purch_id: purch_id,  OrderCode: OrderCode }
+          , function (data) {
+              if (data.success) {
+                  //$("#_" + purch_id + "").parents("tr:eq(0)").remove();
+                  layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                      document.location.reload();
+                  });
+              } else {
+                  layer.msg(data.Msg);
+              }
+          });
+       }
+        });
+    }
 
     function AddCode(b) {
         var purch_id = b.attr("data-purch_id");
@@ -186,6 +219,7 @@
               if (data.success) {
                   $("#_" + purch_id + "").parents("tr:eq(0)").remove();
                   layer.msg(data.Msg, { icon: 6, time: 1000 }, function () {
+                      document.location.reload();
                   });
               } else {
                   layer.msg(data.Msg);
