@@ -60,14 +60,15 @@ namespace BLLServices.Base.Stock
                 {
                     var sql = db.Queryable<base_wh_stock>()
                              .JoinTable<base_prod_code>((s1, s2) => s1.code_id == s2.code_id)
+                             .JoinTable<base_location>((s1,s3)=>s1.location_id==s3.locat_id)
                              .Where("s1.del_flag=1 and s2.del_flag=1")
-                             .GroupBy("s1.code_id,s2.sku_code,s1.stock_id")
+                             .GroupBy("s1.code_id,s2.sku_code,s1.stock_id,s3.locat_code")
                              .OrderBy("s1.code_id DESC");
                     if (!string.IsNullOrWhiteSpace(sku_code))
                     {
                         sql = sql.Where<base_prod_code>((s1, s2) => s2.sku_code.Contains(sku_code));
                     }
-                    var list = sql.Select<StockModel>("s1.stock_id,s1.code_id,SUM(s1.stock_qty) AS stock_qty ,s2.sku_code").ToList();
+                    var list = sql.Select<StockModel>("s1.stock_id,s1.code_id,s3.locat_code,SUM(s1.stock_qty) AS stock_qty ,s2.sku_code").ToList();
                     totil = list.Count();
                     var jList = list.Skip(onepagecount * (pagenum - 1)).Take(onepagecount).ToList();
 

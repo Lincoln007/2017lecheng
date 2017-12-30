@@ -29,6 +29,7 @@
                         <thead>
                             <tr>
                                 <th> ID</th>
+                                <th>库位号</th>
                                 <th>SKU</th>
                                 <th>数量</th>
                                 <th>详细</th>
@@ -133,6 +134,7 @@
         }
         function buildTr(i, tr) {
             var trContent = "<td>" + (i + 1) + "</td>";
+            trContent += "<td>" + tr.locat_code + "</td>";
             trContent += "<td>" + tr.sku_code + "</td>";
             trContent += "<td>" + tr.stock_qty + "</td>";
             trContent += "<td><button data-toggle=\"modal\" href=\"#myModalListE\" class=\"btn btn-warning\"  data-stock_id=\"" + tr.stock_id + "\">详细</button></td>";

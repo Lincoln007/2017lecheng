@@ -39,6 +39,7 @@ namespace DBModel.Base
         public string prod_title { get; set; }
 
         public Guid stock_id { get; set; }
+        public string locat_code { get; set; }
 
     }
 

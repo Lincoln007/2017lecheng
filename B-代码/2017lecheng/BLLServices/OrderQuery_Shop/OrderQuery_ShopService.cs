@@ -828,6 +828,16 @@ namespace BLLServices.OrderQuery_Shop
 
                     //var isworkinfo = 0;
                     var workinfos = db.Queryable<busi_workinfo>().Where(a => a.del_flag).InSingle(work_id);
+                    if (4==workinfos.work_type)//如果之前的SKU是使用库存的话，需要把库存加回去
+                    {
+                        base_wh_stock stock=db.Queryable<base_wh_stock>().Where(s => s.code_id == workinfos.prod_code_id).FirstOrDefault();
+                        if (null!=stock)
+                        {
+                            stock.stock_qty++;
+                            db.Update<base_wh_stock>(stock);
+                        }
+
+                    }
                     if (workinfos != null)
                     {
                         workinfos.DelOrBarter = 2;
@@ -835,6 +845,7 @@ namespace BLLServices.OrderQuery_Shop
                         workinfos.edit_time = DateTime.Now;
                         workinfos.edit_user_id = LoginUser.Current.user_id;
                         workinfos.is_work = false;
+                        workinfos.work_type = 0;//设置初始状态，如果使用库存减去库存的话
                         workinfos.prod_code_id = prod_code.code_id;
                         workinfos.islock = 0;
                         rstNumss = db.Update<busi_workinfo>(workinfos);

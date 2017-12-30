@@ -469,7 +469,7 @@ namespace BLLServices.Base.StorageBin
                     return result;
                 }
 
-                var wh_stock = db.Queryable<base_wh_stock>().Where(a => a.del_flag && a.wh_id == wh_id && a.code_id == list.code_id).FirstOrDefault();
+                var wh_stock = db.Queryable<base_wh_stock>().Where(a => a.del_flag && a.wh_id == wh_id && a.location_id==locat_id &&a.code_id == list.code_id).FirstOrDefault();
                 if (wh_stock == null)
                 {
                     var _supp_rel = db.Queryable<base_prod_supp_rel>().Where(a => a.del_flag && a.prod_id == list.prod_id).ToList();

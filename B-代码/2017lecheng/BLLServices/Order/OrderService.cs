@@ -409,7 +409,7 @@ namespace BLLServices.Order
                                                             var work = false;
                                                             var stock = false;
                                                             //is_work=1，让使用库存可以配货，只是配货方式是使用库存，手持还可以配货到
-                                                            work = db.Update<busi_workinfo>(new { detail_source = 1  }, s => s.del_flag && s.sendorder_detail_id == itemm.detail_id);
+                                                            work = db.Update<busi_workinfo>(new { detail_source = 1, work_type = 4 }, s => s.del_flag && s.sendorder_detail_id == itemm.detail_id);
                                                             stock = db.Update<base_wh_stock>(new { stock_qty = list55.stock_qty - info.prod_num }, s => s.stock_id == list55.stock_id); //减少库存
                                                             if (work && stock)
                                                             {
@@ -661,7 +661,7 @@ namespace BLLServices.Order
                                                             var work = false;
                                                             var stock = false;
                                                             //is_work=1，让使用库存可以配货，只是配货方式是使用库存，手持还可以配货到
-                                                            work = db.Update<busi_workinfo>(new { detail_source = 1 }, s => s.del_flag && s.sendorder_detail_id == itemm.detail_id); 
+                                                            work = db.Update<busi_workinfo>(new { detail_source = 1,work_type=4 }, s => s.del_flag && s.sendorder_detail_id == itemm.detail_id); 
                                                             stock = db.Update<base_wh_stock>(new { stock_qty = list55.stock_qty - info.prod_num }, s => s.stock_id == list55.stock_id); //减少库存
                                                             if (work && stock)
                                                             {
