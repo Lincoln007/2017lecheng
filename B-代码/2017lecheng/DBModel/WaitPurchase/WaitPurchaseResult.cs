@@ -43,6 +43,7 @@ public class WaitPurchaseModel
     public Boolean isLocked { get; set; }
     public string isLockedE { get; set; }
     public Int64 Locked_userid { get; set; }
+    public decimal? purnum { get; set; }
 
 }
 

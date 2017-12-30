@@ -23,7 +23,7 @@ namespace LCWebApp.Controllers.GoodsReceived
         }
 
         [HttpPost]
-        public ActionResult Getpage(string pagenum, string onepagecount)
+        public ActionResult Getpage(string pagenum, string onepagecount,string tb_order_code)
         {
             GoodsReceivedResult com = new GoodsReceivedResult();
             InternationalQuiryResult coms = new InternationalQuiryResult();
@@ -43,7 +43,7 @@ namespace LCWebApp.Controllers.GoodsReceived
             int totil = 0;
             int totilpage = 0;
             string exmsg = string.Empty;
-            List<GoodsReceivedModel> mylist = _service.GetGoodsReceivedList(Convert.ToInt32(pagenum), Convert.ToInt32(onepagecount), out totil, out totilpage, out exmsg);
+            List<GoodsReceivedModel> mylist = _service.GetGoodsReceivedList(Convert.ToInt32(pagenum), Convert.ToInt32(onepagecount), tb_order_code,out totil, out totilpage, out exmsg);
             coms = _internationalQuiry.GetExpressList();
             if (!string.IsNullOrEmpty(exmsg))
             {
@@ -78,6 +78,35 @@ namespace LCWebApp.Controllers.GoodsReceived
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult ResetOrdercode(Int64? purch_id, string OrderCode)
+        {
+            GoodsReceivedResult com = new GoodsReceivedResult();
+            if (purch_id == 0)
+            {
+                com.Msg = "参数错误！";
+                com.success = false;
+                return Json(com);
+            }
+            if (string.IsNullOrWhiteSpace(OrderCode))
+            {
+                com.Msg = "请填写淘宝订单号！";
+                com.success = false;
+                return Json(com);
+            }
+            try
+            {
+                com = _service.ResetOrdercode(purch_id, OrderCode);
+                return Json(com);
+            }
+            catch (Exception ex)
+            {
+                com.Msg = ex.Message;
+                com.success = false;
+                return Json(com);
+            }
+        }
 
         [HttpPost]
         public ActionResult AddCode(Int64? purch_id, Int64? express_id, string express_code, string express_name, string OrderCode)
