@@ -233,7 +233,7 @@ namespace BLLServices
                     var sql = db.Queryable<busi_sendorder>().JoinTable<busi_custorder>((s1, s2) => s1.custorder_id == s2.order_id)
                         .JoinTable<busi_custorder, base_shop>((s1, s2, s3) => s2.shop_id == s3.shop_id)
                         .Where<busi_sendorder>(s1 => s1.is_export == ispacked.ObjToBool())
-                        .Where<busi_sendorder>(s1 => s1.order_tatus == 40) //以配货
+                        //.Where<busi_sendorder>(s1 => s1.order_tatus == 40) //以配货
                         .Where<busi_sendorder>(s1 => s1.express_id == expressid);
                     if (1 == ispacked)//查询已导出的
                     {

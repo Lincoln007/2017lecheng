@@ -13,7 +13,7 @@ namespace BLLServices.RFT
 {
     public class RFTService : IRFT
     {
-        private static string conn = "server=127.0.0.1;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng";// "server=122.226.76.100,5433;uid=sa;pwd=123!@#QAZ;database=Newlecheng";
+        private static string conn = "server=112.12.29.172;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng";// "server=122.226.76.100,5433;uid=sa;pwd=123!@#QAZ;database=Newlecheng";
 
         public DBModel.DBmodel.base_users CheckLogin(string userid, string password)
         {

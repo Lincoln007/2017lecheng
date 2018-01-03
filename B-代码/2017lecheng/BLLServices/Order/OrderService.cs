@@ -400,6 +400,7 @@ namespace BLLServices.Order
                                                 if (ischeck)
                                                 {
                                                     var list55 = db.Queryable<base_wh_stock>().Where(s => s.del_flag && s.code_id == itemm.code_id && s.wh_id == 1 && s.location_id != 1).FirstOrDefault(); // 判断有无库存
+                                                    var LSlocal = db.Queryable<base_wh_stock>().Where(s => s.del_flag && s.code_id == itemm.code_id && s.wh_id == 1 && s.location_id == 1).FirstOrDefault();
                                                     if (list55 != null)
                                                     {
                                                         DateTime time = DateTime.Now.AddDays(-3);
@@ -411,6 +412,20 @@ namespace BLLServices.Order
                                                             //is_work=1，让使用库存可以配货，只是配货方式是使用库存，手持还可以配货到
                                                             work = db.Update<busi_workinfo>(new { detail_source = 1, work_type = 4 }, s => s.del_flag && s.sendorder_detail_id == itemm.detail_id);
                                                             stock = db.Update<base_wh_stock>(new { stock_qty = list55.stock_qty - info.prod_num }, s => s.stock_id == list55.stock_id); //减少库存
+                                                                                                                                                                                        //增加临时库的库存
+                                                            if (null != LSlocal)//代表临时库之前有这个SKU
+                                                            {
+                                                                LSlocal.stock_qty = LSlocal.stock_qty + info.prod_num;
+                                                                db.Update<base_wh_stock>(LSlocal);
+                                                            }
+                                                            else//如果之前没有插入新的数据
+                                                            {
+                                                                list55.location_id = 1;
+                                                                list55.wh_id = 1;
+                                                                list55.stock_qty = list55.stock_qty- info.prod_num;
+                                                                list55.stock_id = Guid.NewGuid();
+                                                                db.Insert<base_wh_stock>(list55);
+                                                            }
                                                             if (work && stock)
                                                             {
                                                                 sucs += 1;
@@ -651,11 +666,13 @@ namespace BLLServices.Order
                                                 #region 库存采购
                                                 if (ischeck)
                                                 {
-                                                    var list55 = db.Queryable<base_wh_stock>().Where(s => s.del_flag && s.code_id == itemm.code_id && s.wh_id == 1 && s.location_id != 1).FirstOrDefault(); // 判断有无库存
-                                                    if (list55 != null)
+                                                    // 判断金华仓除了临时库位外有无库存
+                                                    var list55 = db.Queryable<base_wh_stock>().Where(s => s.del_flag && s.code_id == itemm.code_id && s.wh_id == 1 && s.location_id != 1).FirstOrDefault();
+                                                    var LSlocal =db.Queryable<base_wh_stock>().Where(s => s.del_flag && s.code_id == itemm.code_id && s.wh_id == 1 && s.location_id == 1).FirstOrDefault();
+                                                    if (list55 != null) //说明有库存
                                                     {
                                                         DateTime time = DateTime.Now.AddDays(-3);
-                                                        #region 库存足 库存采购
+                                                        #region 库存足 使用库存
                                                         if (list55.stock_qty >= info.prod_num)
                                                         {
                                                             var work = false;
@@ -663,6 +680,20 @@ namespace BLLServices.Order
                                                             //is_work=1，让使用库存可以配货，只是配货方式是使用库存，手持还可以配货到
                                                             work = db.Update<busi_workinfo>(new { detail_source = 1,work_type=4 }, s => s.del_flag && s.sendorder_detail_id == itemm.detail_id); 
                                                             stock = db.Update<base_wh_stock>(new { stock_qty = list55.stock_qty - info.prod_num }, s => s.stock_id == list55.stock_id); //减少库存
+                                                            //增加临时库的库存
+                                                            if (null != LSlocal)//代表临时库之前有这个SKU
+                                                            {
+                                                                LSlocal.stock_qty = LSlocal.stock_qty + info.prod_num;
+                                                                db.Update<base_wh_stock>(LSlocal);
+                                                            }
+                                                            else//如果之前没有插入新的数据
+                                                            {
+                                                                list55.location_id = 1;
+                                                                list55.wh_id = 1;
+                                                                list55.stock_qty = list55.stock_qty - info.prod_num;
+                                                                list55.stock_id = Guid.NewGuid();
+                                                                db.Insert<base_wh_stock>(list55);
+                                                            }
                                                             if (work && stock)
                                                             {
                                                                 sucs += 1;

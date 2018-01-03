@@ -21,7 +21,7 @@ namespace SqlSugarRepository
         {
             get
             {
-                string reval = "server=127.0.0.1;uid=sa;pwd=jhqn89808980;database=DB_Lehcneg_Global"; //这里可以动态根据cookies或session实现多库切换
+                string reval = "server=112.12.29.172;uid=sa;pwd=jhqn89808980;database=DB_Lehcneg_Global"; //这里可以动态根据cookies或session实现多库切换
                 return reval;
             }
         }
@@ -33,7 +33,7 @@ namespace SqlSugarRepository
         {
             get
             {
-                string reval = "server=127.0.0.1;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng"; //这里可以动态根据cookies或session实现多库切换
+                string reval = "server=112.12.29.172;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng"; //这里可以动态根据cookies或session实现多库切换
                 return reval;
             }
         }
