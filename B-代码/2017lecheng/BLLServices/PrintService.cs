@@ -240,17 +240,17 @@ namespace BLLServices
                         .JoinTable<base_shop>((s1, s4) => s1.shop_id == s4.shop_id)
                         .JoinTable<base_prod_code>((s1, s5) => s1.prod_code_id == s5.code_id)
                         .Where<busi_workinfo, busi_sendorder>((s1, s2) => s2.del_flag == true)
-                        .Where<busi_workinfo, busi_sendorder>((s1, s2) => s2.is_print == false)
-                        .Where<busi_workinfo, busi_sendorder>((s1, s2) => s2.prod_num >=1); //多件的显示，单件的不显示
+                        .Where<busi_workinfo, busi_sendorder>((s1, s2) => s2.is_print == false && s2.tran_id==0)
+                        .Where<busi_workinfo, busi_sendorder>((s1, s2) => s2.prod_num >=2); //多件的显示，单件的不显示
                     if (!string.IsNullOrEmpty(packgecode))
                     {
                         comresult = comresult.Where<busi_sendorder>((s1,s2) => s2.order_code == packgecode);
                     }
-                    if (0 == ispacked)//是否已配完
+                    if (0 == ispacked)//是否已配完,30 说明部分配货
                     {
                         comresult = comresult.Where<busi_sendorder>((s1, s2) => s2.order_tatus == 30);
                     }
-                    else if (1 == ispacked)
+                    else if (1 == ispacked)//查询已经配货的,但是未打印拣选单的
                     {
                         comresult = comresult.Where<busi_sendorder>((s1, s2) => s2.order_tatus == 40);
                     }
@@ -293,7 +293,7 @@ namespace BLLServices
                 {
                     List<PrintworkViewModel> comresult = db.Queryable<busi_sendorder>().JoinTable<busi_sendorder_detail>((s1, s2) => s1.order_id == s2.order_id)
                          .JoinTable<busi_sendorder_detail,base_prod_code>((s1,s2, s3) => s2.code_id == s3.code_id)
-                         .Where(s1 => s1.del_flag == true).Where(s1 => s1.prod_num >= 2).Where(s1 => s1.order_tatus == 40)//40代表配货已完成
+                         .Where(s1 => s1.del_flag == true).Where(s1 => s1.prod_num >= 2).Where(s1 => s1.order_tatus == 40)//40代表配货已完成  
                          .Where(s1 => s1.is_print == false)
                          .Select<busi_sendorder_detail, base_prod_code, PrintworkViewModel>((s1, s2, s3) => new PrintworkViewModel()
                          {
