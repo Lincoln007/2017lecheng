@@ -79,7 +79,7 @@
                                 "<label>国际快递类型:</label><label>" + data.DataResult.supplist[i].gjexpress_name + "</label>|&nbsp;&nbsp;"+
                                 "<label>国际运单号:</label><label>" + data.DataResult.supplist[i].gjexpress_code + "</label>|<br>"+
                                 "<label>转运单号:</label><label>" + data.DataResult.supplist[i].tran_code + "</label>|&nbsp;&nbsp;"+
-                                "<label>面单是否打印:</label><label>" + data.DataResult.supplist[i].is_printE + "</label>|&nbsp;&nbsp;"+
+                                "<label>面单是否打印:</label><label style='color:red;'>" + data.DataResult.supplist[i].is_printE + "</label>|&nbsp;&nbsp;"+
                                  "<label>面单打印时间:</label><label>" + data.DataResult.supplist[i].print_timeE + "</label>|&nbsp;&nbsp;" +
                                  "<label><input type='button' class='btn btn- warning' value='删除此包裹设置不能打印' onclick=delpackge("+data.DataResult.supplist[i].order_code+")  ></label>|&nbsp;&nbsp;" +
                                 "<table class=\"table table-hover general-table\">"+

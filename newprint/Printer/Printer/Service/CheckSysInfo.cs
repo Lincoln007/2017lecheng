@@ -93,6 +93,7 @@ namespace Printer.Service
                 try
                 {
                     var isok = db.Insert<busi_printwork>(pwork);
+                    db.Update<busi_sendorder>(new { is_print = 1, print_time=DateTime.Now }, s => s.order_code == pwork.data_10);
                     if (isok.ObjToInt() > 0)
                     {
                         return true;

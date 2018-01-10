@@ -223,7 +223,7 @@ namespace BLLServices.OrderQuery_Shop
                             item.order_tatusE = item.order_tatus == 40 ? "已配货" : item.order_tatus == 50 ? "已拣选" : item.order_tatus == 60 ? "已包装" :
                                 item.order_tatus == 70 ? "已发货" : item.order_tatus == 80 ? "已转运" : item.order_tatus == 90 ? "已再入库" : "";
                             item.is_printE = item.is_print == true ? "是" : "否";
-                            item.print_timeE = item.is_print == true ? item.print_time.Value.ToString("yyyy-MM-dd") : "";
+                            item.print_timeE = item.is_print == true ? item.print_time.Value.ToString("yyyy-MM-dd HH:mm:ss") : "";
                             List<OrderQuery_ShopModelEE> getwhere1 = new List<OrderQuery_ShopModelEE>();
                             List<OrderQuery_ShopModelEE> list1 = new List<OrderQuery_ShopModelEE>();
                             List<Int64> ids = new List<Int64>();
@@ -311,7 +311,7 @@ namespace BLLServices.OrderQuery_Shop
                             item.order_tatusE = item.order_tatus == 40 ? "已配货" : item.order_tatus == 50 ? "已拣选" : item.order_tatus == 60 ? "已包装" :
                                 item.order_tatus == 70 ? "已发货" : item.order_tatus == 80 ? "已转运" : item.order_tatus == 90 ? "已再入库" : "";
                             item.is_printE = item.is_print == true ? "是" : "否";
-                            item.print_timeE = item.is_print == true ? item.print_time.Value.ToString("yyyy-MM-dd") : "";
+                            item.print_timeE = item.is_print == true ? item.print_time.Value.ToString("yyyy-MM-dd HH:mm:ss") : "";
                             List<OrderQuery_ShopModelEE> getwhere1 = new List<OrderQuery_ShopModelEE>();
                             List<OrderQuery_ShopModelEE> list1 = new List<OrderQuery_ShopModelEE>();
 
@@ -398,7 +398,7 @@ namespace BLLServices.OrderQuery_Shop
                             item.order_tatusE = item.order_tatus == 40 ? "已配货" : item.order_tatus == 50 ? "已拣选" : item.order_tatus == 60 ? "已包装" :
                                 item.order_tatus == 70 ? "已发货" : item.order_tatus == 80 ? "已转运" : item.order_tatus == 90 ? "已再入库" : "";
                             item.is_printE = item.is_print == true ? "是" : "否";
-                            item.print_timeE = item.is_print == true ? item.print_time.Value.ToString("yyyy-MM-dd") : "";
+                            item.print_timeE = item.is_print == true ? item.print_time.Value.ToString("yyyy-MM-dd HH:mm:ss") : "";
                             List<OrderQuery_ShopModelEE> getwhere1 = new List<OrderQuery_ShopModelEE>();
                             List<OrderQuery_ShopModelEE> list1 = new List<OrderQuery_ShopModelEE>();
 

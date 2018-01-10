@@ -1572,7 +1572,7 @@ namespace BLLServices.Order
                 it.telephone = item["送付先電話番号"].ToString();
                 it.phone = item["送付先電話番号"].ToString();
                 it.zip = item["購入者住所"].ToString().Substring(0,8);
-                it.address = item["購入者住所"].ToString().Substring(8);
+                it.address = item["送付先住所"].ToString().Substring(8);//送付先住所,購入者住所
                 it.firstimport = 1;
                 it.ImportTime = DateTime.Now;
                 it.Fee = item["小計"].ObjToDecimal();
