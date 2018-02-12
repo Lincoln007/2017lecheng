@@ -147,15 +147,15 @@
                         layer.msg("请填写各个SKU信息");
                         return false;
                     }
-                    if (PSKU != "" && SSKU == "")
-                    {
-                        layer.msg("系统SKU和平台SKU必须同时存在");
-                        return false;
-                    }
-                    if (PSKU == "" && SSKU != "") {
-                        layer.msg("系统SKU和平台SKU必须同时存在");
-                        return false;
-                    }
+                    //if (PSKU != "" && SSKU == "")
+                    //{
+                    //    layer.msg("系统SKU和平台SKU必须同时存在");
+                    //    return false;
+                    //}
+                    //if (PSKU == "" && SSKU != "") {
+                    //    layer.msg("系统SKU和平台SKU必须同时存在");
+                    //    return false;
+                    //}
                     $.post('@Url.Content("~/GetDropDownList/AddPSKU")', { PSKU: PSKU, SSKU: SSKU, GSKU: GSKU, shopid: shopid }, function (data) {
                         if (data) {
                             layer.msg(data.Msg);

@@ -1202,6 +1202,8 @@
     <Content Include="Views\GoodsReceived\Index.cshtml" />
     <Content Include="Views\Express\AssociateDHLExpressCode.cshtml" />
     <Content Include="Views\ExportCSV\Index.cshtml" />
+    <Content Include="Views\RFT\PrintPackge.cshtml" />
+    <Content Include="Views\RFT\PrintpackgecodeOK.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

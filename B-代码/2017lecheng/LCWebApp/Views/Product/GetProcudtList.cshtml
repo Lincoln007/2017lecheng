@@ -622,7 +622,22 @@
                     rendertable(1, 0,"","","");
                 }
 
-           
+                function AddSKU() {
+                    var code = $("#addsku").val().trim();
+                    if (code == "") {
+                        layer.msg("请先填写SKU,并且款号等信息必须正确");
+                        return false;
+                    }
+                    checkIsExit(code);
+                    if (isexit == "1")//代表存在
+                    {
+                        isexit = 0;
+                        return;
+                    } else {
+                        var body = $("#tbody");
+                        body.append("<tr><td>" + code + "</td><td>0</td><td><input type='button' class='layui-btn layui-btn-mini layui-btn-normal' onclick='DeleteSKU(this)' value='删除'/></td></tr>");
+                    }
+                }
 
                 //监听tab切换
                 element.on('tab(demo2)', function (data) {

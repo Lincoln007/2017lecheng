@@ -23,8 +23,9 @@ namespace IBLLService.RFT
        List<base_exp_comp> GetAllExpress();
        bool SetExpress(string packgecode,int expid);
        bool PrintzhuanyunCode(string zhuanyuncode);
+        bool PrintpackgeCode(string packgecode);
 
-       long CreatezhuanyunCode();
+        long CreatezhuanyunCode();
        bool IszhuanyunCodeInSys(string zhuanyuncode);
        bool IszhuanyunCodeing(string zhuanyuncode);
        bool ConfirmPutInBox(string zhuanyuncode, string packgecode);

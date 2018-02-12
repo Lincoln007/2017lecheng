@@ -30,7 +30,7 @@ namespace BLLServices.OrderQuery_Shop
         /// <param name="day"></param>
         /// <returns></returns>
         public List<OrderQuery_ShopModel> GetOrderQuery_ShopList(int pagenum, int onepagecount, out int totil, out int totilpage, out string exmsg,
-          Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day, int? usedepot, int? orderstate)
+          Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day, int? usedepot, int? orderstate, string phone, string exp_code)
         {
             using (var db = SugarDao.GetInstance(LoginUser.GetConstr()))
             {
@@ -51,6 +51,16 @@ namespace BLLServices.OrderQuery_Shop
                     {
                         getwhere = getwhere.Where<busi_sendorder>((s1, s2) => s2.order_code.Contains(order_code));
                     }
+                    //=========================================================
+                    if (!string.IsNullOrWhiteSpace(exp_code))
+                    {
+                        getwhere = getwhere.Where<busi_sendorder>((s1, s2) => s2.exp_code==exp_code);
+                    }
+                    if (!string.IsNullOrWhiteSpace(phone))
+                    {
+                        getwhere = getwhere.Where<busi_sendorder>((s1, s2) => s2.receive_phone == phone || s2.receive_mobile==phone);
+                    }
+                    //===================================================
                     if (!string.IsNullOrWhiteSpace(custorder_code))
                     {
                         getwhere = getwhere.Where(s1 => s1.custorder_code.Contains(custorder_code));

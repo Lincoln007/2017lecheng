@@ -27,6 +27,10 @@
                             <input class="form_datetime" placeholder="时间" id="create_time" name="create_time" onclick="layui.laydate({elem: this, festival: true})">
                             <label>包裹号:</label>
                             <input type="text" name="order_code" id="order_code" placeholder="包裹号">
+                            <label>快递单号:</label>
+                            <input type="text" name="exp_code" id="exp_code" placeholder="快递单号">
+                            <label>联系电话:</label>
+                            <input type="text" name="phone" id="phone" placeholder="电话">
                             <label>平台订单号:</label>
                             <input type="text" name="custorder_code" id="custorder_code" placeholder="平台订单号"><br />
                             <label>客户名:</label>
@@ -57,7 +61,7 @@
                                 <option value="6">6天</option>
                             </select>
                             <span>是否有使用库存</span>
-                            <input type="checkbox" id="usedepot"/>
+                            <input type="checkbox" id="usedepot" />
                             <button class="btn btn-info" id="search">查询</button>
                             &nbsp; &nbsp;
                             <span style="color:red">注：（未纳期：距离纳期天数，已纳期：超过纳期天数）</span>
@@ -199,6 +203,8 @@
             var pagecount = $("#onepagecount").val();//单页几条数据
             var shop_id = $("#shop_id").val();
             var create_time = $("#create_time").val();
+            var exp_code = $("#exp_code").val();
+            var phone = $("#phone").val();
             var order_code = $("#order_code").val();
             var custorder_code = $("#custorder_code").val();
             var emp_name = $("#emp_name").val();
@@ -215,7 +221,7 @@
             $.post('@Url.Content("~/OrderQuery_Shop/Getpage")', {
                 pagenum: index, onepagecount: pagecount, shop_id: shop_id, create_time: create_time,
                 order_code: order_code, custorder_code: custorder_code, emp_name: emp_name, state: state, day: day, usedepot: usedepot
-                , orderstate: orderstate
+                , orderstate: orderstate, phone: phone, exp_code: exp_code
             }
                , function (data) {
                    if (data.success) {

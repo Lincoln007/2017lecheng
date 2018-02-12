@@ -776,5 +776,34 @@ namespace BLLServices.RFT
                 }
             }
         }
+
+        /// <summary>
+        /// 打印包裹号，解决需要重复打印的问题
+        /// </summary>
+        /// <param name="packgecode"></param>
+        /// <returns></returns>
+        public bool PrintpackgeCode(string packgecode)
+        {
+            using (var db = SugarDao.GetInstance(conn))
+            {
+                try
+                {
+                    busi_printwork pwork= db.Queryable<busi_printwork>().Where(s => s.p_Workid == 1).FirstOrDefault();
+                    if (null== pwork)
+                    {
+                        throw new Exception("不存在这个ID的打印信息");
+                    }
+                    pwork.data_1 = packgecode;
+                    pwork.data_2 = packgecode.Substring(0,4);
+                    pwork.p_Status = 1;
+                    var isok=db.Update<busi_printwork>(pwork);
+                    return isok;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
     }
 }

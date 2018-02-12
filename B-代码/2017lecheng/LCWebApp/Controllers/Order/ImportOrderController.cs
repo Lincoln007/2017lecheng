@@ -566,7 +566,7 @@ namespace LCWebApp.Controllers.Order
                                     ndr["telephone"] = dr["ShipPhoneNumber"].ToString();
                                     ndr["phone"] = dr["ShipPhoneNumber"].ToString();
                                     ndr["zip"] = dr["ShipZipCode"].ToString();
-                                    ndr["address"] = dr["BillPrefecture"].ToString()+ dr["BillCity"].ToString()+ dr["BillAddress1"].ToString()+ dr["BillAddress2"].ToString();
+                                    ndr["address"] = dr["ShipPrefecture"].ToString()+ dr["ShipCity"].ToString()+ dr["ShipAddress1"].ToString()+ dr["ShipAddress2"].ToString();
                                     ndr["Fee"] = dr["TotalPrice"].ToString();
                                     ndr["totilMoney"] = dw["UnitPrice"].ToString();
                                     ndr["SKU1"] = dw["SubCode"].ToString();

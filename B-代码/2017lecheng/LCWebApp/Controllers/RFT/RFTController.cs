@@ -189,6 +189,7 @@ namespace LCWebApp.Controllers.RFT
 
         }
 
+
         /// <summary>
         /// 配货成功
         /// </summary>
@@ -766,6 +767,56 @@ namespace LCWebApp.Controllers.RFT
             ViewData["zhuanyuncode"] = Nzhuanyuncode;
             return View("Printzhuanyuncode");
         }
+
+        /// <summary>
+        /// 转到打印包裹号界面 
+        /// </summary>
+        /// <param name="zhuanyuncode"></param>
+        /// <returns></returns>
+        public ActionResult PrintPackge()
+        {
+            //var Userinfo = JsonHelper.DeserializeJsonToObject<base_users>(GetCookie("userinfo"));
+            //ViewData["userid"] = Userinfo.real_name;
+            //long Nzhuanyuncode = _service.CreatezhuanyunCode(); //生成新的转运单号
+            //ViewData["zhuanyuncode"] = Nzhuanyuncode;
+            return View("PrintPackge");
+        }
+
+        /// <summary>
+        /// 打印转运单
+        /// </summary>
+        /// <param name="zhuanyuncode"></param>
+        /// <returns></returns>
+        public ActionResult ConfirmPrintpackge(string packgecode)
+        {
+            //var Userinfo = JsonHelper.DeserializeJsonToObject<base_users>(GetCookie("userinfo"));
+            //ViewData["userid"] = Userinfo.real_name;
+            packgecode = packgecode.Replace("A", "").Trim();
+            if (string.IsNullOrEmpty(packgecode))
+            {
+                ViewData["errorinfo"] = "包裹号不能为空!";
+                return View("ComErrorView");
+            }
+            try
+            {
+                bool isok = _service.PrintpackgeCode(packgecode);
+                if (!isok)
+                {
+                    ViewData["errorinfo"] = "打印包裹号单失败请确认!";
+                    return View("ComErrorView");
+                }
+                else
+                {
+                    return View("PrintOK");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["errorinfo"] = ex.Message.ToString();
+                return View("ComErrorView");
+            }
+
+        }
         /// <summary>
         /// 打印转运单
         /// </summary>
@@ -803,7 +854,7 @@ namespace LCWebApp.Controllers.RFT
         }
 
         /// <summary>
-        /// 取消装箱
+        /// 取消装箱 
         /// </summary>
         /// <param name="SKUcode"></param>
         /// <returns></returns>
@@ -814,6 +865,8 @@ namespace LCWebApp.Controllers.RFT
             Session.Remove("zhuanyuncode");
             return View("Outofbox");
         }
+
+
         /// <summary>
         /// 确认快递单号
         /// </summary>

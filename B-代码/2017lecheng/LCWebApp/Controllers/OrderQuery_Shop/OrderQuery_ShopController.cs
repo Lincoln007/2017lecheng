@@ -41,7 +41,7 @@ namespace LCWebApp.Controllers.OrderQuery_Shop
         /// <param name="day"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Getpage(string pagenum, string onepagecount, Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day,int? usedepot,int? orderstate)
+        public ActionResult Getpage(string pagenum, string onepagecount, Int64? shop_id, DateTime? create_time, string order_code, string custorder_code, string emp_name, int? state, int? day,int? usedepot,int? orderstate,string phone,string exp_code)
         {
             OrderQuery_ShopResult com = new OrderQuery_ShopResult();
             if (!Regex.IsMatch(pagenum, @"(?i)^[0-9a-z\u4e00-\u9fa5]+$") && !string.IsNullOrEmpty(pagenum))
@@ -61,7 +61,7 @@ namespace LCWebApp.Controllers.OrderQuery_Shop
             int totilpage = 0;
             string exmsg = string.Empty;
             List<OrderQuery_ShopModel> mylist = _service.GetOrderQuery_ShopList(Convert.ToInt32(pagenum), Convert.ToInt32(onepagecount), out totil,
-                out totilpage, out exmsg, shop_id, create_time, order_code, custorder_code, emp_name, state, day, usedepot,orderstate);
+                out totilpage, out exmsg, shop_id, create_time, order_code, custorder_code, emp_name, state, day, usedepot,orderstate,phone,exp_code);
             if (!string.IsNullOrEmpty(exmsg))
             {
                 com.Msg = exmsg;
