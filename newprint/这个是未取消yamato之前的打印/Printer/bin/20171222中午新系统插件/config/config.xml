@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PrintList>
+  <configSections>
+    <connnetstring>server=112.12.29.172;uid=sa;pwd=jhqn89808980;database=20170717Newlecheng</connnetstring>
+  </configSections>
+  <Printer ID="2">
+    <printmachine>ZDesigner GK888d (EPL) (副本 1)</printmachine>
+    <page>Yamato</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="4">
+    <printmachine>ZDesigner GK888d (EPL) (副本 1)</printmachine>
+    <page>Umail</page>
+    <Model>模式一</Model>
+  </Printer>
+  <Printer ID="8">
+    <printmachine>ZDesigner GK888d (EPL) (副本 1)</printmachine>
+    <page>Upacket</page>
+    <Model>模式一</Model>
+  </Printer>
+</PrintList>
