@@ -43,3 +43,14 @@ F:\2017lechengSys\B-代码\新打印中文版\BLLPrint\bin\Debug\ModelPrint.pdb
 F:\2017lechengSys\B-代码\新打印中文版\BLLPrint\obj\Debug\BLLPrint.csprojResolveAssemblyReference.cache
 F:\2017lechengSys\B-代码\新打印中文版\BLLPrint\obj\Debug\BLLPrint.dll
 F:\2017lechengSys\B-代码\新打印中文版\BLLPrint\obj\Debug\BLLPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\bin\Debug\BLLPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\bin\Debug\BLLPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\bin\Debug\DALPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\bin\Debug\ModelPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\bin\Debug\DALPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\bin\Debug\ModelPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\obj\Debug\BLLPrint.csprojResolveAssemblyReference.cache
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\obj\Debug\BLLPrint.csproj.CoreCompileInputs.cache
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\obj\Debug\BLLPrint.csproj.CopyComplete
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\obj\Debug\BLLPrint.dll
+F:\乐诚源代码\2017乐诚\2017lecheng\B-代码\新打印中文版\BLLPrint\obj\Debug\BLLPrint.pdb

@@ -110,7 +110,7 @@ namespace Printer.Service
                 row["Companyaddr2"] ="";
                 dt.Rows.Add(row);
                 PrintCenter printer = new PrintCenter();
-                printer.ZPLPrintUpacket(dt, true, 1);
+                printer.ZPLPrintUpacket3CM(dt, true, 1);
             }
             catch (Exception ex)
             {

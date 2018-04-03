@@ -62,3 +62,4 @@ F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\BLLPrint\obj\De
 F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\BLLPrint\obj\Debug\BLLPrint.csproj.CoreCompileInputs.cache
 F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\BLLPrint\obj\Debug\BLLPrint.dll
 F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\BLLPrint\obj\Debug\BLLPrint.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\新打印中文版1010\BLLPrint\obj\Debug\BLLPrint.csproj.CopyComplete

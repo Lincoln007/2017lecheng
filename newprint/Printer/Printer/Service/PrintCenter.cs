@@ -575,7 +575,13 @@ namespace Printer.Service
 
             #endregion
         }
-        public void ZPLPrintUpacket(DataTable dt, bool isRequireTextToHex, int copies)
+        /// <summary>
+        /// 打印Upacket面单3cm
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="isRequireTextToHex"></param>
+        /// <param name="copies"></param>
+        public void ZPLPrintUpacket3CM(DataTable dt, bool isRequireTextToHex, int copies)
         {
             string printname = string.Empty;
             bool isexit = xmlfile.IsExitinnertextOfNode("Upacket", "page");
@@ -636,6 +642,247 @@ namespace Printer.Service
                     label.Text = row["ZIPCode"].ToString();
                     label.XPos = 250;
                     label.YPos = 140;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "type";
+                    label.Text = "3CM";
+                    label.XPos = 100;
+                    label.YPos = 150;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "CustumerName";
+                    label.Text = row["CustumerName"].ToString();
+                    label.XPos = 250;
+                    label.YPos = 300;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "Phone";
+                    label.Text = row["Phone"].ToString();
+                    label.XPos = 250;
+                    label.YPos = 340;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "address1";
+                    label.Text = row["address1"].ToString();
+                    label.XPos = 250;
+                    label.YPos = 180;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "address2";
+                    label.Text = row["address2"].ToString();
+                    label.XPos = 250;
+                    label.YPos = 220;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "address3";
+                    label.Text = row["address3"].ToString();
+                    label.XPos = 250;
+                    label.YPos = 260;
+                    labelList.Add(label);
+
+                    //画线
+                    label = new MyLabel();
+                    label.Id = "line";
+                    label.Text = "-------------------------------------------------------------------------";
+                    label.XPos = 30;
+                    label.YPos = 600;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "image1";
+                    label.Text = "料金後納";
+                    label.XPos = 100;
+                    label.YPos = 190;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "image2";
+                    label.Text = "ゆうパケット";
+                    label.XPos = 60;
+                    label.YPos = 310;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "shoppost";
+                    label.Text = row["shoppost"].ToString();
+                    label.XPos = 80;
+                    label.YPos = 650;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "Companyaddr";
+                    label.Text = row["Companyaddr"].ToString();
+                    label.XPos = 80;
+                    label.YPos = 680;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "Companyaddr2";
+                    label.Text = row["Companyaddr2"].ToString();
+                    label.XPos = 200;
+                    label.YPos = 710;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "SendShopname";
+                    label.Text = row["SendShopname"].ToString();
+                    label.XPos = 80;
+                    label.YPos = 770;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "shopname";
+                    label.Text = row["shopname"].ToString();
+                    label.XPos = 80;
+                    label.YPos = 710;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "shopphone";
+                    label.Text = row["shopphone"].ToString();
+                    label.XPos = 80;
+                    label.YPos = 740;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "packgecode";
+                    if (row["packgecode"].ToString() == "packgecode")
+                    {
+                        label.Text = "Packge";
+                    }
+                    else
+                    {
+                        label.Text = row["packgecode"].ToString().Substring(8, 4);
+                    }
+                    label.XPos = 570;
+                    label.YPos = 780;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "packgecode2";
+                    if (row["packgecode"].ToString() == "packgecode")
+                    {
+                        label.Text = "Pack";
+                    }
+                    else
+                    {
+                        label.Text = row["packgecode"].ToString().Substring(6, 2);
+                    }
+                    label.XPos = 480;
+                    label.YPos = 780;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "ExpressCode";
+                    label.Text = row["ExpressCode"].ToString();
+                    label.XPos = 120;
+                    label.YPos = 680;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "SKU";
+                    label.Text = row["SKU"].ToString();
+                    label.XPos = 250;
+                    label.YPos = 380;
+                    labelList.Add(label);
+
+                    #endregion
+
+
+                    if (isRequireTextToHex)
+                    {
+                        ZPLPrintLabelUpacket(printname, labelList.ToArray(), 35);
+                        labelList.Clear();
+                    }
+                    else
+                    {
+                        ZPLPrintLabelsWithHexText(printname, labelList.ToArray());
+                        labelList.Clear();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 打印Upacket面单2cm
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="isRequireTextToHex"></param>
+        /// <param name="copies"></param>
+        public void ZPLPrintUpacket2CM(DataTable dt, bool isRequireTextToHex, int copies)
+        {
+            string printname = string.Empty;
+            bool isexit = xmlfile.IsExitinnertextOfNode("Upacket", "page");
+            if (isexit)
+            {
+                //设置打印机的名称
+                printname = xmlfile.GetinnertextOfPrintName("Upacket", "page");
+            }
+            else
+            {
+                throw new Exception("没有配置Upacket面单！请先配置！");
+            }
+            MyLabel label = null;
+            for (int i = 0; i < copies; i++)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    List<MyLabel> labelList = new List<MyLabel>();
+
+                    #region 打印标签数据
+                    label = new MyLabel();
+                    label.Id = "MessageForBuyer";
+                    if (!string.IsNullOrEmpty(row["MessageForBuyer"].ToString()))
+                    {
+                        label.Text = row["MessageForBuyer"].ToString().Substring(0, 22);
+                    }
+                    else
+                    {
+                        label.Text = "";
+                    }
+                    label.XPos = 80;
+                    label.YPos = 50;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "MessageForBuyer1";
+                    if (!string.IsNullOrEmpty(row["MessageForBuyer"].ToString()))
+                    {
+                        label.Text = row["MessageForBuyer"].ToString().Substring(22);
+                    }
+                    else
+                    {
+                        label.Text = "";
+                    }
+                    label.XPos = 80;
+                    label.YPos = 75;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "packgeinfo";
+                    label.Text = row["packgeinfo"].ToString();
+                    label.XPos = 80;
+                    label.YPos = 100;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "ZIPCode";
+                    label.Text = row["ZIPCode"].ToString();
+                    label.XPos = 250;
+                    label.YPos = 140;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
+                    label.Id = "type";
+                    label.Text = "2CM";
+                    label.XPos = 100;
+                    label.YPos = 150;
                     labelList.Add(label);
 
                     label = new MyLabel();
@@ -849,6 +1096,11 @@ namespace Printer.Service
                     labelContentCmd += TextToHex(label.Text, label.Id, 30);
                 }
                 else if (label.Id == "packgecode" || label.Id == "packgecode2")
+                {
+                    labelIdCmd += "^FT" + label.XPos.ToString() + "," + label.YPos.ToString() + "^XG" + label.Id + ",1,1^FS";
+                    labelContentCmd += TextToHex(label.Text, label.Id, 60);
+                }
+                else if (label.Id == "type")//2cm和3cm的发货方式
                 {
                     labelIdCmd += "^FT" + label.XPos.ToString() + "," + label.YPos.ToString() + "^XG" + label.Id + ",1,1^FS";
                     labelContentCmd += TextToHex(label.Text, label.Id, 60);

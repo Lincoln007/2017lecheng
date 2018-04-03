@@ -771,7 +771,7 @@ namespace Printer
                         throw new Exception("系统中不存在此店铺名或者此包裹" + mypackge.data_10);
                     }
                     PrintYamato printer = new PrintYamato(pyamato);
-                    printer.Print(true);                  
+                    printer.PrintUpacket2CM(true);                  
                     bool isok = CommPrint.FinshPrint(p_id, mypackge); //设置已打印的状态
                     if (!isok)
                     {

@@ -43,3 +43,5 @@ F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepositor
 F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.csproj.CoreCompileInputs.cache
 F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.dll
 F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.pdb
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.csprojResolveAssemblyReference.cache
+F:\乐诚源代码\2017乐诚\2017lecheng\newprint\Printer\STO.SqlSugarRepository\obj\Debug\SqlSugarRepository.csproj.CopyComplete
