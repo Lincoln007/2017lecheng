@@ -221,7 +221,7 @@ namespace Printer.Service
                 row["SKU"] = pwork.data_7;
                 row["SendShopname"] = "Shop: " + pwork.Shopname; // + pwork.Platform + " + "
                 row["packgecode"] = pwork.data_10;
-                row["shopname"] = "Name: " + pwork.Shopname;
+                row["shopname"] = "㈱インパクトフラッシュ"; //"Name: " + pwork.Shopname;
                 row["shoppost"] = "[差出人返還先]  〒：" + pwork.Shopzip;
                 row["shopphone"] = "TEL: " + pwork.Shopphone;
                 row["Companyaddr"] = pwork.Shopaddress;

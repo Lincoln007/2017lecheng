@@ -631,6 +631,13 @@ namespace Printer.Service
                     labelList.Add(label);
 
                     label = new MyLabel();
+                    label.Id = "cusmessage";
+                    label.Text = "一緒に購入された場合、分割出荷の可能性がございます";
+                    label.XPos = 10;
+                    label.YPos = 10;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
                     label.Id = "packgeinfo";
                     label.Text = row["packgeinfo"].ToString();
                     label.XPos = 80;
@@ -648,7 +655,7 @@ namespace Printer.Service
                     label.Id = "type";
                     label.Text = "3CM";
                     label.XPos = 100;
-                    label.YPos = 150;
+                    label.YPos = 350;
                     labelList.Add(label);
 
                     label = new MyLabel();
@@ -865,6 +872,13 @@ namespace Printer.Service
                     labelList.Add(label);
 
                     label = new MyLabel();
+                    label.Id = "cusmessage";
+                    label.Text = "一緒に購入された場合、分割出荷の可能性がございます";
+                    label.XPos = 10;
+                    label.YPos = 10;
+                    labelList.Add(label);
+
+                    label = new MyLabel();
                     label.Id = "packgeinfo";
                     label.Text = row["packgeinfo"].ToString();
                     label.XPos = 80;
@@ -882,7 +896,7 @@ namespace Printer.Service
                     label.Id = "type";
                     label.Text = "2CM";
                     label.XPos = 100;
-                    label.YPos = 150;
+                    label.YPos = 350;
                     labelList.Add(label);
 
                     label = new MyLabel();
