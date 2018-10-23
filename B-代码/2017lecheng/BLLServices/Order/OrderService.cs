@@ -1335,6 +1335,9 @@ namespace BLLServices.Order
                         case "Q10":
                             isok = db.SqlBulkCopy(TranlaterQ10(shopID, naqi, table));   //批量插入 适合海量数据插入
                             break;
+                        case "乐天团购":
+                            isok = db.SqlBulkCopy(TranlaterletianTG(shopID, naqi, table));
+                            break;
                         case "乐天":
                             isok = db.SqlBulkCopy(Tranlaterletian(shopID, naqi, table));
                             break;
@@ -1503,7 +1506,54 @@ namespace BLLServices.Order
             dtfi.ShortTimePattern = "t";
             foreach (DataRow item in table.Rows)
             {
-              //==================老的乐天杂货店铺==========================
+                //==================老的乐天杂货店铺==========================
+                decimal price = item["単価"].ObjToDecimal();
+                decimal num = item["個数"].ObjToDecimal();
+                decimal totil = price * num;
+                string subsku = item["項目・選択肢"].ToString();
+                string[] sArray = subsku.Split('\r', '\n');
+                string headsku = sArray[0].Substring(sArray[0].IndexOf(":")+1);
+                string lastsku = sArray[1].Substring(sArray[1].IndexOf(":")+1);
+                LS_Order it = new LS_Order();
+                it.shop_id = shopid;
+                it.Buyer = item["送付先名字"].ToString()+ item["送付先名前"].ToString();
+                it.telephone = item["送付先電話番号１"].ToString() + "-" + item["送付先電話番号２"].ToString() + "-" + item["送付先電話番号３"].ToString();
+                it.phone = item["送付先電話番号１"].ToString() + "-" + item["送付先電話番号２"].ToString() + "-" + item["送付先電話番号３"].ToString();
+                it.zip = item["送付先郵便番号１"].ToString()+ item["送付先郵便番号２"].ToString();
+                it.address = item["送付先住所：都道府県"].ToString() + item["送付先住所：都市区"].ToString() + item["送付先住所：町以降"].ToString();
+                it.firstimport = 1;
+                it.ImportTime = DateTime.Now;
+                it.Fee = item["単価"].ObjToDecimal();
+                it.totilMoney = totil;
+                it.SKU1 = item["商品番号"].ToString()+"-"+headsku+"-"+lastsku;
+                it.SKU2 = string.Empty;
+                it.Num = num.ObjToInt();
+                it.OrderNub = item["受注番号"].ToString();
+                it.SysOrderNub = item["受注番号"].ToString();
+                it.lasttime = naqi;  //纳期
+                it.beizhu = item["納期情報"].ToString();
+                it.CustmerOrderTime = DateTime.Now; //item["注文日時"].ToString().ObjToDate();
+                //========================================================
+                list.Add(it);
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// 乐天团购
+        /// </summary>
+        /// <param name="shopid"></param>
+        /// <param name="naqi"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        private List<LS_Order> TranlaterletianTG(int shopid, DateTime naqi, DataTable table)
+        {
+            List<LS_Order> list = new List<LS_Order>();
+            System.Globalization.DateTimeFormatInfo dtfi = new System.Globalization.CultureInfo("en-US", false).DateTimeFormat;
+            dtfi.ShortTimePattern = "t";
+            foreach (DataRow item in table.Rows)
+            {
+                //==================老的乐天杂货店铺==========================
                 //LS_Order it = new LS_Order();
                 //it.shop_id = shopid;
                 //it.Buyer = item["受取人名"].ToString();
@@ -1524,9 +1574,9 @@ namespace BLLServices.Order
                 //it.beizhu = item["配送要請事項"].ToString();
                 //it.CustmerOrderTime = item["入金日"].ObjToDate();
                 //========================================================
-                decimal price=item["単価"].ObjToDecimal();
-                decimal num=item["個数"].ObjToDecimal();
-                decimal totil=price*num;
+                decimal price = item["単価"].ObjToDecimal();
+                decimal num = item["個数"].ObjToDecimal();
+                decimal totil = price * num;
                 LS_Order it = new LS_Order();
                 it.shop_id = shopid;
                 it.Buyer = item["送付先氏名"].ToString();

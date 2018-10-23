@@ -182,7 +182,7 @@ namespace Printer.Service
                 //+ headTitle
                 //+ "^FO20,80^GB560,0,3^FS"
                 + labelIdCmd  //Label位置信息
-                + "^FT85,130^BY2,2.0,50^BKN,N,80,Y,N,a,a"  //BKN,N,150,Y,N,A,A  代表条码
+                + "^FT85,130^BY3,2.0,50^BKN,N,80,Y,N,a,a"  //BKN,N,150,Y,N,A,A  代表条码
                 + barcodeNo
                 + "^PQ1,0,1,Y^XZ";
             bool isprintOK = RawPrinterHelper.SendStringToPrinter(printerName, content);
@@ -632,9 +632,9 @@ namespace Printer.Service
 
                     label = new MyLabel();
                     label.Id = "cusmessage";
-                    label.Text = "一緒に購入された場合、分割出荷の可能性がございます";
+                    label.Text = "複数ご購入いただいた場合でも1個づつの発送となります";
                     label.XPos = 10;
-                    label.YPos = 10;
+                    label.YPos = 45;
                     labelList.Add(label);
 
                     label = new MyLabel();
@@ -873,9 +873,9 @@ namespace Printer.Service
 
                     label = new MyLabel();
                     label.Id = "cusmessage";
-                    label.Text = "一緒に購入された場合、分割出荷の可能性がございます";
+                    label.Text = "複数ご購入いただいた場合でも1個づつの発送となります";
                     label.XPos = 10;
-                    label.YPos = 10;
+                    label.YPos = 45;
                     labelList.Add(label);
 
                     label = new MyLabel();
@@ -1114,10 +1114,15 @@ namespace Printer.Service
                     labelIdCmd += "^FT" + label.XPos.ToString() + "," + label.YPos.ToString() + "^XG" + label.Id + ",1,1^FS";
                     labelContentCmd += TextToHex(label.Text, label.Id, 60);
                 }
-                else if (label.Id == "type")//2cm和3cm的发货方式
+                else if (label.Id == "type")//2cm和3cm的发货方式 
                 {
                     labelIdCmd += "^FT" + label.XPos.ToString() + "," + label.YPos.ToString() + "^XG" + label.Id + ",1,1^FS";
                     labelContentCmd += TextToHex(label.Text, label.Id, 60);
+                }
+                else if (label.Id == "cusmessage")//cusmessage 2018-05-23 
+                {
+                    labelIdCmd += "^FT" + label.XPos.ToString() + "," + label.YPos.ToString() + "^XG" + label.Id + ",1,1^FS";
+                    labelContentCmd += TextToHex(label.Text, label.Id, 30);
                 }
                 else
                 {
